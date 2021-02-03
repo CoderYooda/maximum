@@ -1,0 +1,16 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/About.js": "/About.js",
+    "/Catalog.js": "/Catalog.js",
+    "/Contacts.js": "/Contacts.js",
+    "/Dashboard.js": "/Dashboard.js",
+    "/Farm.js": "/Farm.js",
+    "/Info.js": "/Info.js",
+    "/Login.js": "/Login.js",
+    "/Main.js": "/Main.js",
+    "/Prices.js": "/Prices.js",
+    "/Register.js": "/Register.js",
+    "/Settings.js": "/Settings.js",
+    "/Site.js": "/Site.js"
+}

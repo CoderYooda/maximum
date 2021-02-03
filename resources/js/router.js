@@ -1,0 +1,72 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router);
+
+let router =  new Router({
+    mode: 'history',
+    base: '/admin/',
+    redirect: '/admin/dashboard',
+    routes: [
+        {
+            path: '/login',
+            name: 'login',
+            meta: {layout: 'auth'},
+            component: () => import(/* webpackChunkName: "Login" */ './components/auth/Login.vue')
+        },
+        {
+            path: '/register',
+            name: 'register',
+            meta: {layout: 'auth'},
+            component: () => import(/* webpackChunkName: "Register" */ './components/auth/Register.vue')
+        },
+        {
+            path: '/',
+            redirect: '/dashboard',
+        },
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Dashboard" */ './components/pages/Dashboard.vue')
+        },
+        {
+            path: '/site',
+            name: 'site',
+            redirect: '/site/company',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Site" */ './components/pages/Site.vue'),
+            children:[
+                {path: '/site/company',             name: 'company', meta: {layout: 'main', title: 'Раздел "Компания"'},            component: () => import(/* webpackChunkName: "About" */ './components/pages/site/Company'), props: true},
+                {path: '/site/catalog',             name: 'catalog', meta: {layout: 'main'},            component: () => import(/* webpackChunkName: "Catalog" */ './components/pages/site/Catalog'), props: true},
+                {path: '/site/contacts',            name: 'contacts', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Contacts" */ './components/pages/site/Contacts'), props: true},
+                {path: '/site/farm',                name: 'farm', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/Farm'), props: true},
+                {path: '/site/info',                name: 'info', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Info" */ './components/pages/site/Info'), props: true},
+                {path: '/site/main',                name: 'main', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Main" */ './components/pages/site/MainPage'), props: true},
+                {path: '/site/prices',              name: 'prices', meta: {layout: 'main'},             component: () => import(/* webpackChunkName: "Prices" */ './components/pages/site/Prices'), props: true},
+                {path: '/site/services',            name: 'services', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/services'), props: true},
+            ]
+        },
+        {
+            path: '/settings',
+            name: 'settings',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Settings" */ './components/pages/Settings.vue')
+        },
+        { path: '*', redirect: '/' },
+    ]
+});
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ['/login', '/register'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = localStorage.getItem('token');
+
+    if (authRequired && !loggedIn) {
+        return next('/login');
+    }
+
+    next();
+});
+
+export default router;
