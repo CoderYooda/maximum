@@ -12,6 +12,7 @@
                 <button type="button" class="btn btn-dark">Dark</button>
             </div><!-- demo-btn-group -->
         </div>
+        <v-md-editor v-model="text" height="400px"></v-md-editor>
     </div>
 </template>
 <script>
@@ -21,6 +22,7 @@
         name: "About",
         data() {
             return {
+                text: ''
                 // username: '',
                 // password: '',
             };

@@ -13679,8 +13679,7 @@ textarea.parsley-success:focus {
     align-items: center;
     padding: 0;
     height: 30px;
-    color: rgba(27, 46, 75, 0.9);
-    transition: all 0.25s; }
+    color: rgba(27, 46, 75, 0.9);}
     @media (prefers-reduced-motion: reduce) {
       .nav-aside .nav-link {
         transition: none; } }

@@ -38,7 +38,7 @@ let router =  new Router({
             component: () => import(/* webpackChunkName: "Site" */ './components/pages/Site.vue'),
             children:[
                 {path: '/site/company',             name: 'company', meta: {layout: 'main', title: 'Раздел "Компания"'},            component: () => import(/* webpackChunkName: "About" */ './components/pages/site/Company'), props: true},
-                {path: '/site/catalog',             name: 'catalog', meta: {layout: 'main'},            component: () => import(/* webpackChunkName: "Catalog" */ './components/pages/site/Catalog'), props: true},
+                {path: '/site/catalog',             name: 'catalog', meta: {layout: 'main', title: 'Каталог товаров'},              component: () => import(/* webpackChunkName: "Catalog" */ './components/pages/site/Catalog'), props: true},
                 {path: '/site/contacts',            name: 'contacts', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Contacts" */ './components/pages/site/Contacts'), props: true},
                 {path: '/site/farm',                name: 'farm', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/Farm'), props: true},
                 {path: '/site/info',                name: 'info', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Info" */ './components/pages/site/Info'), props: true},
@@ -46,6 +46,12 @@ let router =  new Router({
                 {path: '/site/prices',              name: 'prices', meta: {layout: 'main'},             component: () => import(/* webpackChunkName: "Prices" */ './components/pages/site/Prices'), props: true},
                 {path: '/site/services',            name: 'services', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/services'), props: true},
             ]
+        },
+        {
+            path: '/shop',
+            name: 'shop',
+            meta: {layout: 'main', body_class: 'pd-0'},
+            component: () => import(/* webpackChunkName: "Shop" */ './components/pages/Shop.vue'),
         },
         {
             path: '/settings',

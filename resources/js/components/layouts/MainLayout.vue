@@ -69,6 +69,11 @@
                             </ul>
                         </li>
                     </router-link>
+                    <router-link to="/shop" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Интернет магазин</span></a>
+                        </li>
+                    </router-link>
                     <router-link to="/settings" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                         <li class="nav-item" :class="[isActive && 'active']" >
                             <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Настройки</span></a>
@@ -90,7 +95,7 @@
                     <a href="" class="nav-link"><i data-feather="align-left"></i></a>
                 </nav>
             </div><!-- content-header -->
-            <div class="content-body">
+            <div class="content-body" v-bind:class="this.$route.meta.body_class">
                 <router-view></router-view>
             </div>
         </div><!-- content -->
