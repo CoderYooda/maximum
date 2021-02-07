@@ -12,8 +12,13 @@ Route::namespace('Api')->middleware(['cors', 'json.response'])->group(function (
     });
 });
 
+Route::namespace('Api')->middleware(['auth:api'])->group(function () {
+    Route::get('/shop/categories','Shop\CategoryController@all');
+    Route::post('/shop/categories/store','Shop\CategoryController@store');
+    Route::delete('/shop/categories/delete','Shop\CategoryController@delete');
 
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('/shop/products','Shop\ProductController@all');
+    Route::post('/shop/products/store','Shop\ProductController@store');
+    Route::delete('/shop/products/delete','Shop\ProductController@delete');
 });
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class AuthController extends Controller
         {
             return response(['errors'=>$validator->errors()->all()], 422);
         }
-        $request['password']=Hash::make($request['password']);
+        $request['password'] = Hash::make($request['password']);
         $request['remember_token'] = Str::random(10);
         $user = User::create($request->toArray());
         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
@@ -31,30 +32,24 @@ class AuthController extends Controller
         return response($response, 200);
     }
 
-    public function login (Request $request)
+    public function login (LoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:6',
-        ]);
-        if ($validator->fails())
-        {
-            return response(['errors'=>$validator->errors()->all()], 422);
-        }
+//        $validator = Validator::make($request->all(), [
+//            'email' => 'required|string|email|max:255',
+//            'password' => 'required|string|min:6',
+//        ]);
+//        if ($validator->fails())
+//        {
+//            return response(['errors'=>$validator->errors()->all()], 422);
+//        }
         $user = User::where('email', $request->email)->first();
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['token' => $token];
+        if (Hash::check($request->password, $user->password)) {
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $response = ['token' => $token];
 
-                return response($response, 200);
-            } else {
-                $response = ["message" => "Password mismatch"];
-
-                return response($response, 422);
-            }
+            return response($response, 200);
         } else {
-            $response = ["message" =>'User does not exist'];
+            $response = ["errors" => ['password' => ['Неверный пароль']]];
 
             return response($response, 422);
         }

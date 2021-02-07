@@ -69,7 +69,7 @@
                             </ul>
                         </li>
                     </router-link>
-                    <router-link to="/shop" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                    <router-link :to="{name:'shop'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                         <li class="nav-item" :class="[isActive && 'active']" >
                             <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Интернет магазин</span></a>
                         </li>
@@ -90,9 +90,9 @@
                     <input type="search" class="form-control" placeholder="Search...">
                 </div>
                 <nav class="nav">
-                    <a href="" class="nav-link"><i data-feather="help-circle"></i></a>
-                    <a href="" class="nav-link"><i data-feather="grid"></i></a>
-                    <a href="" class="nav-link"><i data-feather="align-left"></i></a>
+                    <a @click.prevent="logout" title="Выход" href="" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    </a>
                 </nav>
             </div><!-- content-header -->
             <div class="content-body" v-bind:class="this.$route.meta.body_class">
@@ -115,5 +115,12 @@
                 // this.user = auth.user;
             // });
         },
+        methods: {
+            logout: function () {
+                this.$store.dispatch('logout')
+                    .then(() => this.$router.push('/login'))
+                    .catch(err => console.log(err));
+            }
+        }
     }
 </script>

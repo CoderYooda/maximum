@@ -4,6 +4,7 @@ let state = {
     user : null,
     isLogged : false,
     token: localStorage.getItem('token') || '',
+    auth_errors : null,
 };
 
 let getters = {
@@ -12,23 +13,29 @@ let getters = {
     user : state => {
         return state.user
     },
+    login_email_error : state => {
+        return !!state.auth_errors ? state.auth_errors.email : null;
+    },
+    login_password_error : state => {
+        return !!state.auth_errors ? state.auth_errors.password : null;
+    },
+    auth_errors : state => {
+        return state.auth_errors
+    },
 };
 
 let mutations = {
 
-    auth_request(state){
-        state.status = 'loading';
-    },
-    sms_confirm(state, needSmsConfirm){
-        state.needSmsConfirm = needSmsConfirm;
+    clear_auth_request(state){
+        state.auth_errors = null;
     },
     auth_success(state, token, user){
         state.status = 'success';
         state.token = token;
         state.user = user;
     },
-    auth_error(state){
-        state.status = 'error';
+    auth_errors(state, errors){
+        state.auth_errors = errors;
     },
     logout(state){
         state.status = '';
@@ -40,18 +47,18 @@ let actions = {
 
     login({commit}, user){
         return new Promise((resolve, reject) => {
-            commit('auth_request');
+            commit('app_state');
             axios({url: '/api/login', data: user, method: 'POST' })
                 .then(resp => {
                     const token = resp.data.token;
                     const user = resp.data.user;
                     localStorage.setItem('token', token);
-                    axios.defaults.headers.common['Authorization'] = token;
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
                     commit('auth_success', token, user);
                     resolve(resp);
                 })
                 .catch(err => {
-                    commit('auth_error');
+                    commit('auth_errors', !!err.response.data.errors ? err.response.data.errors : null);
                     localStorage.removeItem('token');
                     reject(err);
                 })
@@ -65,7 +72,7 @@ let actions = {
                     const token = resp.data.token;
                     const user = resp.data.user;
                     localStorage.setItem('token', token);
-                    axios.defaults.headers.common['Authorization'] = token;
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
                     commit('auth_success', token, user);
                     resolve(resp)
                 })
@@ -78,10 +85,17 @@ let actions = {
     },
     logout({commit}){
         return new Promise((resolve, reject) => {
-            commit('logout');
-            localStorage.removeItem('token');
-            delete axios.defaults.headers.common['Authorization'];
-            resolve();
+
+            axios({url: '/api/logout', method: 'POST' })
+                .then(resp => {
+                    commit('logout');
+                    localStorage.removeItem('token');
+                    delete axios.defaults.headers.common['Authorization'];
+                    resolve();
+                })
+                .catch(err => {
+                    reject(err)
+                })
         })
     },
 };
