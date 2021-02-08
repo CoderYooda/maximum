@@ -21,11 +21,11 @@
                 <div class="flex-fill pd-y-20 pd-x-10">
                     <div class="d-flex align-items-center justify-content-between pd-x-10 mg-b-10">
                         <span class="tx-10 tx-uppercase tx-medium tx-color-03 tx-sans tx-spacing-1">{{ current_category ? current_category.name : 'Корневой каталог' }}</span>
-                        <a v-tooltip="{ content: 'Новая категория' }" @click.prevent="new_cat_field = true" class="chat-btn-add" data-toggle="modal"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></span></a>
+                        <a href="#" v-tooltip="{ content: 'Новая категория' }" @click.prevent="open_cat_edit" class="chat-btn-add" data-toggle="modal"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></span></a>
                     </div>
-                    <div v-if="new_cat_field" class="mg-b-15">
+                    <div v-bind:class="{'d-none' : !new_cat_field}" class="mg-b-15">
                         <div class="input-group mg-b-10">
-                            <input v-model="new_category_name" type="text" class="form-control" style="height: 30px; line-height: 30px" placeholder="Название категории">
+                            <input ref="cat_input" @keypress.enter="store_category()" v-model="new_category_name" type="text" class="form-control" style="height: 30px; line-height: 30px" placeholder="Название категории">
                             <div class="input-group-append">
                                 <button v-tooltip="{ content: 'Сохранить категорию' }" @click.prevent="store_category()" style="height: 30px; line-height: 16px" class="btn btn-outline-light" ><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg></button>
                             </div>
@@ -64,21 +64,24 @@
                     <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Товары в категории "{{ current_category ? current_category.name : 'Корневой каталог' }}"</label>
                     <div class="row row-xs">
 
-                        <div class="col-6 col-sm-4 col-md-3 col-xl mg-t-10" style="max-width: 25%">
-                            <div class="card card-file">
-                                <div class="card-file-thumb tx-purple">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                </div>
-                                <div class="card-body">
-                                    <h6><a href="" class="link-02">package.json</a></h6>
-                                    <p>JSON File</p>
-                                    <span>2.3kb</span>
+                        <router-link :to="{ name: 'product', params: { product_id: 0 }}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                            <div  class="col-6 col-sm-4 col-md-3 col-xl mg-t-10" style="max-width: 25%">
+                                <div class="card card-file pointer" @click="navigate">
+                                    <div class="card-file-thumb tx-purple">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6><a href="" class="link-02">package.json</a></h6>
+                                        <p>JSON File</p>
+                                        <span>2.3kb</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div><!-- col -->
+                        </router-link>
+
 
                         <div v-for="product in products" class="col-6 col-sm-4 col-md-3 col-xl mg-t-10" style="max-width: 25%">
-                            <div class="card card-file">
+                            <div class="card card-file pointer">
                                 <div class="dropdown-file">
                                     <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right">
@@ -106,7 +109,6 @@
                 </div>
             </div><!-- filemgr-content-body -->
         </div><!-- filemgr-content -->
-
     </div><!-- filemgr-wrapper -->
 </template>
 <script>
@@ -153,6 +155,12 @@
             //this.category_id = parseInt(this.$route.params.category_id) || 0;
         },
         methods: {
+            open_cat_edit(){
+                this.new_cat_field = true;
+                setTimeout(() => {
+                    this.$refs['cat_input'].focus();
+                }, 50);
+            },
             store_category(){
                 let data = {
                     name: this.new_category_name,

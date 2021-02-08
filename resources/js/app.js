@@ -19,11 +19,17 @@ VueMarkdownEditor.use(vuepressTheme);
 Vue.use(VueMarkdownEditor);
 VueMarkdownEditor.lang.use('ru-Ru', ruRU);
 
-import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
+import vSelect from 'vue-select'
 
-Vue.directive('tooltip', VTooltip)
-Vue.directive('close-popover', VClosePopover)
-Vue.component('v-popover', VPopover)
+Vue.component('v-select', vSelect);
+
+import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
+import VModal from 'telvin-vue-js-modal'
+
+Vue.use(VModal);
+Vue.directive('tooltip', VTooltip);
+Vue.directive('close-popover', VClosePopover);
+Vue.component('v-popover', VPopover);
 
 Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 Axios.defaults.headers.common['Accept'] = 'application/json';

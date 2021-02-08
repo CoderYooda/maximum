@@ -48,11 +48,18 @@ let router =  new Router({
             ]
         },
         {
-            path: '/shop/:category_id?',
+            path: '/shop/category/:category_id?',
             name: 'shop',
             props: true,
             meta: {layout: 'main', body_class: 'pd-0'},
             component: () => import(/* webpackChunkName: "Shop" */ './components/pages/Shop.vue'),
+        },
+        {
+            path: '/shop/product/:product_id?',
+            name: 'product',
+            props: true,
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Product" */ './components/pages/Product.vue'),
         },
         {
             path: '/settings',

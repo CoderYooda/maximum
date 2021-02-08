@@ -5,3 +5,26 @@
 @import 'dashforge.demo.css';
 @import 'dashforge.filemgr.css';
 @import 'dashforge.chat.css';
+@import "vue-select/src/scss/vue-select.scss";
+.pointer{
+  cursor: pointer!important;
+}
+.v--modal-overlay {
+  z-index: 1001!important;
+}
+.br{
+  border-right: 1px solid rgba(72, 94, 144, 0.16);
+}
+.form-control{
+  height: calc(1.5em + 0.9375rem - 5px);
+}
+//.vs__dropdown-toggle{
+//  height: calc(1.5em + 0.9375rem + 2px);
+//  padding: 0.26875rem 0.225rem;
+//}
+//.vs__actions {
+//  padding: 0px 6px 0 3px;
+//}
+//.vs__selected {
+//  margin: 2px 2px 0px 2px;
+//}

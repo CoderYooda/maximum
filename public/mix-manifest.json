@@ -13,5 +13,6 @@
     "/Register.js": "/Register.js",
     "/Settings.js": "/Settings.js",
     "/Shop.js": "/Shop.js",
-    "/Site.js": "/Site.js"
+    "/Site.js": "/Site.js",
+    "/Product.js": "/Product.js"
 }
