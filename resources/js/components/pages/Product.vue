@@ -48,7 +48,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="d-block">Категория</label>
-                            <v-select :options="$store.getters.get_all"></v-select>
+                            <v-select v-model="category" label="name" :options="categories"></v-select>
                             <!--<input type="text" class="form-control" placeholder="Артикул">-->
                         </div>
                     </div>
@@ -65,7 +65,20 @@
 
 <script>
     export default {
-        name: "Product"
+        name: "Product",
+        data() {
+            return {
+                category : {"id":3,"name":"вложенная","parent_id":1,"created_at":"2021-02-06T23:58:42.000000Z","updated_at":"2021-02-06T23:58:42.000000Z"},
+            };
+        },
+        mounted(){
+            this.$store.dispatch('get_categories');
+        },
+        computed:{
+            categories(){
+                return this.$store.getters.categories;
+            }
+        }
     }
 </script>
 

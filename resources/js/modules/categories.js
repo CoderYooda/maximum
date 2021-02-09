@@ -5,7 +5,7 @@ let state = {
 };
 
 let getters = {
-    get_all : state => {
+    categories : state => {
         return state.categories
     },
     getByParent : (state) => (parent_id) => {

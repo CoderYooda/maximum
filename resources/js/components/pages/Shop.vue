@@ -64,7 +64,7 @@
                     <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Товары в категории "{{ current_category ? current_category.name : 'Корневой каталог' }}"</label>
                     <div class="row row-xs">
 
-                        <router-link :to="{ name: 'product', params: { product_id: 0 }}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <router-link :to="{ name: 'product', params: { product_id: 0, cat : 1}}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                             <div  class="col-6 col-sm-4 col-md-3 col-xl mg-t-10" style="max-width: 25%">
                                 <div class="card card-file pointer" @click="navigate">
                                     <div class="card-file-thumb tx-purple">
