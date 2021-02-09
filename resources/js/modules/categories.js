@@ -11,6 +11,9 @@ let getters = {
     getByParent : (state) => (parent_id) => {
         return state.categories.filter(item => item.parent_id === parent_id)
     },
+    getCategoryById : (state) => (id) => {
+        return state.categories.filter(item => item.id === id)
+    },
     getCategory : (state) => (id) => {
 
         return state.categories.filter(item => item.id === id)[0];

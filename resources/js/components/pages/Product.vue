@@ -13,11 +13,11 @@
                 <h4 class="mg-b-0 tx-spacing--1">{{ !!$route.meta.title ? $route.meta.title : 'Новый товар'}}</h4>
             </div>
             <div class="d-none d-md-block">
-                <button class="btn btn-sm pd-x-15 btn-white btn-uppercase">Сохранить</button>
+                <button @click="save" class="btn btn-sm pd-x-15 btn-white btn-uppercase">Сохранить</button>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 mg-t-10 mg-lg-t-0 br">
+            <div class="col-lg-2 mg-t-10 mg-lg-t-0 br">
                 <div class="form-group">
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="customSwitch1">
@@ -33,7 +33,7 @@
                     <input type="number" class="form-control">
                 </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 <div class="form-group">
                     <label class="d-block">Наименование товара</label>
                     <input type="text" class="form-control" placeholder="Наименование товара">
@@ -68,13 +68,17 @@
         name: "Product",
         data() {
             return {
-                category : {"id":3,"name":"вложенная","parent_id":1,"created_at":"2021-02-06T23:58:42.000000Z","updated_at":"2021-02-06T23:58:42.000000Z"},
+                category : null,
             };
         },
         mounted(){
             this.$store.dispatch('get_categories');
+            this.category = this.selected_category;
         },
         computed:{
+            selected_category(){
+                return this.$store.getters.getCategoryById(this.$route.query.category);
+            },
             categories(){
                 return this.$store.getters.categories;
             }
