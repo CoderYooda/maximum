@@ -20,29 +20,35 @@
             <div class="col-lg-2 mg-t-10 mg-lg-t-0 br">
                 <div class="form-group">
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                        <label class="custom-control-label" for="customSwitch1"> Акционный товар</label>
+                        <input v-model="isAction" type="checkbox" class="custom-control-input" id="isAction">
+                        <label class="custom-control-label" for="isAction"> Акционный товар</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input v-model="inStock" type="checkbox" class="custom-control-input" id="inStock">
+                        <label class="custom-control-label" for="inStock"> Есть в наличии</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="d-block">Цена</label>
-                    <input type="number" class="form-control">
+                    <input v-model="price" type="number" class="form-control">
                 </div>
                 <div class="form-group">
                     <label class="d-block">Акционная цена</label>
-                    <input type="number" class="form-control">
+                    <input v-model="action_price" type="number" class="form-control">
                 </div>
             </div>
             <div class="col-lg-10">
                 <div class="form-group">
                     <label class="d-block">Наименование товара</label>
-                    <input type="text" class="form-control" placeholder="Наименование товара">
+                    <input v-model="name" type="text" class="form-control" placeholder="Наименование товара">
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="d-block">Артикул</label>
-                            <input type="text" class="form-control" placeholder="Артикул">
+                            <input v-model="article" type="text" class="form-control" placeholder="Артикул">
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -56,7 +62,7 @@
 
                 <div class="form-group">
                     <label class="d-block">Описание товара</label>
-                    <textarea rows="4" class="form-control" ></textarea>
+                    <textarea v-model="description" rows="4" class="form-control" ></textarea>
                 </div>
             </div>
         </div>
@@ -69,18 +75,48 @@
         data() {
             return {
                 category : null,
+                name : '',
+                price : 0,
+                article : '',
+                action_price : 0,
+                isAction : false,
+                description : '',
+                inStock : true,
             };
         },
         mounted(){
-            this.$store.dispatch('get_categories');
-            this.category = this.selected_category;
+            this.$store.dispatch('get_categories').then(() => {
+
+                this.category = this.$store.getters.getCategoryById(this.$route.query.category)[0];
+            });
+
+
         },
         computed:{
-            selected_category(){
-                return this.$store.getters.getCategoryById(this.$route.query.category);
-            },
+            // selected_category(){
+            //     return this.$store.getters.getCategoryById(this.$route.query.category);
+            // },
             categories(){
                 return this.$store.getters.categories;
+            }
+        },
+        methods:{
+
+            save(){
+                console.log(this.category.id);
+                let data = {
+                    price: this.price,
+                    name: this.name,
+                    article: this.article,
+                    action_price: this.action_price,
+                    isAction: this.isAction,
+                    description: this.description,
+                    inStock: this.inStock,
+                    category_id : this.category.id
+                };
+                this.$store.dispatch('store_product', data).then(() => {
+                    console.log(1);
+                })
             }
         }
     }

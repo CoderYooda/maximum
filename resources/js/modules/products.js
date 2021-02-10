@@ -52,7 +52,7 @@ let actions = {
     },
     store_product({commit}, data){
         return new Promise((resolve, reject) => {
-            commit('auth_request');
+            //commit('auth_request');
             axios({url: '/api/shop/products/store', data: data, method: 'POST' })
                 .then(resp => {
                     commit('push_product', resp.data.product);

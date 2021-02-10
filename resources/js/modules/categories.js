@@ -12,7 +12,7 @@ let getters = {
         return state.categories.filter(item => item.parent_id === parent_id)
     },
     getCategoryById : (state) => (id) => {
-        return state.categories.filter(item => item.id === id)
+        return state.categories.filter(item => item.id === parseInt(id))
     },
     getCategory : (state) => (id) => {
 
@@ -44,7 +44,7 @@ let actions = {
 
     get_categories({commit}, filter_data){
         return new Promise((resolve, reject) => {
-            commit('auth_request');
+            //commit('auth_request');
             axios({url: '/api/shop/categories', data: filter_data, method: 'GET' })
                 .then(resp => {
                     commit('all', resp.data);
@@ -57,7 +57,7 @@ let actions = {
     },
     store_category({commit}, data){
         return new Promise((resolve, reject) => {
-            commit('auth_request');
+            //commit('auth_request');
             axios({url: '/api/shop/categories/store', data: data, method: 'POST' })
                 .then(resp => {
                     commit('push', resp.data.category);

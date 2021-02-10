@@ -71,37 +71,24 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                     </div>
                                     <div class="card-body">
-                                        <h6><a href="" class="link-02">package.json</a></h6>
-                                        <p>JSON File</p>
-                                        <span>2.3kb</span>
+                                        <h6><a href="" class="link-02">Создать товар</a></h6>
+                                        <p> </p>
+                                        <span> </span>
                                     </div>
                                 </div>
                             </div>
                         </router-link>
 
 
-                        <div v-for="product in products" class="col-6 col-sm-4 col-md-3 col-xl mg-t-10" style="max-width: 25%">
+                        <div v-for="product in products" class="col-6 col-sm-4 col-md-3 mg-t-10" >
                             <div class="card card-file pointer">
-                                <div class="dropdown-file">
-                                    <a href="" class="dropdown-link" data-toggle="dropdown"><i data-feather="more-vertical"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="#modalViewDetails" data-toggle="modal" class="dropdown-item details"><i data-feather="info"></i>View Details</a>
-                                        <a href="" class="dropdown-item important"><i data-feather="star"></i>Mark as Important</a>
-                                        <a href="#modalShare" data-toggle="modal" class="dropdown-item share"><i data-feather="share"></i>Share</a>
-                                        <a href="" class="dropdown-item download"><i data-feather="download"></i>Download</a>
-                                        <a href="#modalCopy" data-toggle="modal" class="dropdown-item copy"><i data-feather="copy"></i>Copy to</a>
-                                        <a href="#modalMove" data-toggle="modal" class="dropdown-item move"><i data-feather="folder"></i>Move to</a>
-                                        <a href="#" class="dropdown-item rename"><i data-feather="edit"></i>Rename</a>
-                                        <a href="#" class="dropdown-item delete"><i data-feather="trash"></i>Delete</a>
-                                    </div>
-                                </div><!-- dropdown -->
                                 <div class="card-file-thumb tx-purple">
                                     <i class="far fa-file-code"></i>
                                 </div>
                                 <div class="card-body">
-                                    <h6><a href="" class="link-02">package.json</a></h6>
+                                    <h6><a href="" class="link-02">{{ product.name }}</a></h6>
                                     <p>JSON File</p>
-                                    <span>2.3kb</span>
+                                    <span>{{ product.price }}</span>
                                 </div>
                             </div>
                         </div><!-- col -->

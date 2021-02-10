@@ -94,6 +94,9 @@ let actions = {
                     resolve();
                 })
                 .catch(err => {
+                    commit('logout');
+                    localStorage.removeItem('token');
+                    delete axios.defaults.headers.common['Authorization'];
                     reject(err)
                 })
         })
