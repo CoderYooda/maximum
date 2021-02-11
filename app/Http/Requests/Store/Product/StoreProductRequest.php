@@ -34,4 +34,31 @@ class StoreProductRequest extends FormRequest
             'inStock' => 'boolean',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Наименование - обязательное поле',
+            'name.string' => 'Наименование должно быть строкой',
+            'name.max' => 'максимальное кол-во символов - 255',
+
+            'category_id.required' => 'Категория обязательное поле',
+            'category_id.integer' => 'Категория обязательное поле',
+
+            'price.required' => 'Цена обязательное поле',
+            'price.numeric' => 'Цена должна быть числом',
+            'price.min' => 'Минимальная цена - 0',
+            'price.between' => 'Вне диапазона',
+
+            'action_price.required' => 'Акционная цена обязательное поле',
+            'action_price.numeric' => 'Акционная цена должна быть числом',
+            'action_price.min' => 'Минимальная акционная цена - 0',
+            'action_price.between' => 'Вне диапазона',
+
+            'description.required' => 'Обязательное поле',
+
+            'article.required' => 'Обязательное поле',
+            'article.max' => 'Максиальное кол-во символов - 255',
+        ];
+    }
 }
