@@ -25,9 +25,13 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'category_id' => 'required|integer|exists:shop_categories,id',
-            'price' => 'required|between:0,999999.99',
+            'category_id' => 'required|integer',
+            'price' => 'required|numeric|min:0|between:0.00,999999.99',
+            'action_price' => 'required|numeric|min:0|between:0.00,999999.99',
             'description' => 'required',
+            'article' => 'required|max:255',
+            'isAction' => 'boolean',
+            'inStock' => 'boolean',
         ];
     }
 }

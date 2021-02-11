@@ -32,37 +32,42 @@
                 </div>
                 <div class="form-group">
                     <label class="d-block">Цена</label>
-                    <input v-model="price" type="number" class="form-control">
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.price}" v-model="price" type="number" class="form-control">
+                    <div v-if="!!this.$store.getters.product_store_errors.price" class="invalid-feedback">{{ this.$store.getters.product_store_errors.price[0] }}</div>
                 </div>
                 <div class="form-group">
                     <label class="d-block">Акционная цена</label>
-                    <input v-model="action_price" type="number" class="form-control">
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.action_price}" v-model="action_price" type="number" class="form-control">
+                    <div v-if="!!this.$store.getters.product_store_errors.action_price" class="invalid-feedback">{{ this.$store.getters.product_store_errors.action_price[0] }}</div>
                 </div>
             </div>
             <div class="col-lg-10">
                 <div class="form-group">
                     <label class="d-block">Наименование товара</label>
-                    <input v-model="name" type="text" class="form-control" placeholder="Наименование товара">
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.name}" v-model="name" type="text" class="form-control" placeholder="Наименование товара">
+                    <div v-if="!!this.$store.getters.product_store_errors.name" class="invalid-feedback">{{ this.$store.getters.product_store_errors.name[0] }}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="d-block">Артикул</label>
-                            <input v-model="article" type="text" class="form-control" placeholder="Артикул">
+                            <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.article}" v-model="article" type="text" class="form-control" placeholder="Артикул">
+                            <div v-if="!!this.$store.getters.product_store_errors.article" class="invalid-feedback">{{ this.$store.getters.product_store_errors.article[0] }}</div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="d-block">Категория</label>
-                            <v-select v-model="category" label="name" :options="categories"></v-select>
-                            <!--<input type="text" class="form-control" placeholder="Артикул">-->
+                            <v-select v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.category_id}" v-model="category" label="name" :options="categories"></v-select>
+                            <div v-if="!!this.$store.getters.product_store_errors.category_id" class="invalid-feedback">{{ this.$store.getters.product_store_errors.category_id[0] }}</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="d-block">Описание товара</label>
-                    <textarea v-model="description" rows="4" class="form-control" ></textarea>
+                    <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.description}" v-model="description" rows="4" class="form-control" ></textarea>
+                    <div v-if="!!this.$store.getters.product_store_errors.description" class="invalid-feedback">{{ this.$store.getters.product_store_errors.description[0] }}</div>
                 </div>
             </div>
         </div>
@@ -74,7 +79,7 @@
         name: "Product",
         data() {
             return {
-                category : null,
+                category : {name: 'Корневая директория', id: 0},
                 name : '',
                 price : 0,
                 article : '',
@@ -86,11 +91,9 @@
         },
         mounted(){
             this.$store.dispatch('get_categories').then(() => {
-
                 this.category = this.$store.getters.getCategoryById(this.$route.query.category)[0];
+                console.log(this.category);
             });
-
-
         },
         computed:{
             // selected_category(){
@@ -103,7 +106,6 @@
         methods:{
 
             save(){
-                console.log(this.category.id);
                 let data = {
                     price: this.price,
                     name: this.name,
@@ -112,11 +114,11 @@
                     isAction: this.isAction,
                     description: this.description,
                     inStock: this.inStock,
-                    category_id : this.category.id
+                    category_id : !!this.category ? this.category.id : 0
                 };
                 this.$store.dispatch('store_product', data).then(() => {
-                    console.log(1);
-                })
+                    this.$router.push({ name: 'shop', params: {category_id: !!this.category ? this.category.id : 0 }})
+                });
             }
         }
     }

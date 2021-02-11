@@ -12,7 +12,9 @@ let getters = {
         return state.categories.filter(item => item.parent_id === parent_id)
     },
     getCategoryById : (state) => (id) => {
-        return state.categories.filter(item => item.id === parseInt(id))
+        return id == 0 ?
+            [{name: 'Корневая директория', id: 0}]
+            : state.categories.filter(item => item.id === parseInt(id));
     },
     getCategory : (state) => (id) => {
 

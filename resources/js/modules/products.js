@@ -1,6 +1,7 @@
 
 let state = {
     products : [],
+    product_errors : [],
 };
 
 let getters = {
@@ -13,6 +14,16 @@ let getters = {
     getProduct : (state) => (id) => {
 
         return state.products.filter(item => item.id === id)[0];
+    },
+    product_store_errors : state => {
+        return !!state.product_errors ? state.product_errors : {
+            price: null,
+            action_price: null,
+            name: null,
+            article: null,
+            category_id: null,
+            description: null,
+        }
     },
     // getParent : (state) => (id) => {
     //     let parent = state.products.filter(item => item.id === id)[0];
@@ -33,6 +44,9 @@ let mutations = {
         state.products.pushIfNotExist(category, function(e) {
             return e.id === category.id;
         });
+    },
+    push_product_errors(state, errors){
+        state.product_errors = errors;
     }
 };
 
@@ -56,9 +70,11 @@ let actions = {
             axios({url: '/api/shop/products/store', data: data, method: 'POST' })
                 .then(resp => {
                     commit('push_product', resp.data.product);
+                    commit('push_product_errors', null);
                     resolve(resp);
                 })
                 .catch(err => {
+                    commit('push_product_errors', !!err.response.data.errors ? err.response.data.errors : null);
                     reject(err);
                 })
         })
