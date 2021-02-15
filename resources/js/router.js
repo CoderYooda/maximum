@@ -55,7 +55,7 @@ let router =  new Router({
             component: () => import(/* webpackChunkName: "Shop" */ './components/pages/Shop.vue'),
         },
         {
-            path: '/shop/product/:product_id?',
+            path: '/shop/product/:product_id?/edit',
             name: 'product',
             props: true,
             meta: {layout: 'main'},

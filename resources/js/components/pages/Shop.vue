@@ -79,19 +79,20 @@
                             </div>
                         </router-link>
 
-
-                        <div v-for="product in products" class="col-6 col-sm-4 col-md-3 mg-t-10" >
-                            <div class="card card-file pointer">
-                                <div class="card-file-thumb tx-purple">
-                                    <i class="far fa-file-code"></i>
+                        <router-link  v-for="product in products" :key="product.id" :to="{ name: 'product', params: { product_id: product.id, cat : 1}}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                            <div @click="navigate"  class="col-6 col-sm-4 col-md-3 mg-t-10" >
+                                <div class="card card-file pointer">
+                                    <div class="card-file-thumb tx-purple">
+                                        <i class="far fa-file-code"></i>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6><a href="" class="link-02">{{ product.name }}</a></h6>
+                                        <p>JSON File</p>
+                                        <span>{{ product.price }}</span>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h6><a href="" class="link-02">{{ product.name }}</a></h6>
-                                    <p>JSON File</p>
-                                    <span>{{ product.price }}</span>
-                                </div>
-                            </div>
-                        </div><!-- col -->
+                            </div><!-- col -->
+                        </router-link>
                     </div><!-- row -->
                 </div>
             </div><!-- filemgr-content-body -->
