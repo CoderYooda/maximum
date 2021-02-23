@@ -32,6 +32,7 @@ class StoreProductRequest extends FormRequest
             'article' => 'required|max:255',
             'isAction' => 'boolean',
             'inStock' => 'boolean',
+            'isPublished' => 'boolean',
         ];
     }
 

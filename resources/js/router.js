@@ -62,6 +62,13 @@ let router =  new Router({
             component: () => import(/* webpackChunkName: "Product" */ './components/pages/Product.vue'),
         },
         {
+            path: '/shop/category/:category_id?/edit',
+            name: 'category',
+            props: true,
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Category" */ './components/pages/Category.vue'),
+        },
+        {
             path: '/settings',
             name: 'settings',
             meta: {layout: 'main'},

@@ -5,20 +5,22 @@ import Vuex from 'vuex'
 import auth from './modules/auth';
 import categories from './modules/categories';
 import products from './modules/products';
+import images from './modules/images';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        loading : false,
     },
     getters : {
-        score : state => {
-            return 1
+        loading : state => {
+            return state.loading
         },
     },
     mutations: {
-        app_state(state){
-            state.status = 'loading';
+        loading(state, val){
+            state.loading = val;
         },
     },
     actions:{
@@ -27,5 +29,6 @@ export default new Vuex.Store({
         auth,
         categories,
         products,
+        images,
     },
 })

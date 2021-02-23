@@ -7,51 +7,58 @@
                         <router-link to="/site" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                             <li class="breadcrumb-item" ><a :href="href" @click="navigate">Управление сайтом</a></li>
                         </router-link>
-                        <li class="breadcrumb-item active" aria-current="page">Создание товара</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ !!product.id ? 'Редактирование товара "' + product.name + '"' : 'Создание товара'}}</li>
                     </ol>
                 </nav>
-                <h4 class="mg-b-0 tx-spacing--1">{{ !!$route.meta.title ? $route.meta.title : 'Новый товар'}}</h4>
+                <h4 class="mg-b-0 tx-spacing--1">{{ !!product.id ? 'Редактирование товара "' + product.name + '"' : 'Новый товар'}}</h4>
             </div>
             <div class="d-none d-md-block">
                 <button @click="save" class="btn btn-sm pd-x-15 btn-white btn-uppercase">Сохранить</button>
             </div>
         </div>
+        <ImagesUpload ref="imgLoader" @imagesChanged="setImages"></ImagesUpload>
         <div class="row">
             <div class="col-lg-2 mg-t-10 mg-lg-t-0 br">
                 <div class="form-group">
                     <div class="custom-control custom-switch">
-                        <input v-model="isAction" type="checkbox" class="custom-control-input" id="isAction">
+                        <input v-model="product.isPublished" type="checkbox" class="custom-control-input" id="isPublished">
+                        <label class="custom-control-label" for="isPublished"> Опубликован</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-switch">
+                        <input v-model="product.isAction" type="checkbox" class="custom-control-input" id="isAction">
                         <label class="custom-control-label" for="isAction"> Акционный товар</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="custom-control custom-switch">
-                        <input v-model="inStock" type="checkbox" class="custom-control-input" id="inStock">
+                        <input v-model="product.inStock" type="checkbox" class="custom-control-input" id="inStock">
                         <label class="custom-control-label" for="inStock"> Есть в наличии</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="d-block">Цена</label>
-                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.price}" v-model="price" type="number" class="form-control">
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.price}" v-model="product.price" type="number" class="form-control">
                     <div v-if="!!this.$store.getters.product_store_errors.price" class="invalid-feedback">{{ this.$store.getters.product_store_errors.price[0] }}</div>
                 </div>
                 <div class="form-group">
                     <label class="d-block">Акционная цена</label>
-                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.action_price}" v-model="action_price" type="number" class="form-control">
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.action_price}" v-model="product.action_price" type="number" class="form-control">
                     <div v-if="!!this.$store.getters.product_store_errors.action_price" class="invalid-feedback">{{ this.$store.getters.product_store_errors.action_price[0] }}</div>
                 </div>
             </div>
             <div class="col-lg-10">
                 <div class="form-group">
                     <label class="d-block">Наименование товара</label>
-                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.name}" v-model="name" type="text" class="form-control" placeholder="Наименование товара">
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.name}" v-model="product.name" type="text" class="form-control" placeholder="Наименование товара">
                     <div v-if="!!this.$store.getters.product_store_errors.name" class="invalid-feedback">{{ this.$store.getters.product_store_errors.name[0] }}</div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="d-block">Артикул</label>
-                            <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.article}" v-model="article" type="text" class="form-control" placeholder="Артикул">
+                            <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.article}" v-model="product.article" type="text" class="form-control" placeholder="Артикул">
                             <div v-if="!!this.$store.getters.product_store_errors.article" class="invalid-feedback">{{ this.$store.getters.product_store_errors.article[0] }}</div>
                         </div>
                     </div>
@@ -66,7 +73,7 @@
 
                 <div class="form-group">
                     <label class="d-block">Описание товара</label>
-                    <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.description}" v-model="description" rows="4" class="form-control" ></textarea>
+                    <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.description}" v-model="product.description" rows="4" class="form-control" ></textarea>
                     <div v-if="!!this.$store.getters.product_store_errors.description" class="invalid-feedback">{{ this.$store.getters.product_store_errors.description[0] }}</div>
                 </div>
             </div>
@@ -75,29 +82,60 @@
 </template>
 
 <script>
+    import ImagesUpload from './../system/ImagesUpload'
     export default {
+        components:{
+            ImagesUpload
+        },
         name: "Product",
         data() {
             return {
+                images : [],
                 category : {name: 'Корневая директория', id: 0},
-                name : '',
-                price : 0,
-                article : '',
-                action_price : 0,
-                isAction : false,
-                description : '',
-                inStock : true,
+                product : {
+                    name : '',
+                    price : 0,
+                    article : '',
+                    action_price : 0,
+                    isAction : false,
+                    isPublished : true,
+                    description : '',
+                    images : null,
+                    inStock : true,
+                },
             };
         },
+        watch:{
+            value : () => {
+                console.log(1)
+            }
+        },
         mounted(){
-            this.$store.dispatch('get_categories').then(() => {
-                this.category = this.$store.getters.getCategoryById(this.$route.query.category)[0];
-                console.log(this.category);
-            });
+            this.$store.dispatch('get_categories');
+            let product = this.$store.getters.getProduct(this.$route.params.product_id);
+            if(!product){
+                this.$store.dispatch('get_product', this.$route.params.product_id).then((resp) => {
+                    product = resp.data.product;
+                    let category_id = this.$route.query.category || !!product ? product.category_id : 0;
+                    this.product = product;
+                    this.$refs.imgLoader.setImages(product.images);
+                    this.setCategory(category_id);
+                }).catch(() => {
+                    let category_id = this.$route.query.category;
+                    this.setCategory(category_id);
+                });
+            } else {
+                this.product = product;
+                this.$refs.imgLoader.setImages(product.images);
+                this.category = this.$store.getters.getCategoryById(product.category_id)[0];
+            }
         },
         computed:{
             // selected_category(){
             //     return this.$store.getters.getCategoryById(this.$route.query.category);
+            // },
+            // product_images(){
+            //     return _.pluck(this.images, 'id');
             // },
             categories(){
                 return this.$store.getters.categories;
@@ -105,18 +143,32 @@
         },
         methods:{
 
+            setImages(data){
+                this.product.images = data.images;
+            },
+            change({ coordinates, canvas }) {
+                console.log(coordinates, canvas);
+            },
+            setCategory(category_id){
+                let category = this.$store.getters.getCategoryById(category_id)[0];
+                this.category = category;
+
+                if(!category){
+                    this.$store.dispatch('get_category', category_id).then((resp) => {
+                        category = resp.data.category;
+                        this.category = category;
+                    });
+                }
+            },
+
             save(){
-                let data = {
-                    price: this.price,
-                    name: this.name,
-                    article: this.article,
-                    action_price: this.action_price,
-                    isAction: this.isAction,
-                    description: this.description,
-                    inStock: this.inStock,
-                    category_id : !!this.category ? this.category.id : 0
-                };
-                this.$store.dispatch('store_product', data).then(() => {
+                this.product.category_id = !!this.category ? this.category.id : 0;
+
+                let method = !!this.product.id ? 'update_product' : 'store_product';
+                //
+                // this.product.images = this.images;
+
+                this.$store.dispatch(method, this.product).then(() => {
                     this.$router.push({ name: 'shop', params: {category_id: !!this.category ? this.category.id : 0 }})
                 });
             }

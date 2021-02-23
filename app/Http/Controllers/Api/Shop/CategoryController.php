@@ -12,14 +12,38 @@ class CategoryController extends Controller
 {
     public function all()
     {
-        return response(Category::all());
+        return response(Category::with('images', 'parent')->get());
+    }
+
+    public function get($id)
+    {
+        $category = Category::with('images', 'parent')->whereId($id)->first();
+
+        return $category ?  response(['category' => $category]) : response(['message' => 'Категория не найдена'], 404);
+
     }
 
     public function store(StoreCategoryRequest $request)
     {
         $category = Category::create($request->validated());
 
+        if($request->images)
+            $category->images()->sync(array_column($request->images, 'id'));
+
         return response(['category' => $category, 'message' => 'Категория "' . $category->name . '" сохранена']);
+    }
+
+
+    public function update(StoreCategoryRequest $request, $id)
+    {
+        $category = Category::whereId((int)$id)->first();
+
+        $category->update($request->validated());
+
+        if($request->images)
+            $category->images()->sync(array_column($request->images, 'id'));
+
+        return response(['message' => 'Категория "' . $request->name . '" обновлена']);
     }
 
 

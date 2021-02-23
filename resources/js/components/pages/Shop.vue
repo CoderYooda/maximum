@@ -5,15 +5,18 @@
                 <div class="dropdown dropdown-icon flex-fill">
                     <button class="btn btn-xs btn-block btn-white" data-toggle="dropdown">Создать <i data-feather="chevron-down"></i></button>
                     <div class="dropdown-menu tx-13">
-<!--                        <a href="" class="dropdown-item"><i data-feather="folder"></i><span>Категорию</span></a>-->
-<!--                        <router-link :to="{ name : 'category_edit'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>-->
-<!--                            <a class="dropdown-item" :href="href" @click="navigate">-->
-<!--                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>-->
-<!--                                <span>Категорию</span>-->
-<!--                            </a>-->
-<!--                        </router-link>-->
-<!--                        <a href="" class="dropdown-item"><span>Товар</span></a>-->
-<!--                        <div class="dropdown-divider"></div>-->
+                        <router-link :to="{ name: 'category', params: {category_id: 0 }, query: { category: current_category ? current_category.id : 0 }}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                            <a class="dropdown-item" :href="href" @click="navigate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                <span>Категорию</span>
+                            </a>
+                        </router-link>
+                        <router-link :to="{ name: 'product', params: { product_id: 0}, query: { category: current_category ? current_category.id : 0 }}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                            <a class="dropdown-item" :href="href" @click="navigate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+                                <span>Товар</span>
+                            </a>
+                        </router-link>
                     </div><!-- dropdown-menu -->
                 </div><!-- dropdown -->
             </div><!-- filemgr-sidebar-header -->
@@ -35,7 +38,6 @@
                         <router-link :to="{ name: 'shop', params: {category_id: parent_id }}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                             <a v-if="category_id" :href="href" @click="navigate" class="nav-link active">../</a>
                         </router-link>
-
                         <router-link v-for="category in categories"
                                      :key="category.id"
                                      :to="{ name: 'shop', params: {category_id: category.id }}"
@@ -60,34 +62,32 @@
                 </nav>
             </div><!-- filemgr-content-header -->
             <div class="filemgr-content-body">
+                <perfect-scrollbar style="height: calc(100%);">
                 <div class="pd-20 pd-lg-25 pd-xl-30">
                     <label class="d-block tx-medium tx-10 tx-uppercase tx-sans tx-spacing-1 tx-color-03 mg-b-15">Товары в категории "{{ current_category ? current_category.name : 'Корневой каталог' }}"</label>
                     <div class="row row-xs">
-
-                        <router-link :to="{ name: 'product', params: { product_id: 0, cat : 1}, query: { category: current_category ? current_category.id : 0 }}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
-                            <div  class="col-6 col-sm-4 col-md-3 col-xl mg-t-10" style="max-width: 25%">
-                                <div class="card card-file pointer" @click="navigate">
-                                    <div class="card-file-thumb tx-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                    </div>
-                                    <div class="card-body">
-                                        <h6><a href="" class="link-02">Создать товар</a></h6>
-                                        <p> </p>
-                                        <span> </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-
+<!--                        <router-link :to="{ name: 'product', params: { product_id: 0, cat : 1}, query: { category: current_category ? current_category.id : 0 }}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>-->
+<!--                            <div  class="col-6 col-sm-4 col-md-3 col-xl mg-t-10" style="max-width: 25%">-->
+<!--                                <div class="card card-file pointer" @click="navigate">-->
+<!--                                    <div class="card-file-thumb tx-purple">-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>-->
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h6><a href="" class="link-02">Создать товар</a></h6>-->
+<!--                                        <p> </p>-->
+<!--                                        <span> </span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </router-link>-->
                         <router-link  v-for="product in products" :key="product.id" :to="{ name: 'product', params: { product_id: product.id, cat : 1}}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                             <div @click="navigate"  class="col-6 col-sm-4 col-md-3 mg-t-10" >
                                 <div class="card card-file pointer">
                                     <div class="card-file-thumb tx-purple">
-                                        <i class="far fa-file-code"></i>
+                                        <img :src="!!product.images[0] ? product.images[0].url : '/images/noimage.jpg'"  alt="" class="preview">
                                     </div>
                                     <div class="card-body">
                                         <h6><a href="" class="link-02">{{ product.name }}</a></h6>
-                                        <p>JSON File</p>
                                         <span>{{ product.price }}</span>
                                     </div>
                                 </div>
@@ -95,6 +95,7 @@
                         </router-link>
                     </div><!-- row -->
                 </div>
+            </perfect-scrollbar>
             </div><!-- filemgr-content-body -->
         </div><!-- filemgr-content -->
     </div><!-- filemgr-wrapper -->
@@ -140,6 +141,7 @@
         mounted(){
             this.$store.dispatch('get_categories');
             this.$store.dispatch('get_products');
+
             //this.category_id = parseInt(this.$route.params.category_id) || 0;
         },
         methods: {

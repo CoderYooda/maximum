@@ -9,6 +9,9 @@ import App from './components/App.vue'
 import router from './router';
 import store from './store';
 import Axios from 'axios'
+import { Cropper } from 'vue-advanced-cropper';
+import PerfectScrollbar from 'vue2-perfect-scrollbar'
+
 
 import VueMarkdownEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
@@ -17,6 +20,7 @@ import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
 import ruRU from './services/editor.lang.ru';
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(VueMarkdownEditor);
+Vue.use(PerfectScrollbar);
 VueMarkdownEditor.lang.use('ru-Ru', ruRU);
 
 import vSelect from 'vue-select'
@@ -30,6 +34,9 @@ Vue.use(VModal);
 Vue.directive('tooltip', VTooltip);
 Vue.directive('close-popover', VClosePopover);
 Vue.component('v-popover', VPopover);
+Vue.component('cropper', Cropper);
+
+// Vue.component('vue-cropper', VueCropper);
 
 Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 Axios.defaults.headers.common['Accept'] = 'application/json';

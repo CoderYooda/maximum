@@ -5,6 +5,7 @@ mix.sass('resources/css/app.scss', 'public/css').options({ processCssUrls: false
 
 mix.copyDirectory('resources/fonts', 'public/fonts');
 
+mix.copyDirectory('resources/images', 'public/images');
 
 module.exports = {
     output: {

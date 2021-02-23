@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="loading" v-bind:class="{'load' : this.$store.getters.loading}">
         <component :is="layout" />
 <!--        <login/>-->
 <!--        <Dialogs/>-->

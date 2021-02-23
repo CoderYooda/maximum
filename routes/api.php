@@ -14,11 +14,18 @@ Route::namespace('Api')->middleware(['cors', 'json.response'])->group(function (
 
 Route::namespace('Api')->middleware(['auth:api'])->group(function () {
     Route::get('/shop/categories','Shop\CategoryController@all');
+    Route::get('/shop/categories/{id}/get','Shop\CategoryController@get');
     Route::post('/shop/categories/store','Shop\CategoryController@store');
+    Route::post('/shop/categories/{id}/update','Shop\CategoryController@update');
     Route::delete('/shop/categories/delete','Shop\CategoryController@delete');
 
     Route::get('/shop/products','Shop\ProductController@all');
+    Route::get('/shop/product/{id}/get','Shop\ProductController@get');
+    Route::post('/shop/products/{id}/update','Shop\ProductController@update');
     Route::post('/shop/products/store','Shop\ProductController@store');
     Route::delete('/shop/products/delete','Shop\ProductController@delete');
+
+    Route::post('/images/temp/store','System\ImageController@storeTemp');
+    Route::post('/images/store','System\ImageController@storeImage');
 });
 
