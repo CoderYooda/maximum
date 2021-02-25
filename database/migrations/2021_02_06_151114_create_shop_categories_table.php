@@ -16,7 +16,11 @@ class CreateShopCategoriesTable extends Migration
         Schema::create('shop_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('parent_id')->unsigned();
+            $table->text('content')->nullable();
+            $table->string('slug');
+            $table->string('title');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

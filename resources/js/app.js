@@ -1,5 +1,6 @@
 require('./bootstrap');
 require('./proto');
+require('./functions');
 window.feather = require('feather-icons');
 
 import Vue from 'vue';

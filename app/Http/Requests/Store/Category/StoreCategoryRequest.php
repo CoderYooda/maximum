@@ -25,7 +25,21 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'category_id' => 'required|integer',
+            'parent_id' => 'required|integer',
+            'slug' => 'required|unique:shop_categories,slug,'.$this->id,
+            'title' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'slug.unique' => 'Такой URL уже используется',
+            'slug.required' => 'Обязательное поле',
+            'name.required' => 'Обязательное поле',
+            'name.max' => 'Максимальная длинна - 255',
+            'parent_id.required' => 'Обязательное поле',
+            'title.required' => 'Обязательное поле',
         ];
     }
 }

@@ -21,8 +21,12 @@ class CreateProductTable extends Migration
             $table->boolean('isAction')->default(0);
             $table->string('name');
             $table->bigInteger('category_id')->unsigned();
-            $table->text('description');
+            $table->text('content');
             $table->boolean('inStock')->default(0);
+            $table->boolean('isPublished')->default(1);
+            $table->string('slug');
+            $table->string('title');
+            $table->text('description');
             $table->timestamps();
         });
     }

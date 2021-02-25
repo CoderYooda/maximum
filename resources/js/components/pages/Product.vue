@@ -70,9 +70,31 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="d-block">Описание товара</label>
+                    <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.content}" v-model="product.content" rows="4" class="form-control" ></textarea>
+                    <div v-if="!!this.$store.getters.product_store_errors.content" class="invalid-feedback">{{ this.$store.getters.product_store_errors.content[0] }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="d-block">Тайтл ( Текст вкладки браузера )</label>
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.title}" v-model="product.title" type="text" class="form-control" placeholder="Тайтл">
+                    <div v-if="!!this.$store.getters.product_store_errors.title" class="invalid-feedback">{{ this.$store.getters.product_store_errors.title[0] }}</div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="d-block">URL</label>
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.slug}" v-model="product.slug" type="text" class="form-control" placeholder="URL">
+                    <div v-if="!!this.$store.getters.product_store_errors.slug" class="invalid-feedback">{{ this.$store.getters.product_store_errors.slug[0] }}</div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="d-block">Описание страницы</label>
                     <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.description}" v-model="product.description" rows="4" class="form-control" ></textarea>
                     <div v-if="!!this.$store.getters.product_store_errors.description" class="invalid-feedback">{{ this.$store.getters.product_store_errors.description[0] }}</div>
                 </div>
@@ -99,16 +121,37 @@
                     action_price : 0,
                     isAction : false,
                     isPublished : true,
-                    description : '',
+                    content : '',
                     images : null,
                     inStock : true,
+                    title : null,
+                    description : null,
+                    slug : this.slug,
                 },
             };
         },
-        watch:{
-            value : () => {
-                console.log(1)
-            }
+        // watch:{
+        //     value : () => {
+        //         console.log(1)
+        //     }
+        // },
+        // computed : {
+        //     slug: function () {
+        //         return window.urlRusLat(this.product.name);
+        //     }
+        // },
+        watch : {
+            'product.slug': function (val) {
+                if(!this.product.id){
+                    this.product.slug = window.urlRusLat(val);
+                }
+            },
+            'product.name': function (val) {
+                if(!this.product.id) {
+                    this.product.slug = window.urlRusLat(val);
+                    this.product.title = val;
+                }
+            },
         },
         mounted(){
             this.$store.dispatch('get_categories');

@@ -28,11 +28,15 @@ class StoreProductRequest extends FormRequest
             'category_id' => 'required|integer',
             'price' => 'required|numeric|min:0|between:0.00,999999.99',
             'action_price' => 'required|numeric|min:0|between:0.00,999999.99',
-            'description' => 'required',
+            'content' => 'required',
             'article' => 'required|max:255',
             'isAction' => 'boolean',
             'inStock' => 'boolean',
             'isPublished' => 'boolean',
+
+            'slug' => 'required|unique:product,slug,'.$this->id,
+            'title' => 'required',
+            'description' => 'required',
         ];
     }
 
@@ -60,6 +64,10 @@ class StoreProductRequest extends FormRequest
 
             'article.required' => 'Обязательное поле',
             'article.max' => 'Максиальное кол-во символов - 255',
+
+            'slug.required' => 'Обязательное поле',
+            'title.required' => 'Обязательное поле',
+            'description.required' => 'Обязательное поле',
         ];
     }
 }

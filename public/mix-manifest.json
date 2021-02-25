@@ -3,6 +3,8 @@
     "/css/app.css": "/css/app.css",
     "/About.js": "/About.js",
     "/Catalog.js": "/Catalog.js",
+    "/Category.js": "/Category.js",
+    "/Category~Product.js": "/Category~Product.js",
     "/Contacts.js": "/Contacts.js",
     "/Dashboard.js": "/Dashboard.js",
     "/Farm.js": "/Farm.js",
@@ -14,7 +16,5 @@
     "/Register.js": "/Register.js",
     "/Settings.js": "/Settings.js",
     "/Shop.js": "/Shop.js",
-    "/Site.js": "/Site.js",
-    "/Category.js": "/Category.js",
-    "/Category~Product.js": "/Category~Product.js"
+    "/Site.js": "/Site.js"
 }

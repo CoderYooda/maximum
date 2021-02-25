@@ -10,7 +10,7 @@ let getters = {
         return state.categories
     },
     getByParent : (state) => (parent_id) => {
-        return state.categories.filter(item => item.category_id === parent_id)
+        return state.categories.filter(item => item.parent_id === parent_id)
     },
     getCategoryById : (state) => (id) => {
         return id == 0 ?

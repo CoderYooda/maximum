@@ -154,7 +154,9 @@
             store_category(){
                 let data = {
                     name: this.new_category_name,
-                    parent_id : this.category_id
+                    parent_id : this.category_id,
+                    title : this.new_category_name,
+                    slug : window.urlRusLat(this.new_category_name)
                 };
                 this.$store.dispatch('store_category', data).then(() => {
                     this.new_category_name = '';

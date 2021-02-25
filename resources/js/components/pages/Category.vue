@@ -38,8 +38,31 @@
 
         <div class="form-group">
             <label class="d-block">Описание категории</label>
-            <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.description}" v-model="category.description" rows="4" class="form-control" ></textarea>
-            <div v-if="!!this.$store.getters.category_store_errors.description" class="invalid-feedback">{{ this.$store.getters.category_store_errors.description[0] }}</div>
+            <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.content}" v-model="category.content" rows="4" class="form-control" ></textarea>
+            <div v-if="!!this.$store.getters.category_store_errors.content" class="invalid-feedback">{{ this.$store.getters.category_store_errors.content[0] }}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="d-block">Тайтл ( Текст вкладки браузера )</label>
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.title}" v-model="category.title" type="text" class="form-control" placeholder="Тайтл">
+                    <div v-if="!!this.$store.getters.category_store_errors.title" class="invalid-feedback">{{ this.$store.getters.category_store_errors.title[0] }}</div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="d-block">URL</label>
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.slug}" v-model="category.slug" type="text" class="form-control" placeholder="URL">
+                    <div v-if="!!this.$store.getters.category_store_errors.slug" class="invalid-feedback">{{ this.$store.getters.category_store_errors.slug[0] }}</div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="d-block">Описание страницы</label>
+                    <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.description}" v-model="category.description" rows="4" class="form-control" ></textarea>
+                    <div v-if="!!this.$store.getters.category_store_errors.description" class="invalid-feedback">{{ this.$store.getters.category_store_errors.description[0] }}</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -57,9 +80,12 @@
                 //category : {name: 'Корневая директория', id: 0},
                 category : {
                     name : '',
-                    description : '',
+                    content : '',
                     images : null,
                     parent : {name: 'Корневая директория', id: 0},
+                    title : null,
+                    description : null,
+                    slug : null,
                 },
             };
         },
@@ -68,6 +94,15 @@
         //         console.log(1)
         //     }
         // },
+        watch : {
+            'category.slug': function (val) {
+                this.category.slug = window.urlRusLat(val);
+            },
+            'category.name': function (val) {
+                this.category.slug = window.urlRusLat(val);
+                this.category.title = val;
+            },
+        },
         mounted(){
             this.$store.dispatch('get_categories').then(() => {
 
@@ -137,13 +172,13 @@
             },
 
             save(){
-                this.category.category_id = !!this.category ? this.category.parent.id : 0;
+                this.category.parent_id = !!this.category ? this.category.parent.id : 0;
                 let method = !!this.category.id ? 'update_category' : 'store_category';
                 //
                 // this.category.images = this.images;
 
                 this.$store.dispatch(method, this.category).then(() => {
-                    this.$router.push({ name: 'shop', params: {category_id: !!this.category ? this.category.category_id : 0 }})
+                    this.$router.push({ name: 'shop', params: {category_id: !!this.category ? this.category.parent_id : 0 }})
                 });
             }
         }
