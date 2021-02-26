@@ -27,5 +27,9 @@ Route::namespace('Api')->middleware(['auth:api'])->group(function () {
 
     Route::post('/images/temp/store','System\ImageController@storeTemp');
     Route::post('/images/store','System\ImageController@storeImage');
+
+    Route::get('/pages/{id}/edit','Front\PageController@get');
+
+    Route::get('/content/{type}/{id}','Front\PageController@getContent');
 });
 

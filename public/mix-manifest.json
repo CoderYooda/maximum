@@ -16,5 +16,8 @@
     "/Register.js": "/Register.js",
     "/Settings.js": "/Settings.js",
     "/Shop.js": "/Shop.js",
-    "/Site.js": "/Site.js"
+    "/Site.js": "/Site.js",
+    "/Page.js": "/Page.js",
+    "/Benefits.js": "/Benefits.js",
+    "/Callback.js": "/Callback.js"
 }

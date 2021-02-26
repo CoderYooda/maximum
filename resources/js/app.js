@@ -4,7 +4,7 @@ require('./functions');
 window.feather = require('feather-icons');
 
 import Vue from 'vue';
-
+import wysiwyg from "vue-wysiwyg";
 //import auth from './auth';
 import App from './components/App.vue'
 import router from './router';
@@ -22,6 +22,7 @@ import ruRU from './services/editor.lang.ru';
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(VueMarkdownEditor);
 Vue.use(PerfectScrollbar);
+Vue.use(wysiwyg, {}); // config is optional. more below
 VueMarkdownEditor.lang.use('ru-Ru', ruRU);
 
 import vSelect from 'vue-select'

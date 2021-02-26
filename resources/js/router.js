@@ -37,6 +37,9 @@ let router =  new Router({
             meta: {layout: 'main'},
             component: () => import(/* webpackChunkName: "Site" */ './components/pages/Site.vue'),
             children:[
+                {path: '/site/page/:id?',                name: 'page', meta: {layout: 'main', title: 'Страница'},            component: () => import(/* webpackChunkName: "Page" */ './components/pages/site/Page'), props: true},
+
+
                 {path: '/site/company',             name: 'company', meta: {layout: 'main', title: 'Раздел "Компания"'},            component: () => import(/* webpackChunkName: "About" */ './components/pages/site/Company'), props: true},
                 {path: '/site/catalog',             name: 'catalog', meta: {layout: 'main', title: 'Каталог товаров'},              component: () => import(/* webpackChunkName: "Catalog" */ './components/pages/site/Catalog'), props: true},
                 {path: '/site/contacts',            name: 'contacts', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Contacts" */ './components/pages/site/Contacts'), props: true},
