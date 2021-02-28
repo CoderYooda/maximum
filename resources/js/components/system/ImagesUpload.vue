@@ -1,10 +1,24 @@
 <template>
-    <div>
-        <div class="row row-xs mb-4">
-            <input ref="file" style="display: none" type="file" accept="image/*" @change="uploadFile">
+    <div class="overflow-hidden">
+        <input ref="file" style="display: none" type="file" accept="image/*" @change="uploadFile">
+        <div class="w-100 h-100" v-if="thin">
+            <div v-for="image in images" class="w-100 h-100 position-relative img-container">
+                <img style="width: 100%;height: 100%;" :src="image.url" alt="">
+                <div class="float-butt">
+                    <button type="button" @click="freshImg(image)">новое изображение</button>
+                </div>
+            </div>
+            <div v-if="images.length < limit" class="pointer" @click="$refs.file.click()">
+                <span>Загрузить изображение</span>
+            </div>
+        </div>
+        <div v-if="!thin" class="row row-xs mb-4">
             <div v-for="image in images" class="pointer mb-2">
-                <div class="card card-file wh-180">
+                <div class="card card-file wh-180 position-relative img-container overflow-hidden">
                     <img class="preview" :src="image.url" alt="">
+                    <div class="float-butt">
+                        <button type="button" @click="freshImg(image)">новое изображение</button>
+                    </div>
                 </div>
             </div>
             <div v-if="images.length < limit" class="pointer mb-2" @click="$refs.file.click()">
@@ -28,7 +42,7 @@
 
                         <div class="modal-body" style="min-height: 380px;">
                             <cropper ref="cropper" :stencil-props="{
-                                    aspectRatio: 1/1,
+                                    aspectRatio: aspect,
                                 }"
                                 :src="img"
                                 @change="change"
@@ -58,7 +72,6 @@
                 </div>
             </div>
         </transition>
-        <pre>{{ stored_images }}</pre>
     </div>
 </template>
 <script>
@@ -74,12 +87,16 @@
                 coordinates : null,
                 result: null,
                 limit:5,
-                // username: '',
-                // password: '',
+                thin:false,
+                aspect: 1/1,
+                instantUpload : null,
             };
         },
         mounted(){
             this.limit = !!this.$attrs.limit ? this.$attrs.limit : this.limit;
+            this.thin = !!this.$attrs.thin ? this.$attrs.thin : this.thin;
+            this.aspect = !!this.$attrs.aspect ? this.$attrs.aspect : this.aspect;
+
             //this.images = this.value.images;
             // let getter = 'get_' + this.storage_model + '_images';
             //
@@ -87,11 +104,16 @@
             // return this.$store.getters[getter](this.id);
         },
         computed:{
-            stored_images : () => {
-
+            instant : () => {
+                return this.instantUpload ? true : false;
             }
         },
         methods: {
+            freshImg(image){
+                this.instantUpload = image.id;
+                // console.log(image);
+                this.$refs.file.click();
+            },
             uploadFile(){
                 let input = this.$refs.file;
                 if (input.files && input.files[0]) {
@@ -103,7 +125,7 @@
                     };
 
                 }
-
+                // console.log(this.instantUpload);
                 // this.$store.dispatch('store_temp_image', {file : this.$refs.file.files[0]}).then((resp) => {
                 //     this.showModal = true;
                 //     this.img = this.$store.getters.getTempImage();
@@ -113,17 +135,26 @@
                 this.images = images;
             },
             cropImage(){
+
                 this.result = this.$refs.cropper.getResult().canvas.toDataURL();
                 this.$store.commit('loading', true);
                 this.$store.dispatch('store_image', {image : this.result}).then((resp) => {
                     this.showModal = false;
-                    this.images.push(resp.data.image);
+                    console.log(this.instantUpload);
+                    if(this.instantUpload != null){
+                        this.images[this.images.findIndex(item => item.id === this.instantUpload)] = resp.data.image;
+                    } else {
+                        this.images.push(resp.data.image);
+                    }
+                    this.instantUpload = false;
+
                     this.$store.commit('loading', false);
                     this.$emit('imagesChanged', {images : this.images});
                 });
+
             },
             change({coordinates, canvas}) {
-                // this.coordinates = coordinates;
+                // console.log(this.instantUpload);
             },
             ready() {
                 // console.log(3);
@@ -138,6 +169,25 @@
     }
 </script>
 <style>
+    .float-butt{
+        position: absolute;
+        bottom: -30px;
+        opacity: 0;
+        width: 100%;
+        background: #0000005c;
+        transition: 0.3s all;
+    }
+    .float-butt button{
+        width: 100%;
+        color: #fff;
+        background: transparent;
+        border: 0;
+        outline: 0!important;
+    }
+    .img-container:hover .float-butt{
+        bottom: 0px;
+        opacity: 1;
+    }
     .vertical-buttons {
         position: absolute;
         left: 10px;

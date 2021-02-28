@@ -42,6 +42,9 @@
                         <li class="nav-item with-sub" :class="[isActive && 'active', isActive && 'show']" >
                             <a class="nav-link" :href="href" @click="navigate"><i data-feather="bar-chart-2"></i> <span>Управление сайтом</span></a>
                             <ul>
+                                <router-link to="/site/pages" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                                    <li :class="[isActive && 'active']" ><a :href="href" @click="navigate">Страницы</a></li>
+                                </router-link>
                                 <router-link to="/site/company" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                                     <li :class="[isActive && 'active']" ><a :href="href" @click="navigate">Компания</a></li>
                                 </router-link>

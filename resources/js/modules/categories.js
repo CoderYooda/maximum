@@ -23,8 +23,8 @@ let getters = {
     },
     getParent : (state) => (id) => {
         let parent = state.categories.filter(item => item.id === id)[0];
-        if(!!parent && !!parent.category_id){
-            return parent.category_id;
+        if(!!parent && !!parent.parent_id){
+            return parent.parent_id;
         } else {
             return 0;
         }

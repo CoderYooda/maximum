@@ -6,9 +6,26 @@
 @import 'dashforge.filemgr.css';
 @import 'dashforge.chat.css';
 @import "~vue-select/src/scss/vue-select.scss";
-@import "~vue-wysiwyg/dist/vueWysiwyg.css";
 @import "~vue-advanced-cropper/dist/style.css";
 @import '~vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css';
+
+@import '~tiptap/src/style.css';
+
+@import './front/modules/callback';
+
+.text_module .ProseMirror{
+    border: 2px dashed #eee;
+}
+.text_module .ProseMirror.ProseMirror-focused{
+    border: 2px dashed rgba(71, 0, 10, 0.99);
+}
+.text_module .ProseMirror-focused{
+    outline: none;
+}
+.text_module .ProseMirror p{
+    margin: 0!important;
+}
+
 .pointer{
   cursor: pointer!important;
 }
@@ -31,6 +48,59 @@
 //.vs__selected {
 //  margin: 2px 2px 0px 2px;
 //}
+.menububble {
+    position: absolute;
+    display: flex;
+    z-index: 20;
+    background: #000;
+    border-radius: 5px;
+    padding: 0.3rem;
+    margin-bottom: 0.5rem;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+
+    &.is-active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &__button {
+        display: inline-flex;
+        background: transparent;
+        border: 0;
+        color: #fff;
+        padding: 0.2rem 0.5rem;
+        margin-right: 0.2rem;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &:hover {
+            background-color: rgba(#fff, 0.1);
+        }
+
+        &.is-active {
+            background-color: rgba(#fff, 0.2);
+        }
+    }
+
+    &__form {
+        display: flex;
+        align-items: center;
+    }
+
+    &__input {
+        font: inherit;
+        border: none;
+        background: transparent;
+        color: #fff;
+    }
+}
 .preview{
     width: 100%;
     height: 100%;

@@ -13,7 +13,7 @@ class CreateImageToCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_category', function (Blueprint $table) {
+        Schema::create('image_shop_category', function (Blueprint $table) {
             $table->bigInteger('image_id');
             $table->bigInteger('category_id');
         });

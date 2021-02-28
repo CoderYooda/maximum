@@ -142,7 +142,7 @@
             this.$store.dispatch('get_categories');
             this.$store.dispatch('get_products');
 
-            //this.category_id = parseInt(this.$route.params.category_id) || 0;
+            this.category_id = parseInt(this.$route.params.category_id) || 0;
         },
         methods: {
             open_cat_edit(){

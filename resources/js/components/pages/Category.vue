@@ -147,7 +147,6 @@
             }
         },
         methods:{
-
             setImages(data){
                 this.category.images = data.images;
             },
@@ -172,7 +171,7 @@
             },
 
             save(){
-                this.category.parent_id = !!this.category ? this.category.parent.id : 0;
+                this.category.parent_id = !!this.parent ? this.parent.parent.id : 0;
                 let method = !!this.category.id ? 'update_category' : 'store_category';
                 //
                 // this.category.images = this.images;

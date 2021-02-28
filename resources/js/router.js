@@ -33,13 +33,11 @@ let router =  new Router({
         {
             path: '/site',
             name: 'site',
-            redirect: '/site/company',
+            redirect: '/site/pages',
             meta: {layout: 'main'},
             component: () => import(/* webpackChunkName: "Site" */ './components/pages/Site.vue'),
             children:[
-                {path: '/site/page/:id?',                name: 'page', meta: {layout: 'main', title: 'Страница'},            component: () => import(/* webpackChunkName: "Page" */ './components/pages/site/Page'), props: true},
-
-
+                {path: '/site/pages',               name: 'pages', meta: {layout: 'main', title: 'Страницы сайта'},            component: () => import(/* webpackChunkName: "Pages" */ './components/pages/site/Pages'), props: true},
                 {path: '/site/company',             name: 'company', meta: {layout: 'main', title: 'Раздел "Компания"'},            component: () => import(/* webpackChunkName: "About" */ './components/pages/site/Company'), props: true},
                 {path: '/site/catalog',             name: 'catalog', meta: {layout: 'main', title: 'Каталог товаров'},              component: () => import(/* webpackChunkName: "Catalog" */ './components/pages/site/Catalog'), props: true},
                 {path: '/site/contacts',            name: 'contacts', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Contacts" */ './components/pages/site/Contacts'), props: true},
@@ -49,6 +47,13 @@ let router =  new Router({
                 {path: '/site/prices',              name: 'prices', meta: {layout: 'main'},             component: () => import(/* webpackChunkName: "Prices" */ './components/pages/site/Prices'), props: true},
                 {path: '/site/services',            name: 'services', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/services'), props: true},
             ]
+        },
+        {
+            path: '/site/pages/:id?',
+            name: 'page',
+            component: () => import(/* webpackChunkName: "Page" */ './components/pages/site/Page'),
+            meta: {layout: 'main'},
+            props: true
         },
         {
             path: '/shop/category/:category_id?',

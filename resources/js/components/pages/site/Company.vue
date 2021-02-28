@@ -1,6 +1,6 @@
 <template>
     <div>
-
+фцв
     </div>
 </template>
 <script>

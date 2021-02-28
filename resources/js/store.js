@@ -8,6 +8,7 @@ import products from './modules/products';
 import images from './modules/images';
 import pages from './modules/pages';
 import contents from './modules/contents';
+import modules from './modules/modules';
 
 Vue.use(Vuex);
 
@@ -34,5 +35,7 @@ export default new Vuex.Store({
         images,
         pages,
         contents,
+        modules,
     },
+    mixins: {}
 })

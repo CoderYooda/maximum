@@ -16,7 +16,7 @@ class Category extends Model
 
     public function images()
     {
-        return $this->belongsToMany(Image::class, 'image_category', 'category_id', 'image_id');
+        return $this->belongsToMany(Image::class, 'image_shop_category', 'category_id', 'image_id');
     }
 
     public function parent()

@@ -17,6 +17,8 @@ class CreateModuleImageTable extends Migration
             $table->id();
             $table->bigInteger('module_id')->unsigned();
             $table->bigInteger('image_id')->unsigned();
+            $table->integer('width')->unsigned();
+            $table->integer('height')->unsigned();
         });
     }
 

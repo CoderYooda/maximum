@@ -28,7 +28,12 @@ Route::namespace('Api')->middleware(['auth:api'])->group(function () {
     Route::post('/images/temp/store','System\ImageController@storeTemp');
     Route::post('/images/store','System\ImageController@storeImage');
 
-    Route::get('/pages/{id}/edit','Front\PageController@get');
+    Route::get('/front/pages','Front\PageController@all');
+    Route::get('/front/pages/{id}/edit','Front\PageController@get');
+    Route::post('/front/pages/{id}/update','Front\PageController@update');
+    Route::post('/front/pages/store','Front\PageController@store');
+
+    Route::get('/front/modules','Front\PageController@getModuleTemplates');
 
     Route::get('/content/{type}/{id}','Front\PageController@getContent');
 });

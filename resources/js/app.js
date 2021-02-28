@@ -38,7 +38,18 @@ Vue.directive('close-popover', VClosePopover);
 Vue.component('v-popover', VPopover);
 Vue.component('cropper', Cropper);
 
-// Vue.component('vue-cropper', VueCropper);
+
+import Benefits from "./components/modules/Benefits";
+import Callback from "./components/modules/Callback";
+import Text from "./components/modules/Chunks/Text";
+import Image from "./components/modules/Chunks/Image";
+Vue.component('m-Benefits', Benefits);
+Vue.component('m-Callback', Callback);
+// Vue.component('text', Text);
+// Vue.component('image', Image);
+window.text = Vue.extend(Text);
+window.image = Vue.extend(Image);
+
 
 Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 Axios.defaults.headers.common['Accept'] = 'application/json';

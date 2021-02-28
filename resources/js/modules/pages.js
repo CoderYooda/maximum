@@ -15,17 +15,32 @@ let getters = {
         return state.pages.filter(item => item.id === id)[0];
     },
     page_modules : (state) => (id) => {
-
         let page = state.pages.filter(item => item.id === id)[0];
         return !!page ? page.modules : null;
     },
     page_module_html : (state) => (page_id, id) => {
         let page = state.pages.filter(item => item.id === page_id)[0];
         let module = page.modules.filter(item => item.id === id)[0];
-        return !!module ? module.html : '';
+        let className = module.name + 'Class';
+        let instance = new window[className]({
+            propsData: { module: module }
+        });
+        instance.$mount();
+
+        return !!module ? instance.$el.outerHTML : '';
     },
 
-
+    get_page : (state) => (id) => {
+        return state.pages.filter(item => item.id === id)[0];
+    },
+    get_module : (state) => (page_id, id) => {
+        return state.getters.get_page(page_id).modules.filter(item => item.id === id)[0];
+    },
+    get_module_chunk : (state) => (page_id, module_id, type, id) => {
+        let module = state.getters.get_module(page_id, module_id);
+        let ch = type + 's';
+        return module[ch].filter(item => item.id === id)[0];
+    }
     // product_store_errors : state => {
     //     return !!state.product_errors ? state.product_errors : {
     //         price: null,
@@ -69,15 +84,55 @@ let mutations = {
 };
 
 let actions = {
-
     get_page({commit}, id){
         return new Promise((resolve, reject) => {
-            axios({url: '/api/pages/' + id + '/edit', method: 'GET' })
+            axios({url: '/api/front/pages/' + id + '/edit', method: 'GET' })
                 .then(resp => {
                     commit('push_page', resp.data.page);
                     resolve(resp);
                 })
                 .catch(err => {
+                    reject(err);
+                })
+        })
+    },
+    get_pages({commit}, filter_data){
+        return new Promise((resolve, reject) => {
+            axios({url: '/api/front/pages', data: filter_data, method: 'GET' })
+                .then(resp => {
+                    commit('pages', resp.data.pages);
+                    resolve(resp);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        })
+    },
+    store_page({commit}, data){
+        return new Promise((resolve, reject) => {
+            //commit('auth_request');
+            axios({url: '/api/front/pages/store', data: data, method: 'POST' })
+                .then(resp => {
+                    commit('push_page', resp.data.page);
+                    //commit('push_page_errors', null);
+                    resolve(resp);
+                })
+                .catch(err => {
+                    //commit('push_page_errors', !!err.response.data.errors ? err.response.data.errors : null);
+                    reject(err);
+                })
+        })
+    },
+    update_page({commit}, page){
+        return new Promise((resolve, reject) => {
+            //commit('auth_request');
+            axios({url: '/api/front/pages/' + page.id + '/update', data: page, method: 'POST' })
+                .then(resp => {
+                    //commit('push_page_errors', null);
+                    resolve(resp);
+                })
+                .catch(err => {
+                    //commit('push_page_errors', !!err.response.data.errors ? err.response.data.errors : null);
                     reject(err);
                 })
         })
