@@ -69,6 +69,9 @@
                                 <router-link to="/site/services" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                                     <li :class="[isActive && 'active']" ><a :href="href" @click="navigate">Услуги</a></li>
                                 </router-link>
+                                <router-link to="/site/templates" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                                    <li :class="[isActive && 'active']" ><a :href="href" @click="navigate">Шаблоны</a></li>
+                                </router-link>
                             </ul>
                         </li>
                     </router-link>
@@ -99,7 +102,9 @@
                 </nav>
             </div><!-- content-header -->
             <div class="content-body" v-bind:class="this.$route.meta.body_class">
+                <perfect-scrollbar style="height: calc(100%);">
                 <router-view></router-view>
+                </perfect-scrollbar>
             </div>
         </div><!-- content -->
     </div>

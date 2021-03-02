@@ -14,10 +14,10 @@
 @import './front/modules/callback';
 
 .text_module .ProseMirror{
-    border: 2px dashed #eee;
+    border: 2px solid transparent;
 }
 .text_module .ProseMirror.ProseMirror-focused{
-    border: 2px dashed rgba(71, 0, 10, 0.99);
+    border: 2px dashed rgba(177, 40, 34, 0.99);
 }
 .text_module .ProseMirror-focused{
     outline: none;

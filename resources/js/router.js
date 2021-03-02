@@ -46,6 +46,7 @@ let router =  new Router({
                 {path: '/site/main',                name: 'main', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Main" */ './components/pages/site/MainPage'), props: true},
                 {path: '/site/prices',              name: 'prices', meta: {layout: 'main'},             component: () => import(/* webpackChunkName: "Prices" */ './components/pages/site/Prices'), props: true},
                 {path: '/site/services',            name: 'services', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/services'), props: true},
+                {path: '/site/templates',            name: 'templates', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Templates" */ './components/pages/site/templates'), props: true},
             ]
         },
         {

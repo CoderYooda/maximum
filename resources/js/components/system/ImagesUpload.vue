@@ -1,7 +1,7 @@
 <template>
-    <div class="overflow-hidden">
+    <div class="overflow-hidden w-100 h-100">
         <input ref="file" style="display: none" type="file" accept="image/*" @change="uploadFile">
-        <div class="w-100 h-100" v-if="thin">
+        <div class="w-100 h-100 overflow-hidden" v-if="thin">
             <div v-for="image in images" class="w-100 h-100 position-relative img-container">
                 <img style="width: 100%;height: 100%;" :src="image.url" alt="">
                 <div class="float-butt">
@@ -12,7 +12,7 @@
                 <span>Загрузить изображение</span>
             </div>
         </div>
-        <div v-if="!thin" class="row row-xs mb-4">
+        <div v-if="!thin" class="row row-xs mb-4 overflow-hidden">
             <div v-for="image in images" class="pointer mb-2">
                 <div class="card card-file wh-180 position-relative img-container overflow-hidden">
                     <img class="preview" :src="image.url" alt="">

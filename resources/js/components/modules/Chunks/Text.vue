@@ -34,13 +34,13 @@
                 >
                     <img src="/images/icons/typo/code-w.svg" alt="">
                 </button>
-                <button
-                    class="menububble__button"
-                    :class="{ 'is-active': isActive.code() }"
-                    @click="setLinkUrl(commands.link, null)"
-                >
-                    <img src="/images/icons/typo/code-w.svg" alt="">
-                </button>
+                <!--<button-->
+                    <!--class="menububble__button"-->
+                    <!--:class="{ 'is-active': isActive.code() }"-->
+                    <!--@click="setLinkUrl(commands.link, null)"-->
+                <!--&gt;-->
+                    <!--<img src="/images/icons/typo/code-w.svg" alt="">-->
+                <!--</button>-->
 
             </div>
         </editor-menu-bubble>

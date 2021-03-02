@@ -39,12 +39,12 @@ Vue.component('v-popover', VPopover);
 Vue.component('cropper', Cropper);
 
 
-import Benefits from "./components/modules/Benefits";
-import Callback from "./components/modules/Callback";
+// import Benefits from "./components/modules/Benefits";
+// import Callback from "./components/modules/Callback";
 import Text from "./components/modules/Chunks/Text";
 import Image from "./components/modules/Chunks/Image";
-Vue.component('m-Benefits', Benefits);
-Vue.component('m-Callback', Callback);
+// Vue.component('m-Benefits', Benefits);
+// Vue.component('m-Callback', Callback);
 // Vue.component('text', Text);
 // Vue.component('image', Image);
 window.text = Vue.extend(Text);

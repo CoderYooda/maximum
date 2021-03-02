@@ -977,7 +977,7 @@ BUGS:
 *,
 *::before,
 *::after {
-  box-sizing: border-box; }
+  box-sizing: border-box;}
 
 html {
   font-family: sans-serif;
@@ -13899,6 +13899,7 @@ textarea.parsley-success:focus {
   @media (min-width: 992px) {
     .content-body {
       padding: 25px;
+      padding-right: 10px;
       height: calc(100% - 60px); } }
   .content-body .container {
     margin-bottom: 25px; }

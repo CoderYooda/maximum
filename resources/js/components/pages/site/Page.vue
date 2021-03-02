@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mr-3">
         <div>
             <div class="d-sm-flex align-items-center justify-content-between mg-b-10">
                 <div>
@@ -32,9 +32,9 @@
                 <div class="tab-content pd-y-20" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 template">
                                 <div v-for="module in page.modules">
-                                        <component v-bind:module="module" :is="'m-' + module.template.name"></component>
+                                        <Module v-bind:module="module"></Module>
                                 </div>
                                 <div @click="modules_show = !modules_show" class="add_module mt-3 pointer user-select-none"> Добавить модуль</div>
                                 <div v-if="modules_show">
@@ -93,10 +93,13 @@
     </div>
 </template>
 <script>
-    // import auth from '../auth.js';
-
+    import Module from './../../modules/Module';
+    import styles from '/public/templates/assets/css/style.module.scss';
     export default {
         name: "Page",
+        components:{
+            Module
+        },
         data() {
             return {
                 page : {
@@ -160,7 +163,7 @@
         }
     }
 </script>
-<style scoped>
+<style scoped lang="scss">
     .add_module{
         border: 4px dashed rgb(238, 238, 238);
         text-align: center;
@@ -168,5 +171,8 @@
         font-weight: bold;
         color: #c7c3c3;
         line-height: 100px;
+    }
+    .container{
+        width: 200px;
     }
 </style>

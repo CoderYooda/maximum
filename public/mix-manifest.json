@@ -4,7 +4,6 @@
     "/About.js": "/About.js",
     "/Catalog.js": "/Catalog.js",
     "/Category.js": "/Category.js",
-    "/Category~Product.js": "/Category~Product.js",
     "/Contacts.js": "/Contacts.js",
     "/Dashboard.js": "/Dashboard.js",
     "/Farm.js": "/Farm.js",
@@ -12,11 +11,13 @@
     "/Login.js": "/Login.js",
     "/Main.js": "/Main.js",
     "/Page.js": "/Page.js",
+    "/Pages.js": "/Pages.js",
     "/Prices.js": "/Prices.js",
     "/Product.js": "/Product.js",
     "/Register.js": "/Register.js",
     "/Settings.js": "/Settings.js",
     "/Shop.js": "/Shop.js",
     "/Site.js": "/Site.js",
-    "/Pages.js": "/Pages.js"
+    "/Templates.js": "/Templates.js",
+    "/vendors~Templates.js": "/vendors~Templates.js"
 }
