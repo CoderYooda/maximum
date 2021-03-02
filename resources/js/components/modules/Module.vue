@@ -1,8 +1,5 @@
 <template>
-    <div>
-        <div class="module" v-html="parse(module)"></div>
-    </div>
-
+    <div class="module" v-html="parse(module)"></div>
 </template>
 
 <script>

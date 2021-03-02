@@ -52,7 +52,7 @@ class PageController extends Controller
 
             foreach ($module['texts'] as $text){
                 $txt = isset($text['id']) ? Text::whereId( $text['id'] )->first() : new Text();
-                $txt->text = $text['text'];
+                $txt->text = isset($text['text']) ? $text['text'] : 'на редакции';
                 $txt->module_id = $m->id;
                 $txt->save();
                 $m->texts()->save($txt);
@@ -60,7 +60,7 @@ class PageController extends Controller
 
             foreach ($module['images'] as $image){
                 $img = isset($image['id']) && $image['id'] > 0 ? Image::whereId($image['id'] )->first() : new Image();
-                $img->image_id = $image['image_id'];
+                $img->image_id = isset($image['image_id']) ? $image['image_id'] : 1;
                 $img->module_id = $m->id;
                 $img->width = $image['width'];
                 $img->height = $image['height'];
@@ -71,6 +71,8 @@ class PageController extends Controller
 
         $page->modules()->sync($modules_ids);
 
+        $page->generateHtml();
+        $page->save();
 //        if($request->images)
 //            $product->images()->sync(array_column($request->images, 'id'));
 
@@ -97,7 +99,7 @@ class PageController extends Controller
 
             foreach ($module['texts'] as $text){
                 $txt = isset($text['id']) ? Text::whereId( $text['id'] )->first() : new Text();
-                $txt->text = $text['text'];
+                $txt->text = isset($text['text']) ? $text['text'] : 'на редакции';
                 $txt->module_id = $m->id;
                 $txt->save();
                 $m->texts()->save($txt);
@@ -105,7 +107,7 @@ class PageController extends Controller
 
             foreach ($module['images'] as $image){
                 $img = isset($image['id']) && $image['id'] > 0 ? Image::whereId($image['id'] )->first() : new Image();
-                $img->image_id = $image['image_id'];
+                $img->image_id = isset($image['image_id']) ? $image['image_id'] : 1;
                 $img->module_id = $m->id;
                 $img->width = $image['width'];
                 $img->height = $image['height'];
@@ -115,6 +117,9 @@ class PageController extends Controller
         }
 
         $page->modules()->sync($modules_ids);
+
+        $page->generateHtml();
+        $page->save();
 
         return response(['message' => 'Страница "' . $request->name . '" обновлена']);
     }

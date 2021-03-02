@@ -3,6 +3,9 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js');
 mix.sass('resources/css/app.scss', 'public/css').options({ processCssUrls: false });
 
+//template
+mix.sass('public/templates/maximum/assets/css/app.scss', 'public/templates/maximum/assets/css/app.css').options({ processCssUrls: false });
+
 mix.copyDirectory('resources/fonts', 'public/fonts');
 
 mix.copyDirectory('resources/images', 'public/images');

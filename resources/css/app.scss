@@ -14,7 +14,7 @@
 @import './front/modules/callback';
 
 .text_module .ProseMirror{
-    border: 2px solid transparent;
+    border: 2px solid #eaeaea;
 }
 .text_module .ProseMirror.ProseMirror-focused{
     border: 2px dashed rgba(177, 40, 34, 0.99);

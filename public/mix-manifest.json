@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/templates/maximum/assets/css/app.css": "/templates/maximum/assets/css/app.css",
     "/About.js": "/About.js",
     "/Catalog.js": "/Catalog.js",
     "/Category.js": "/Category.js",

@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <ImagesUpload v-bind:style="{ width : width, height : height}" limit="1" thin="true" v-bind:aspect='aspect' ref="imgLoader" @imagesChanged="setImages"></ImagesUpload>
+        <ImagesUpload v-bind:demension="{'width':width, 'height':height}" v-bind:style="{ width : width, height : height}" limit="1" thin="true" v-bind:aspect='aspect' ref="imgLoader" @imagesChanged="setImages"></ImagesUpload>
     </div>
 </template>
 
@@ -34,6 +34,7 @@
         },
         mounted(){
             this.$refs.imgLoader.setImages([this.$props.chunk.image]);
+
         },
         methods:{
             setImages(data){

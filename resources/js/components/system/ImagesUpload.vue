@@ -1,9 +1,9 @@
 <template>
-    <div class="overflow-hidden w-100 h-100">
+    <div class="overflow-hidden">
         <input ref="file" style="display: none" type="file" accept="image/*" @change="uploadFile">
         <div class="w-100 h-100 overflow-hidden" v-if="thin">
             <div v-for="image in images" class="w-100 h-100 position-relative img-container">
-                <img style="width: 100%;height: 100%;" :src="image.url" alt="">
+                <img v-bind:style="{'width' : demension.width, 'height' : demension.height, 'background' : 'url(/images/noimage.jpg) center no-repeat #eaeaea'}" :src="image.url" alt="">
                 <div class="float-butt">
                     <button type="button" @click="freshImg(image)">новое изображение</button>
                 </div>
@@ -82,7 +82,11 @@
         data() {
             return {
                 showModal: false,
-                images : [],
+                images : [
+                    {
+                        url : '/images/noimage.jpg',
+                    }
+                ],
                 img : null,
                 coordinates : null,
                 result: null,
@@ -90,12 +94,14 @@
                 thin:false,
                 aspect: 1/1,
                 instantUpload : null,
+                demension : {width:100, height:100},
             };
         },
         mounted(){
             this.limit = !!this.$attrs.limit ? this.$attrs.limit : this.limit;
             this.thin = !!this.$attrs.thin ? this.$attrs.thin : this.thin;
             this.aspect = !!this.$attrs.aspect ? this.$attrs.aspect : this.aspect;
+            this.demension = !!this.$attrs.demension ? this.$attrs.demension : this.demension;
 
             //this.images = this.value.images;
             // let getter = 'get_' + this.storage_model + '_images';

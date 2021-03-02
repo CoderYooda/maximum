@@ -31,15 +31,17 @@
                 </ul>
                 <div class="tab-content pd-y-20" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-lg-12 template">
-                                <div v-for="module in page.modules">
-                                        <Module v-bind:module="module"></Module>
-                                </div>
-                                <div @click="modules_show = !modules_show" class="add_module mt-3 pointer user-select-none"> Добавить модуль</div>
-                                <div v-if="modules_show">
-                                    <div v-for="module in $store.getters.modules">
-                                        <div @click="appendModule(module)">{{ module.name }}</div>
+                        <div class="template">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div v-for="module in page.modules">
+                                            <Module v-bind:module="module"></Module>
+                                    </div>
+                                    <div @click="modules_show = !modules_show" class="add_module pointer user-select-none"> Добавить модуль</div>
+                                    <div v-if="modules_show">
+                                        <div v-for="module in $store.getters.modules">
+                                            <div @click="appendModule(module)">{{ module.name }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +96,7 @@
 </template>
 <script>
     import Module from './../../modules/Module';
-    import styles from '/public/templates/assets/css/style.module.scss';
+    import styles from '/public/templates/maximum/assets/css/style.module.scss';
     export default {
         name: "Page",
         components:{

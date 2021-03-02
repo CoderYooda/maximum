@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'MeriBold';
+    src : url("../fonts/Merriweather-Bold.ttf");
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    src : url("../fonts/Montserrat-Regular.ttf");
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    src : url("../fonts/Montserrat-Medium.ttf");
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    src : url("../fonts/Montserrat-Bold.ttf");
+}
+.template{
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 16px;
+
+    background: #F5F5F5;
+    h2{
+        font-family: 'MeriBold';
+        font-size: 56px;
+    }
+    p{
+        padding: 0;
+        margin: 0;
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .container{
+        max-width:1340px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @media (min-width: 992px) {
+        .col-lg-1 {
+            flex: 0 0 8.33333%;
+            max-width: 8.33333%;
+        }
+
+        .col-lg-2 {
+            flex: 0 0 16.66667%;
+            max-width: 16.66667%;
+        }
+
+        .col-lg-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        .col-lg-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .col-lg-5 {
+            flex: 0 0 41.66667%;
+            max-width: 41.66667%;
+        }
+
+        .col-lg-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .col-lg-7 {
+            flex: 0 0 58.33333%;
+            max-width: 58.33333%;
+        }
+
+        .col-lg-8 {
+            flex: 0 0 66.66667%;
+            max-width: 66.66667%;
+        }
+
+        .col-lg-9 {
+            flex: 0 0 75%;
+            max-width: 75%;
+        }
+
+        .col-lg-10 {
+            flex: 0 0 83.33333%;
+            max-width: 83.33333%;
+        }
+
+        .col-lg-11 {
+            flex: 0 0 91.66667%;
+            max-width: 91.66667%;
+        }
+
+        .col-lg-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+    //.pic_container{
+    //    & div{
+    //        width: 100%;
+    //    }
+    //}
+    .w-100{
+        width: 100%;
+    }
+    .wb-padding{
+        padding: 80px 114px;
+    }
+    .benefits{
+        h2{
+            height:138px;
+            line-height: 70px;
+            margin-bottom: -10px;
+            padding-left: 114px;
+        }
+        .ico_img{
+            width: 72px;
+            height: 72px;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        position: relative;
+        .white_block{
+            background: #fff;
+            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+        }
+        h2{
+            display: block;
+        }
+        .decor_img{
+            position: absolute;
+            top: 6px;
+            right: -103px;
+        }
+        .about_block p{
+            margin-top: 10px;
+        }
+    }
+}
+

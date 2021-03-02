@@ -24,5 +24,7 @@ Route::get('/admin{any}', function () {
 })->where('any', '.*');
 
 
+Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'page'])->where('slug', '.*');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
