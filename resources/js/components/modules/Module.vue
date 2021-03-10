@@ -5,7 +5,7 @@
 <script>
     import tag_parser from '../mixins/tag_parser'
     export default {
-        name: "Benefits",
+        name: "Module",
         mixins: [tag_parser],
         props: ['module'],
         data() {
@@ -15,13 +15,61 @@
             };
         },
         mounted(){
-            if(!this.$props.module['images'].length){
-                this.tags.forEach((item) => {
-                    console.log(item);
-                    let type = item.split('|');
-                    let params = type[2];
-                    if(type[0] === 'image'){
-                        let image_params = JSON.parse(params);
+            // if(!this.$props.module['images'].length){
+            //     this.tags.forEach((item) => {
+            //         let type = item.split('|');
+            //         let params = type[2];
+            //         if(type[0] === 'image'){
+            //             let image_params = JSON.parse(params);
+            //             this.$props.module['images'].push(
+            //                 {
+            //                     id : 0,
+            //                     height : image_params.height,
+            //                     width : image_params.width,
+            //                     image : {
+            //                         id : 0
+            //                     },
+            //                     image_id : null,
+            //                 }
+            //             );
+            //         }
+            //     });
+            // }
+
+            this.tags.forEach((item) => {
+                let type = item.split('|');
+                let params = type[2];
+
+                if(type[0] === 'link'){
+                    if(!this.$props.module['links'][parseInt(type[1]) - 1]){
+                        this.$props.module['links'].push({text : "Ссылка", link : "#",});
+                    }
+                }
+                if(type[0] === 'text'){
+                    if(!this.$props.module['texts'][parseInt(type[1]) - 1]){
+                        this.$props.module['texts'].push({text : "Текст"});
+                    }
+                }
+                if(type[0] === 'background'){
+                    let image_params = JSON.parse(params);
+                    if(!this.$props.module['backgrounds'][parseInt(type[1]) - 1]){
+                        this.$props.module['backgrounds'].push(
+                            {
+                                id : 0,
+                                height : image_params.height,
+                                width : image_params.width,
+                                image : {
+                                    id : 0,
+                                    url : '/images/noimage.jpg',
+                                },
+                                image_id : null,
+                            }
+                        );
+                    }
+                }
+                if(type[0] === 'image'){
+                    let image_params = JSON.parse(params);
+                    if(!this.$props.module['images'][parseInt(type[1]) - 1]){
                         this.$props.module['images'].push(
                             {
                                 id : 0,
@@ -34,20 +82,30 @@
                             }
                         );
                     }
-                });
-            }
-            if(!this.$props.module['texts'].length){
-                this.tags.forEach((item) => {
-                    let type = item.split('|');
-                    if(type[0] === 'text'){
-                        this.$props.module['texts'].push(
-                            {
-                                text : "",
-                            }
-                        );
-                    }
-                });
-            }
+                }
+            });
+
+            // if(!this.$props.module['backgrounds'].length){
+            //     this.tags.forEach((item) => {
+            //         let type = item.split('|');
+            //         let params = type[2];
+            //         if(type[0] === 'background'){
+            //             let image_params = JSON.parse(params);
+            //             this.$props.module['backgrounds'].push(
+            //                 {
+            //                     id : 0,
+            //                     height : image_params.height,
+            //                     width : image_params.width,
+            //                     image : {
+            //                         id : 0,
+            //                         url : '/images/noimage.jpg',
+            //                     },
+            //                     image_id : null,
+            //                 }
+            //             );
+            //         }
+            //     });
+            // }
             this.tags.forEach((item) => {
                 let chunk = item.split('|');
 

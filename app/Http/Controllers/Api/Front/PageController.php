@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Front\Module;
 use App\Models\Front\ModuleTemplate;
 use App\Models\Front\Page;
+use App\Models\Front\Parts\Background;
 use App\Models\Front\Parts\Image;
+use App\Models\Front\Parts\Link;
 use App\Models\Front\Parts\Text;
 use Illuminate\Http\Request;
 
@@ -64,8 +66,25 @@ class PageController extends Controller
                 $img->module_id = $m->id;
                 $img->width = $image['width'];
                 $img->height = $image['height'];
-                $img->save();
-                $m->texts()->save($img);
+                //$img->save();
+                $m->images()->save($img);
+            }
+
+            foreach ($module['links'] as $link){
+                $lin = isset($link['id']) ? Link::whereId( $link['id'] )->first() : new Link();
+                $lin->link = isset($link['link']) ? $link['link'] : '<a href="/">Ссылка</a>';
+                $lin->module_id = $m->id;
+                $lin->save();
+                $m->links()->save($lin);
+            }
+            foreach ($module['backgrounds'] as $background){
+                $bg = isset($background['id']) && $background['id'] > 0 ? Background::whereId($background['id'] )->first() : new Background();
+                $bg->image_id = isset($background['image_id']) ? $background['image_id'] : 1;
+                $bg->module_id = $m->id;
+                $bg->width = $background['width'];
+                $bg->height = $background['height'];
+                $bg->save();
+                $m->backgrounds()->save($bg);
             }
         }
 
@@ -104,15 +123,31 @@ class PageController extends Controller
                 $txt->save();
                 $m->texts()->save($txt);
             }
-
+            foreach ($module['links'] as $link){
+                $lnk = isset($link['id']) ? Link::whereId( $link['id'] )->first() : new Link();
+                $lnk->text = isset($link['text']) ? $link['text'] : 'ссылка';
+                $lnk->link = isset($link['link']) ? $link['link'] : '/';
+                $lnk->module_id = $m->id;
+                $lnk->save();
+                $m->links()->save($lnk);
+            }
             foreach ($module['images'] as $image){
                 $img = isset($image['id']) && $image['id'] > 0 ? Image::whereId($image['id'] )->first() : new Image();
                 $img->image_id = isset($image['image_id']) ? $image['image_id'] : 1;
                 $img->module_id = $m->id;
                 $img->width = $image['width'];
                 $img->height = $image['height'];
-                $img->save();
+//                $img->save();
                 $m->texts()->save($img);
+            }
+            foreach ($module['backgrounds'] as $background){
+                $bg = isset($background['id']) && $background['id'] > 0 ? Background::whereId($background['id'] )->first() : new Background();
+                $bg->image_id = isset($background['image_id']) ? $background['image_id'] : 1;
+                $bg->module_id = $m->id;
+                $bg->width = $background['width'];
+                $bg->height = $background['height'];
+                $bg->save();
+                $m->backgrounds()->save($bg);
             }
         }
 

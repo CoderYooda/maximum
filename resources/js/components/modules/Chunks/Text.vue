@@ -79,7 +79,7 @@
         components: {
             EditorContent, EditorMenuBubble, Icon
         },
-        name: "TxtEEEE",
+        name: "Text",
         props: [ 'chunk' ],
         data() {
             return {

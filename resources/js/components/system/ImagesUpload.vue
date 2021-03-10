@@ -1,6 +1,10 @@
 <template>
+
     <div class="overflow-hidden">
         <input ref="file" style="display: none" type="file" accept="image/*" @change="uploadFile">
+        <div class="upload_butt" v-if="bg">
+            <button @click="freshImg(images[0])"></button>
+        </div>
         <div class="w-100 h-100 overflow-hidden" v-if="thin">
             <div v-for="image in images" class="w-100 h-100 position-relative img-container">
                 <img v-bind:style="{'width' : demension.width, 'height' : demension.height, 'background' : 'url(/images/noimage.jpg) center no-repeat #eaeaea'}" :src="image.url" alt="">
@@ -12,7 +16,7 @@
                 <span>Загрузить изображение</span>
             </div>
         </div>
-        <div v-if="!thin" class="row row-xs mb-4 overflow-hidden">
+        <div v-if="!thin && !bg" class="row row-xs mb-4 overflow-hidden">
             <div v-for="image in images" class="pointer mb-2">
                 <div class="card card-file wh-180 position-relative img-container overflow-hidden">
                     <img class="preview" :src="image.url" alt="">
@@ -92,6 +96,7 @@
                 result: null,
                 limit:5,
                 thin:false,
+                bg:false,
                 aspect: 1/1,
                 instantUpload : null,
                 demension : {width:100, height:100},
@@ -100,6 +105,7 @@
         mounted(){
             this.limit = !!this.$attrs.limit ? this.$attrs.limit : this.limit;
             this.thin = !!this.$attrs.thin ? this.$attrs.thin : this.thin;
+            this.bg = !!this.$attrs.bg ? this.$attrs.bg : this.bg;
             this.aspect = !!this.$attrs.aspect ? this.$attrs.aspect : this.aspect;
             this.demension = !!this.$attrs.demension ? this.$attrs.demension : this.demension;
 
@@ -116,6 +122,7 @@
         },
         methods: {
             freshImg(image){
+                console.log(image);
                 this.instantUpload = image.id;
                 // console.log(image);
                 this.$refs.file.click();
@@ -175,6 +182,16 @@
     }
 </script>
 <style>
+    .upload_butt button{
+        height: 40px;
+        width: 40px;
+        background: transparent;
+        outline: 0;
+        border: 0;
+    }
+    .upload_butt button:hover{
+        background: rgba(0, 0, 0, 0.16);
+    }
     .float-butt{
         position: absolute;
         bottom: -30px;

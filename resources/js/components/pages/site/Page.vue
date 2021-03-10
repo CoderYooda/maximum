@@ -30,7 +30,7 @@
                     </li>
                 </ul>
                 <div class="tab-content pd-y-20" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show active overflow-hidden" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="template">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -148,6 +148,8 @@
                     module_template_id : module.id,
                     images : [],
                     texts : [],
+                    links : [],
+                    backgrounds : [],
                 };
                 this.page.modules.push(m);
             },

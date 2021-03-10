@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Front\ModuleTemplate;
+use App\Models\Front\Page;
 use Illuminate\Console\Command;
 use File;
 
@@ -39,7 +40,6 @@ class FreshTemplates extends Command
      */
     public function handle()
     {
-
         $temp = 'maximum';
         $templates = File::allFiles(public_path('/templates/' . $temp . '/modules'));
         foreach($templates as $template){
@@ -49,6 +49,11 @@ class FreshTemplates extends Command
             $template = ModuleTemplate::firstOrNew(['name' => $name]);
             $template->html = $file;
             $template->save();
+        }
+        $pages = Page::with('modules')->get();
+        foreach($pages as $page){
+            $page->generateHtml();
+            $page->save();
         }
     }
 }

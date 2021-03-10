@@ -43,12 +43,16 @@ Vue.component('cropper', Cropper);
 // import Callback from "./components/modules/Callback";
 import Text from "./components/modules/Chunks/Text";
 import Image from "./components/modules/Chunks/Image";
+import Link from "./components/modules/Chunks/Link";
+import Background from "./components/modules/Chunks/Background";
 // Vue.component('m-Benefits', Benefits);
 // Vue.component('m-Callback', Callback);
 // Vue.component('text', Text);
 // Vue.component('image', Image);
 window.text = Vue.extend(Text);
 window.image = Vue.extend(Image);
+window.link = Vue.extend(Link);
+window.background = Vue.extend(Background);
 
 
 Axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

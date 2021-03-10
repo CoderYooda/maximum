@@ -11,12 +11,14 @@ class PageController extends Controller
 
     private $template = 'maximum';
 
-    public function page(Request $request, $slug)
+    public function page(Request $request, $slug = '/')
     {
-        $page = Page::where('slug', $slug)->first();
-        $base_html = $this->getBaseHTML();
+        $page = Page::where('slug', $slug)->firstOrFail();
 
-        $html = str_replace('[[content]]', $page->html, $base_html);
+        $html = $this->getBaseHTML();
+        $html = str_replace('[[content]]', $page->html, $html);
+        $html = str_replace('[[title]]', $page->title, $html);
+
         return $html;
     }
 
