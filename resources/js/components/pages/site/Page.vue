@@ -231,12 +231,15 @@
 </script>
 <style scoped lang="scss">
     .add_module{
-        border: 4px dashed rgb(238, 238, 238);
+        border: 4px dashed #eeeeee;
         text-align: center;
         font-size: 18px;
         font-weight: bold;
         color: #c7c3c3;
         line-height: 100px;
+        z-index: 999;
+        position: relative;
+        background: #ffff;
     }
     .container{
         width: 200px;

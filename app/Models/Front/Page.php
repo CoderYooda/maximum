@@ -72,11 +72,14 @@ class Page extends Model
                 }
 
                 if($splitted[0] === 'background'){
-                    $img = $module[$splitted[0] . 's'][(int)$splitted[1] - 1];
+                    $img_c = $module[$splitted[0] . 's'];
+                    $img = isset($img_c[(int)$splitted[1] - 1]) ? $img_c[(int)$splitted[1] - 1] : null;
 
-
-
-                    $url = $img->image->url;
+                    if($img !== null){
+                        $url = $img->image->url;
+                    } else {
+                        $url = '/images/noimage.jpg';
+                    }
                     $html = str_split($raw_html);
                     $pos = strpos($raw_html, "[[" . $tag . "]]");
 
@@ -92,19 +95,6 @@ class Page extends Model
                     }
 
                     $prev_tag = implode(array_reverse($t));
-
-//                    for($i = $pos; $i > 0; $i--){
-//                        if($html[$i] === ">"){
-//                            $bg_tag = [];
-//                            $tag_index = $i;
-//                            while ($html[$tag_index + 1] !== '<'){
-//                                $bg_tag[] = $html[$tag_index];
-//                                $tag_index--;
-//                            }
-//                        }
-//                    }
-
-                    //var_dump($pos, $prev_tag);
                     $prepared_tag = str_replace('bg_' . (int)$splitted[1] . '_place', 'style="background-image: url(' . $url . ')"', $prev_tag);
 
                     $raw_html = str_replace("[[" . $tag . "]]", '', $raw_html);
