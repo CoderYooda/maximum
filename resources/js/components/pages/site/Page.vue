@@ -34,7 +34,15 @@
                         <div class="template">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div v-for="module in page.modules">
+                                    <div v-for="(module, index) in modules" class="position-relative module_box" v-bind:id="'module_' + index">
+                                            <div class="module_settings">
+                                                <div class="sett_box">
+                                                    <div class="inner">
+                                                        <button @click="swap(index, -1)">Вверх</button>
+                                                        <button @click="swap(index, 1)">Вниз</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <Module v-bind:module="module"></Module>
                                     </div>
                                     <div @click="modules_show = !modules_show" class="add_module pointer user-select-none"> Добавить модуль</div>
@@ -114,6 +122,11 @@
                 modules_show : false,
             };
         },
+        computed: {
+            modules() {
+                return this.page.modules;
+            }
+        },
         watch : {
             'page.slug': function (val) {
                 if(!this.page.id && this.page.id !== 0){
@@ -144,6 +157,7 @@
         methods: {
             appendModule(module){
                 let m = {
+                    rank : null,
                     template : module,
                     module_template_id : module.id,
                     images : [],
@@ -152,6 +166,54 @@
                     backgrounds : [],
                 };
                 this.page.modules.push(m);
+            },
+            swap(index_A, dir) {
+                console.log(index_A, dir, (index_A + dir));
+                if(index_A + dir <= 0 || index_A + dir >= this.page.modules.length){
+                } else {
+                    let elem_1 = document.getElementById('module_' + index_A);
+                    let elem_2 = document.getElementById('module_' + (index_A + dir));
+                    elem_1.parentNode.insertBefore(elem_2, elem_1.parentNode.firstChild);
+                }
+                // let m = this.page.modules;
+                // let temp = this.page.modules[index_A];
+                // m[index_A] = this.page.modules[index_B];
+                // m[index_B] = temp;
+                // this.page.modules = m;
+                // m.forEach((module) => {
+                //     this.appendModule(module);
+                //     //this.page.modules.push(module);
+                // });
+                // this.$children.filter(child => { return child.$options.name === "Module"; }).forEach((item) => {
+                //     console.log(item.id);
+                //     // item.setModule();
+                //     // item.$emit('fresh');
+                // })
+            },
+            moveModule(index, dir){
+                if(index + dir === 0 || index + dir > this.page.modules.length){
+                    return;
+                } else {
+
+                    //[this.page.modules[index + dir], this.page.modules[index]] = [this.page.modules[index], this.page.modules[index + dir]];
+                    //this.page.modules.push(this.page.modules[index]);
+                    //this.page.modules = [];
+
+                    let m = this.page.modules;
+                    this.page.modules = [];
+                    m[index] = this.page.modules[index + dir];
+                    m[index + dir] = this.page.modules[index];
+                    this.page.modules = m;
+
+                    //elem.parentNode.insertBefore(elem, elem.parentNode.firstChild);
+
+                    // this.$forceUpdate();
+                    console.log(this.$children[0].$options.name);
+                    this.$children.filter(child => { return child.$options.name === "Module"; }).forEach((item) => {
+                        console.log(1);
+                        item.$emit('fresh');
+                    })
+                }
             },
             save(){
                 //this.product.category_id = !!this.category ? this.category.id : 0;
@@ -179,4 +241,37 @@
     .container{
         width: 200px;
     }
+    .module_settings{
+        position: absolute;
+        top: 20px;
+        opacity: 0;
+        left: calc(50% - 15px);
+        z-index: 99999;
+        border: 2px solid #eee;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background: url(/images/icons/sliders.svg) center no-repeat #fff;
+        cursor: pointer;
+        transition: 500ms all;
+    }
+    .module_box:hover .module_settings{
+        opacity: 1;
+        top: 0px;
+    }
+    .sett_box{
+        position: absolute;
+        display: none;
+    }
+    .module_settings:hover .sett_box{
+        position: absolute;
+        display: block;
+        width: 200px;
+        left: calc(50% - 100px);
+        padding-top: 40px;
+        .inner{
+            background: #fff;
+        }
+    }
+
 </style>

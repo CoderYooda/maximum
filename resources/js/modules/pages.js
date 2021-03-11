@@ -78,6 +78,10 @@ let mutations = {
             return e.id === page.id;
         });
     },
+    mm(state, id){
+        let page = state.pages.filter(item => item.id === id)[0];
+        page.modules.push({});
+    },
     // push_product_errors(state, errors){
     //     state.product_errors = errors;
     // }

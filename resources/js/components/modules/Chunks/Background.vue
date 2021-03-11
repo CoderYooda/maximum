@@ -41,7 +41,6 @@
             this.aspect = this.$props.chunk.width / this.$props.chunk.height;
         },
         mounted(){
-            // console.log(this.$el.parentNode);
             this.$refs.imgLoader.setImages([this.$props.chunk.image]);
             this.$el.parentNode.style.backgroundImage = 'url("' + this.$props.chunk.image.url + '")';
         },
