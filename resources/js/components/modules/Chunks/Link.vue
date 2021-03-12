@@ -79,6 +79,7 @@
         min-width: 300px;
         position: absolute;
         z-index: 9999;
+        color: #fff;
     }
     .inset_url input{
         border: #000!important;
@@ -102,4 +103,5 @@
         height: 10px;
         width: 10px;
     }
+
 </style>

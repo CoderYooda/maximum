@@ -24,6 +24,7 @@ Route::get('/admin{any}', function () {
 })->where('any', '.*');
 
 
+Route::post('/callback/send', [App\Http\Controllers\PageController::class, 'callback']);
 Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'page'])->where('slug', '.*');
 
 

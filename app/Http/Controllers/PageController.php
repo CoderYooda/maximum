@@ -18,6 +18,7 @@ class PageController extends Controller
         $html = $this->getBaseHTML();
         $html = str_replace('[[content]]', $page->html, $html);
         $html = str_replace('[[title]]', $page->title, $html);
+        $html = str_replace('[[token]]', $request->session()->token(), $html);
 
         return $html;
     }
@@ -25,5 +26,10 @@ class PageController extends Controller
     private function getBaseHTML()
     {
         return File::get(public_path('/templates/' . $this->template . '/index.html'));
+    }
+
+    public function callback(Request $request){
+        dd($request);
+        return response(['success' => true]);
     }
 }
