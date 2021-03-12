@@ -17,7 +17,10 @@ export default {
                         tag += html[tag_index];
                         tag_index++;
                     }
-                    tags.push(tag);
+                    console.log(tag);
+                    if(tag !== 'token')
+
+                        tags.push(tag);
                 }
             }
 

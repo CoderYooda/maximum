@@ -120,7 +120,7 @@
                 // }
                 this.tags.forEach((item) => {
                     let chunk = item.split('|');
-
+                    console.log(chunk);
                     let ch = this.$props.module[chunk[0] + 's'][parseInt(chunk[1]) - 1];
 
                     let instance = new window[chunk[0]]({
