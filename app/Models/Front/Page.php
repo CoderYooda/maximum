@@ -41,8 +41,11 @@ class Page extends Model
                     $tags[] = $tag;
                 }
             }
+
             foreach($tags as $tag){
                 $splitted = explode("|" , $tag);
+                $params = isset($splitted[2]) ? json_decode($splitted[2]) : null;
+
 
                 if($splitted[0] === 'text'){
                     $text = $module[$splitted[0] . 's'][(int)$splitted[1] - 1]->text;
@@ -50,9 +53,13 @@ class Page extends Model
                 }
 
                 if($splitted[0] === 'link'){
+
                     $text = isset($module[$splitted[0] . 's'][(int)$splitted[1] - 1]) ? $module[$splitted[0] . 's'][(int)$splitted[1] - 1]->text : 'Ссылка';
                     $link = isset($module[$splitted[0] . 's'][(int)$splitted[1] - 1]) ? $module[$splitted[0] . 's'][(int)$splitted[1] - 1]->link : '#';
-                    $raw_html = str_replace("[[" . $tag  . "]]", '<a href="' . $link . '">' . $text . '</a>', $raw_html);
+
+                    $class = $params !== null && isset($params->class) ? $params->class : '';
+
+                    $raw_html = str_replace("[[" . $tag  . "]]", '<a class="' . $class . '" href="' . $link . '">' . $text . '</a>', $raw_html);
                 }
                 if($splitted[0] === 'image'){
                     $img_c = $module[$splitted[0] . 's'];
@@ -99,7 +106,6 @@ class Page extends Model
 
                     $raw_html = str_replace("[[" . $tag . "]]", '', $raw_html);
                     $raw_html = str_replace($prev_tag, $prepared_tag, $raw_html);
-
                 }
             }
             $html_finish .= $raw_html;

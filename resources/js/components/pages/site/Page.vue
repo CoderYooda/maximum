@@ -35,19 +35,24 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div v-for="(module, index) in modules" class="position-relative module_box" v-bind:id="'module_' + index">
-                                            <div class="module_settings">
+                                            <div class="module_settings mt-3">
                                                 <div class="sett_box">
                                                     <div class="inner">
-                                                        <button @click="swap(index, -1)">Вверх</button>
-                                                        <button @click="swap(index, 1)">Вниз</button>
+<!--                                                        <button @click="swap(index, -1)">Вверх</button>-->
+<!--                                                        <button @click="swap(index, 1)">Вниз</button>-->
+                                                        <button @click="deleteModule(index)">Удалить</button>
+                                                        <button @click="copyModule(index)">Скопировать из</button>
+                                                        <div class="pages">
+                                                            <button v-for="page in pages" @click="copyModule(page, module, index)" >{{ page.name }}</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <Module v-bind:module="module"></Module>
                                     </div>
-                                    <div @click="modules_show = !modules_show" class="add_module pointer user-select-none"> Добавить модуль</div>
+                                    <div @click="modules_show = !modules_show" class="add_module pointer user-select-none mt-4"> Добавить модуль</div>
                                     <div v-if="modules_show">
-                                        <div v-for="module in $store.getters.modules">
+                                        <div class="position-relative" v-for="module in $store.getters.modules">
                                             <div @click="appendModule(module)">{{ module.name }}</div>
                                         </div>
                                     </div>
@@ -125,6 +130,9 @@
         computed: {
             modules() {
                 return this.page.modules;
+            },
+            pages() {
+                return this.$store.getters.pages;
             }
         },
         watch : {
@@ -141,6 +149,7 @@
             },
         },
         mounted(){
+            this.$store.dispatch('get_pages');
             this.$store.dispatch('get_modules', this.page_id);
             this.page_id = !!this.$route.params.id ? parseInt(this.$route.params.id) : null;
             if(this.page_id){
@@ -169,11 +178,24 @@
             },
             swap(index_A, dir) {
                 console.log(index_A, dir, (index_A + dir));
+
+
+
+
                 if(index_A + dir <= 0 || index_A + dir >= this.page.modules.length){
                 } else {
-                    let elem_1 = document.getElementById('module_' + index_A);
-                    let elem_2 = document.getElementById('module_' + (index_A + dir));
-                    elem_1.parentNode.insertBefore(elem_2, elem_1.parentNode.firstChild);
+
+                    this.page.modules[index_A + dir] = this.page.modules.splice(index_A,index_A + dir, this.page.modules[index_A + dir])[index_A];
+
+                    //
+                    // let temp = this.page.modules[index_A];
+                    // this.page.modules.splice(index_A, 1, temp);
+                    // this.page.modules.splice(index_A + dir, 1, temp);
+
+
+                    // let elem_1 = document.getElementById('module_' + index_A);
+                    // let elem_2 = document.getElementById('module_' + (index_A + dir));
+                    // elem_1.parentNode.insertBefore(elem_2, elem_1.parentNode.firstChild);
                 }
                 // let m = this.page.modules;
                 // let temp = this.page.modules[index_A];
@@ -189,6 +211,16 @@
                 //     // item.setModule();
                 //     // item.$emit('fresh');
                 // })
+            },
+            deleteModule(index){
+                this.page.modules.splice(index, 1);
+            },
+            copyModule(page, module, index){
+
+                let data = page.modules.filter((m) => {
+                    return m.template.id === module.template.id;
+                })[0];
+                this.page.modules[index] = data;
             },
             moveModule(index, dir){
                 if(index + dir === 0 || index + dir > this.page.modules.length){
@@ -274,6 +306,9 @@
         padding-top: 40px;
         .inner{
             background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #eee;
         }
     }
 

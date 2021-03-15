@@ -14,6 +14,7 @@ return [
     */
 
     'paths' => [
+        public_path('templates/' . env('TEMPLATE') . '/views'),
         resource_path('views'),
     ],
 

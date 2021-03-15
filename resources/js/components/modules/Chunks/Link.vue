@@ -3,7 +3,7 @@
 <!--        <textarea name="" id=""  v-model="chunk.text"></textarea>-->
 <!--        <input type="text" v-model="chunk.text">-->
 <!--    </div>-->
-    <div class="link_module">
+    <div class="link_module ">
         <a style="user-select: none" draggable="false" href="javascript:void(0)"><input @focus="focused = true" v-model="chunk.text" type="text"></a>
 <!--        @blur="focused = false"-->
         <div class="inset_url" v-if="focused">
@@ -41,19 +41,19 @@
                 this.$props.chunk.text = e.target.innerText;
             },
             showLinkMenu(attrs) {
-                this.linkUrl = attrs.href
-                this.linkMenuIsActive = true
+                this.linkUrl = attrs.href;
+                this.linkMenuIsActive = true;
                 this.$nextTick(() => {
                     this.$refs.linkInput.focus()
                 })
             },
             hideLinkMenu() {
-                this.linkUrl = null
-                this.linkMenuIsActive = false
+                this.linkUrl = null;
+                this.linkMenuIsActive = false;
             },
             setLinkUrl(command, url) {
-                command({ href: url })
-                this.hideLinkMenu()
+                command({ href: url });
+                this.hideLinkMenu();
             },
         },
         beforeDestroy() {

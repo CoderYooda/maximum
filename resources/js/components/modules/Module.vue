@@ -26,7 +26,7 @@
                 this.$props.module = m;
             },
             mount(){
-                console.log(this.$props.module);
+                // console.log(this.$props.module);
                 // if(!this.$props.module['images'].length){
                 //     this.tags.forEach((item) => {
                 //         let type = item.split('|');
@@ -53,8 +53,16 @@
                     let params = type[2];
 
                     if(type[0] === 'link'){
+                        let link_params = params ? JSON.parse(params) : null;
                         if(!this.$props.module['links'][parseInt(type[1]) - 1]){
-                            this.$props.module['links'].push({text : "Ссылка", link : "#",});
+                            this.$props.module['links'].push(
+                                {
+                                    text : "Ссылка",
+                                    link : "#",
+                                    class : link_params ? link_params.class : null
+                                });
+                        } else {
+                            // this.$props.module['links'][parseInt(type[1]) - 1].class = link_params.class
                         }
                     }
                     if(type[0] === 'text'){
@@ -120,7 +128,7 @@
                 // }
                 this.tags.forEach((item) => {
                     let chunk = item.split('|');
-                    console.log(chunk);
+                    // console.log(chunk);
                     let ch = this.$props.module[chunk[0] + 's'][parseInt(chunk[1]) - 1];
 
                     let instance = new window[chunk[0]]({

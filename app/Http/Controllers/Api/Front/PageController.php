@@ -102,9 +102,9 @@ class PageController extends Controller
     {
         $page = Page::whereId((int)$id)->first();
 
-        $page->update($request->only($page->fields));
+        $page->modules()->sync([]);
 
-        $modules_ids = [];
+        $page->update($request->only($page->fields));
 
         foreach ($request->modules as $module){
 
@@ -113,8 +113,6 @@ class PageController extends Controller
             $m->module_template_id = $module['template']['id'];
 
             $m->save();
-
-            $modules_ids[] = $m->id;
 
             foreach ($module['texts'] as $text){
                 $txt = isset($text['id']) ? Text::whereId( $text['id'] )->first() : new Text();
@@ -149,9 +147,11 @@ class PageController extends Controller
                 $bg->save();
                 $m->backgrounds()->save($bg);
             }
+            $page->modules()->attach($m->id);
         }
 
-        $page->modules()->sync($modules_ids);
+
+
 
         $page->generateHtml();
         $page->save();

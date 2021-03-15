@@ -4,7 +4,24 @@
     margin-right: -15px;
     margin-left: -15px;
 }
-
+.text-center{
+    text-align: center;
+}
+.button {
+    padding: 20px 84px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+}
+.primary{
+    background: #56AF1A;
+    color: #fff;
+}
 .container{
     max-width:1200px;
     margin-left: auto;
@@ -15,9 +32,12 @@
 .pt-20{
     padding-top: 20px;
 }
-.mt-20{
-    margin-top: 20px;
+.mt-60{
+    margin-top: 60px;
 }
+.mt-20{
+     margin-top: 20px;
+ }
 @media (min-width: 992px) {
     .col-lg-1 {
         flex: 0 0 8.33333%;
