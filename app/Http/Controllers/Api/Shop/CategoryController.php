@@ -20,7 +20,6 @@ class CategoryController extends Controller
         $category = Category::with('images', 'parent')->whereId($id)->first();
 
         return $category ?  response(['category' => $category]) : response(['message' => 'Категория не найдена'], 404);
-
     }
 
     public function store(StoreCategoryRequest $request)
@@ -33,7 +32,6 @@ class CategoryController extends Controller
         return response(['category' => $category, 'message' => 'Категория "' . $category->name . '" сохранена']);
     }
 
-
     public function update(StoreCategoryRequest $request, $id)
     {
         $category = Category::whereId((int)$id)->first();
@@ -45,7 +43,6 @@ class CategoryController extends Controller
 
         return response(['message' => 'Категория "' . $request->name . '" обновлена']);
     }
-
 
     public function delete(DeleteCategoryRequest $request)
     {

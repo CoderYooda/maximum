@@ -28,6 +28,8 @@ class StoreCategoryRequest extends FormRequest
             'parent_id' => 'required|integer',
             'slug' => 'required|unique:shop_categories,slug,'.$this->id,
             'title' => 'required',
+            'description' => 'max:3',
+            'content' => 'max:3',
         ];
     }
 

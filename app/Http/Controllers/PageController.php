@@ -30,6 +30,7 @@ class PageController extends Controller
 
 
             $reverted = array_reverse($slug);
+           // dd($reverted);
             foreach($reverted as $index => $cat){
 
                 if($cat === 'catalogue'){
@@ -39,7 +40,7 @@ class PageController extends Controller
 //                    dd(1);
                 }
                 if(isset($reverted[$index + 1]) && $reverted[$index + 1] !== 'catalogue'){
-                    if($cat !== 'catalogue' && $category->hasParentWithSlug($cat) < 1){
+                    if($category->hasParentWithSlug($reverted[$index + 1]) < 1){
                         dd(33);
                         abort(404);
                     }
@@ -48,13 +49,13 @@ class PageController extends Controller
             }
 
             if(end($slug) !== '' && end($slug) !== 'catalogue' ){
-                $target_category = Category::where('slug', end($slug))->with('children')->firstOrFail();
+                $target_category = Category::where('slug', end($slug))->with('children', 'images')->firstOrFail();
                 $path = $target_category->getPath();
                 $categories = $target_category->children;
                 $products = Product::where('category_id', $target_category->id)->get();
                 $view = view('shop.products', compact('categories','products', 'path'))->render();
             } else {
-                $categories = Category::where('parent_id', 0)->get();
+                $categories = Category::where('parent_id', 0)->with('images')->get();
                 $view = view('shop.catalogue', compact('categories', 'path'))->render();
             }
 
