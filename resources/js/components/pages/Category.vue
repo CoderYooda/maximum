@@ -38,6 +38,40 @@
 
         <div class="form-group">
             <label class="d-block">Описание категории</label>
+            <editor-menu-bubble :editor="editor" :keep-in-bounds="keepInBounds" v-slot="{ commands, isActive, menu }">
+                <div
+                    class="menububble"
+                    :class="{ 'is-active': menu.isActive }"
+                    :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`"
+                >
+
+                    <button
+                        class="menububble__button"
+                        :class="{ 'is-active': isActive.bold() }"
+                        @click="commands.bold"
+                    >
+                        <img src="/images/icons/typo/bold-w.svg" alt="">
+                    </button>
+
+                    <button
+                        class="menububble__button"
+                        :class="{ 'is-active': isActive.italic() }"
+                        @click="commands.italic"
+                    >
+                        <img src="/images/icons/typo/italic-w.svg" alt="">
+                    </button>
+
+                    <button
+                        class="menububble__button"
+                        :class="{ 'is-active': isActive.code() }"
+                        @click="commands.code"
+                    >
+                        <img src="/images/icons/typo/code-w.svg" alt="">
+                    </button>
+                </div>
+            </editor-menu-bubble>
+            <editor-content :editor="editor" />
+
             <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.content}" v-model="category.content" rows="4" class="form-control" ></textarea>
             <div v-if="!!this.$store.getters.category_store_errors.content" class="invalid-feedback">{{ this.$store.getters.category_store_errors.content[0] }}</div>
         </div>
@@ -68,14 +102,34 @@
 </template>
 
 <script>
+    import { Editor, EditorContent, EditorMenuBubble  } from 'tiptap'
     import ImagesUpload from './../system/ImagesUpload'
+    import {
+        Blockquote,
+        BulletList,
+        CodeBlock,
+        HardBreak,
+        Heading,
+        ListItem,
+        OrderedList,
+        TodoItem,
+        TodoList,
+        Bold,
+        Code,
+        Italic,
+        Link,
+        Strike,
+        Underline,
+        History,
+    } from 'tiptap-extensions'
     export default {
         components:{
-            ImagesUpload
+            ImagesUpload, EditorContent, EditorMenuBubble
         },
         name: "Category",
         data() {
             return {
+                keepInBounds: true,
                 images : [],
                 //category : {name: 'Корневая директория', id: 0},
                 category : {
@@ -87,6 +141,34 @@
                     description : null,
                     slug : null,
                 },
+                editor: new Editor({
+                    extensions: [
+                        new Blockquote(),
+                        new BulletList(),
+                        new CodeBlock(),
+                        new HardBreak(),
+                        new Heading({ levels: [1, 2, 3] }),
+                        new ListItem(),
+                        new OrderedList(),
+                        new TodoItem(),
+                        new TodoList(),
+                        new Link(),
+                        new Bold(),
+                        new Code(),
+                        new Italic(),
+                        new Strike(),
+                        new Underline(),
+                        new History(),
+                    ],
+                    content: this.content,
+                    onInit: () => {
+                        // this.init();
+                        //this.editor.content = this.$props.chunk.text;
+                    },
+                    onUpdate: ({ getHTML }) => {
+                        this.category.content = getHTML();
+                    },
+                }),
             };
         },
         // watch:{
@@ -142,6 +224,9 @@
             // category_images(){
             //     return _.pluck(this.images, 'id');
             // },
+            content(){
+                return this.category.content;
+            },
             categories(){
                 return this.$store.getters.categories;
             }

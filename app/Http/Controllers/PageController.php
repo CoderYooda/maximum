@@ -23,47 +23,36 @@ class PageController extends Controller
 
         $html = $this->getBaseHTML();
         $html = str_replace('[[content]]', $page->html, $html);
-        $html = str_replace('[[title]]', $page->title, $html);
         $html = str_replace('[[token]]', $request->session()->token(), $html);
 
         if(strpos($html, '[[shop_categories]]')){
-
-
             $reverted = array_reverse($slug);
-           // dd($reverted);
             foreach($reverted as $index => $cat){
-
                 if($cat === 'catalogue'){
-                    //dd(1);
                 } else {
                     $category = Category::where('slug', $cat)->firstOrFail();
-//                    dd(1);
                 }
                 if(isset($reverted[$index + 1]) && $reverted[$index + 1] !== 'catalogue'){
                     if($category->hasParentWithSlug($reverted[$index + 1]) < 1){
-                        dd(33);
                         abort(404);
                     }
                 }
-
             }
-
             if(end($slug) !== '' && end($slug) !== 'catalogue' ){
                 $target_category = Category::where('slug', end($slug))->with('children', 'images')->firstOrFail();
                 $path = $target_category->getPath();
                 $categories = $target_category->children;
                 $products = Product::where('category_id', $target_category->id)->get();
-                $view = view('shop.products', compact('categories','products', 'path'))->render();
+                $html = str_replace('[[title]]', $target_category->title, $html);
+                $view = view('shop.products', compact('categories','products', 'path', 'target_category'))->render();
             } else {
                 $categories = Category::where('parent_id', 0)->with('images')->get();
                 $view = view('shop.catalogue', compact('categories', 'path'))->render();
             }
-
-
-
             $html = str_replace('[[shop_categories]]', $view, $html);
         }
 
+        $html = str_replace('[[title]]', $page->title, $html);
 
         return $html;
     }
