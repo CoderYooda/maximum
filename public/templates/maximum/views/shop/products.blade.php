@@ -2,6 +2,11 @@
 <div class="row">
     <div class="col-lg-3">
         <div class="cats_box">
+            <div class="cat_item">
+                <a href="{{ $target_category->parent()->count() ? '/catalogue/' . $target_category->parent()->first()->getPath() : '/catalogue' }}">
+                    <p>Назад</p>
+                </a>
+            </div>
             @foreach($categories as $category)
                 <div class="cat_item">
                     <a href="{{ '/catalogue/' . $path . '/' . $category->slug }}">

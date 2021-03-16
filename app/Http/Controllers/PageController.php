@@ -39,7 +39,7 @@ class PageController extends Controller
                 }
             }
             if(end($slug) !== '' && end($slug) !== 'catalogue' ){
-                $target_category = Category::where('slug', end($slug))->with('children', 'images')->firstOrFail();
+                $target_category = Category::where('slug', end($slug))->with('children', 'images', 'parent')->firstOrFail();
                 $path = $target_category->getPath();
                 $categories = $target_category->children;
                 $products = Product::where('category_id', $target_category->id)->get();
