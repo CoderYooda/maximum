@@ -42,7 +42,7 @@ class PageController extends Controller
                 $target_category = Category::where('slug', end($slug))->with('children', 'images', 'parent')->firstOrFail();
                 $path = $target_category->getPath();
                 $categories = $target_category->children;
-                $products = Product::where('category_id', $target_category->id)->get();
+                $products = Product::where('category_id', $target_category->id)->with('images')->get();
                 $html = str_replace('[[title]]', $target_category->title, $html);
                 $view = view('shop.products', compact('categories','products', 'path', 'target_category'))->render();
             } else {

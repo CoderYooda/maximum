@@ -17,7 +17,6 @@ export default {
                         tag += html[tag_index];
                         tag_index++;
                     }
-                    console.log(tag);
                     if(tag !== 'token')
 
                         tags.push(tag);

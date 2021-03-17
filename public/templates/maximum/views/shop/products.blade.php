@@ -21,10 +21,13 @@
             <div class="row">
                 @foreach($products as $product)
                     <div class="col-lg-4">
-                        <a href="{{ '/prodicts/' . $product->slug }}">
-                            <h3>{{ $product->name }}</h3>
-                            <p>{{ $product->description }}</p>
-                        </a>
+                        <div class="product_cell">
+                            <a href="{{ '/products/' . $product->slug }}">
+                                <img src="{{ count($product->images) ? $product->images[0]->url : '/images/noimage.jpg' }}" alt="">
+                                <h3>{{ $product->name }}</h3>
+                                <p>{{ $product->description }}</p>
+                            </a>
+                        </div>
                     </div>
                 @endforeach
             </div>
