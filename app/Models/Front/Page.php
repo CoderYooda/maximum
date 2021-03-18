@@ -48,7 +48,11 @@ class Page extends Model
 
 
                 if($splitted[0] === 'text'){
-                    $text = $module[$splitted[0] . 's'][(int)$splitted[1] - 1]->text;
+
+                    $text = isset($module[$splitted[0] . 's'][(int)$splitted[1] - 1]) ? $module[$splitted[0] . 's'][(int)$splitted[1] - 1]->text : '';
+
+
+//                    $text = $module[$splitted[0] . 's'][(int)$splitted[1] - 1]->text;
                     $raw_html = str_replace("[[" . $tag . "]]", $text, $raw_html);
                 }
 
@@ -81,7 +85,6 @@ class Page extends Model
                 if($splitted[0] === 'background'){
                     $img_c = $module[$splitted[0] . 's'];
                     $img = isset($img_c[(int)$splitted[1] - 1]) ? $img_c[(int)$splitted[1] - 1] : null;
-
                     if($img !== null){
                         $url = $img->image->url;
                     } else {
@@ -107,6 +110,7 @@ class Page extends Model
                     $raw_html = str_replace("[[" . $tag . "]]", '', $raw_html);
                     $raw_html = str_replace($prev_tag, $prepared_tag, $raw_html);
                 }
+
             }
             $html_finish .= $raw_html;
         }

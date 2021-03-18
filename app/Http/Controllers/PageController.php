@@ -8,6 +8,8 @@ use App\Models\Shop\Product;
 use Illuminate\Http\Request;
 use File;
 
+use Intervention\Image\Facades\Image;
+
 class PageController extends Controller
 {
 
@@ -15,7 +17,6 @@ class PageController extends Controller
 
     public function page(Request $request, $slug = '/')
     {
-
         $slug = explode('/', $slug);
         $slug[0] = $slug[0] !== '' ? $slug[0] : '/';
         $path = $slug[0];

@@ -138,6 +138,7 @@ class PageController extends Controller
 //                $img->save();
                 $m->texts()->save($img);
             }
+
             foreach ($module['backgrounds'] as $background){
                 $bg = isset($background['id']) && $background['id'] > 0 ? Background::whereId($background['id'] )->first() : new Background();
                 $bg->image_id = isset($background['image_id']) ? $background['image_id'] : 1;
@@ -147,6 +148,7 @@ class PageController extends Controller
                 $bg->save();
                 $m->backgrounds()->save($bg);
             }
+
             $page->modules()->attach($m->id);
         }
 

@@ -49,13 +49,19 @@
                                                 </div>
                                             </div>
                                             <Module v-bind:module="module"></Module>
+                                            <div @click="modules_show = !modules_show" class="add_module pointer user-select-none mt-4"> Добавить модуль</div>
+                                            <div v-if="modules_show">
+                                                <div class="position-relative" v-for="module in $store.getters.modules">
+                                                    <div @click="appendModule(module, index)">{{ module.name }}</div>
+                                                </div>
+                                            </div>
                                     </div>
-                                    <div @click="modules_show = !modules_show" class="add_module pointer user-select-none mt-4"> Добавить модуль</div>
-                                    <div v-if="modules_show">
-                                        <div class="position-relative" v-for="module in $store.getters.modules">
-                                            <div @click="appendModule(module)">{{ module.name }}</div>
-                                        </div>
-                                    </div>
+                                    <!--<div @click="modules_show = !modules_show" class="add_module pointer user-select-none mt-4"> Добавить модуль</div>-->
+                                    <!--<div v-if="modules_show">-->
+                                        <!--<div class="position-relative" v-for="module in $store.getters.modules">-->
+                                            <!--<div @click="appendModule(module)">{{ module.name }}</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -164,7 +170,7 @@
             // console.log(this.$store.getters.get_module_chunk(1, 1, 'text', 1));
         },
         methods: {
-            appendModule(module){
+            appendModule(module, index = null){
                 let m = {
                     rank : null,
                     template : module,
@@ -174,7 +180,12 @@
                     links : [],
                     backgrounds : [],
                 };
-                this.page.modules.push(m);
+                if(index === null) {
+                    this.page.modules.push(m);
+                } else {
+                    this.page.modules.splice(index, 0, m);
+                    this.$forceUpdate();
+                }
             },
             swap(index_A, dir) {
                 console.log(index_A, dir, (index_A + dir));
