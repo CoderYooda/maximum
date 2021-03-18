@@ -21,19 +21,26 @@
             <div class="row">
                 @foreach($products as $product)
                     <div class="col-lg-4">
-                        <div class="product_cell">
-                            <a href="{{ '/products/' . $product->slug }}">
+                        <a href="{{ '/product/' . $product->slug }}">
+                            <div class="product_cell">
                                 <img src="{{ count($product->images) ? $product->images[0]->url : '/images/noimage.jpg' }}" alt="">
                                 <h3>{{ $product->name }}</h3>
-                                <p>{{ $product->description }}</p>
-                            </a>
-                        </div>
+                                <p class="cat_descr">{{ $product->description }}</p>
+                            </div>
+                        </a>
                     </div>
                 @endforeach
+                @if(!$products->count())
+                    <div class="col-lg-12">
+                        <div class="no-items">Товаров нет</div>
+                    </div>
+                @endif
             </div>
         </div>
-        <div class="cat_description">
-            {!! $target_category->content !!}
-        </div>
+        @if($target_category->content)
+            <div class="cat_description">
+                {!! $target_category->content !!}
+            </div>
+        @endif
     </div>
 </div>

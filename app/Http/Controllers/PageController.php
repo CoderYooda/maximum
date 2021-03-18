@@ -52,6 +52,16 @@ class PageController extends Controller
             $html = str_replace('[[shop_categories]]', $view, $html);
         }
 
+        if(strpos($html, '[[product]]')){
+            $reverted = array_reverse($slug);
+            foreach($reverted as $index => $cat){
+
+            }
+            $product = Product::where('slug', end($slug))->first();
+            $view = view('shop.product', compact('product'))->render();
+            $html = str_replace('[[product]]', $view, $html);
+        }
+
         $html = str_replace('[[title]]', $page->title, $html);
 
         return $html;
