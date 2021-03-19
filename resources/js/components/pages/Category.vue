@@ -72,7 +72,7 @@
             </editor-menu-bubble>
             <editor-content :editor="editor" />
 
-            <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.content}" v-model="category.content" rows="4" class="form-control" ></textarea>
+            <!--<textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.content}" v-model="category.content" rows="4" class="form-control" ></textarea>-->
             <div v-if="!!this.$store.getters.category_store_errors.content" class="invalid-feedback">{{ this.$store.getters.category_store_errors.content[0] }}</div>
         </div>
         <div class="row">
@@ -134,41 +134,14 @@
                 //category : {name: 'Корневая директория', id: 0},
                 category : {
                     name : '',
-                    content : '',
+                    content : 'ddd',
                     images : null,
                     parent : {name: 'Корневая директория', id: 0},
                     title : null,
                     description : null,
                     slug : null,
                 },
-                editor: new Editor({
-                    extensions: [
-                        new Blockquote(),
-                        new BulletList(),
-                        new CodeBlock(),
-                        new HardBreak(),
-                        new Heading({ levels: [1, 2, 3] }),
-                        new ListItem(),
-                        new OrderedList(),
-                        new TodoItem(),
-                        new TodoList(),
-                        new Link(),
-                        new Bold(),
-                        new Code(),
-                        new Italic(),
-                        new Strike(),
-                        new Underline(),
-                        new History(),
-                    ],
-                    content: this.content,
-                    onInit: () => {
-                        // this.init();
-                        //this.editor.content = this.$props.chunk.text;
-                    },
-                    onUpdate: ({ getHTML }) => {
-                        this.category.content = getHTML();
-                    },
-                }),
+                editor: null,
             };
         },
         // watch:{
@@ -187,18 +160,14 @@
         },
         mounted(){
             this.$store.dispatch('get_categories').then(() => {
-
                 let category = this.$store.getters.getCategory(this.$route.params.category_id);
-
-                console.log();
-
                 if(!category){
                     this.$store.dispatch('get_category', this.$route.params.category_id)
                         .then((resp) => {
-
                             this.category = resp.data.category;
                             let parent_id = !!category ? category.parent.id : 0;
-
+                            console.log(22);
+                            this.initEditor(resp.data.category.content);
                             if(!!!parent_id){
                                 parent_id = !!this.$route.query.category ? this.$route.query.category : 0;
                             }
@@ -210,8 +179,8 @@
                             this.setCategory(parent_id);
                     });
                 } else {
-                    console.log(1212);
                     this.category = category;
+                    // this.editor.content = category.content;
                     this.$refs.imgLoader.setImages(category.images);
                     this.category.category = this.$store.getters.getCategoryById(category.category_id)[0];
                 }
@@ -264,6 +233,36 @@
                 this.$store.dispatch(method, this.category).then(() => {
                     this.$router.push({ name: 'shop', params: {category_id: !!this.category ? this.category.parent_id : 0 }})
                 });
+            },
+            initEditor(text){
+                this.editor = new Editor({
+                    extensions: [
+                        new Blockquote(),
+                        new BulletList(),
+                        new CodeBlock(),
+                        new HardBreak(),
+                        new Heading({ levels: [1, 2, 3] }),
+                        new ListItem(),
+                        new OrderedList(),
+                        new TodoItem(),
+                        new TodoList(),
+                        new Link(),
+                        new Bold(),
+                        new Code(),
+                        new Italic(),
+                        new Strike(),
+                        new Underline(),
+                        new History(),
+                    ],
+                    content: text,
+                    onInit: () => {
+                        this.init();
+                        //this.editor.content = this.$props.chunk.text;
+                    },
+                    onUpdate: ({ getHTML }) => {
+                        this.$props.chunk.text = getHTML();
+                    },
+                })
             }
         }
     }

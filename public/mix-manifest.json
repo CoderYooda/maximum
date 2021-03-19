@@ -20,5 +20,6 @@
     "/Shop.js": "/Shop.js",
     "/Site.js": "/Site.js",
     "/Templates.js": "/Templates.js",
-    "/vendors~Templates.js": "/vendors~Templates.js"
+    "/vendors~Templates.js": "/vendors~Templates.js",
+    "/vendors~Category~Templates.js": "/vendors~Category~Templates.js"
 }

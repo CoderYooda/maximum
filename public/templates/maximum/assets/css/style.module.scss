@@ -296,10 +296,9 @@ html{
             border: 1px solid #E0E0E0;
             padding: 60px 40px;
             h3{
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: bold;
                 color: #4F4F4F;
-                min-height: 50px;
             }
             img{
                 width: 100%;
@@ -311,10 +310,24 @@ html{
             margin-top: 60px;
         }
         .product_cell{
-            padding: 30px 30px !important
+            padding: 30px 30px !important;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 440px;
+            position: relative;
+            &:after{
+                content: "";
+                position: absolute;
+                height: 15px;
+                width: 100%;
+                bottom: 30px;
+                left: 0;
+                background: url("/templates/maximum/assets/img/gradw.png");
+            }
         }
         .cat_descr{
-            height: 144px;
+            height: auto;
             padding-bottom: 0px !important;
             overflow: hidden;
             color: #4F4F4F;

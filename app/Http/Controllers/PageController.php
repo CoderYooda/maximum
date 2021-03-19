@@ -54,6 +54,7 @@ class PageController extends Controller
         }
 
         if(strpos($html, '[[product]]')){
+
             $reverted = array_reverse($slug);
             foreach($reverted as $index => $cat){
 

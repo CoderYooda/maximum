@@ -10,7 +10,6 @@
                 :class="{ 'is-active': menu.isActive }"
                 :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`"
             >
-
                 <button
                     class="menububble__button"
                     :class="{ 'is-active': isActive.bold() }"
