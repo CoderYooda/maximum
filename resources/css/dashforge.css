@@ -12360,7 +12360,7 @@ textarea.parsley-success:focus {
     z-index: 10;
     position: absolute;
     left: auto !important;
-    right: 0;
+    right: -15px;
     opacity: 0;
     margin: 1px;
     transition: opacity 0.2s; }
@@ -13899,7 +13899,7 @@ textarea.parsley-success:focus {
   @media (min-width: 992px) {
     .content-body {
       padding: 25px;
-      padding-right: 10px;
+      /*padding-right: 10px;*/
       height: calc(100% - 60px); } }
   .content-body .container {
     margin-bottom: 25px; }

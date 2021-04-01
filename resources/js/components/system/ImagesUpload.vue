@@ -199,6 +199,7 @@
         width: 100%;
         background: #0000005c;
         transition: 0.3s all;
+        z-index: 1000;
     }
     .float-butt button{
         width: 100%;

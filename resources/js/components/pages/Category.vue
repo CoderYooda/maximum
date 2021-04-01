@@ -70,7 +70,7 @@
                     </button>
                 </div>
             </editor-menu-bubble>
-            <editor-content :editor="editor" />
+            <editor-content :editor="editor" v-model="category.content"/>
 
             <!--<textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.content}" v-model="category.content" rows="4" class="form-control" ></textarea>-->
             <div v-if="!!this.$store.getters.category_store_errors.content" class="invalid-feedback">{{ this.$store.getters.category_store_errors.content[0] }}</div>
@@ -134,14 +134,41 @@
                 //category : {name: 'Корневая директория', id: 0},
                 category : {
                     name : '',
-                    content : 'ddd',
+                    content : '',
                     images : null,
                     parent : {name: 'Корневая директория', id: 0},
                     title : null,
                     description : null,
                     slug : null,
                 },
-                editor: null,
+                editor : new Editor({
+                    extensions: [
+                        new Blockquote(),
+                        new BulletList(),
+                        new CodeBlock(),
+                        new HardBreak(),
+                        new Heading({ levels: [1, 2, 3] }),
+                        new ListItem(),
+                        new OrderedList(),
+                        new TodoItem(),
+                        new TodoList(),
+                        new Link(),
+                        new Bold(),
+                        new Code(),
+                        new Italic(),
+                        new Strike(),
+                        new Underline(),
+                        new History(),
+                    ],
+                    content: "",
+                    onInit: () => {
+                        // this.init();
+                        //this.editor.content = this.$props.chunk.text;
+                    },
+                    onUpdate: ({ getHTML }) => {
+                        this.category.content = getHTML();
+                    },
+                }),
             };
         },
         // watch:{
@@ -166,8 +193,8 @@
                         .then((resp) => {
                             this.category = resp.data.category;
                             let parent_id = !!category ? category.parent.id : 0;
-                            console.log(22);
-                            this.initEditor(resp.data.category.content);
+                            this.editor.setContent(resp.data.category.content);
+                            //this.initEditor(resp.data.category.content);
                             if(!!!parent_id){
                                 parent_id = !!this.$route.query.category ? this.$route.query.category : 0;
                             }
@@ -193,9 +220,9 @@
             // category_images(){
             //     return _.pluck(this.images, 'id');
             // },
-            content(){
-                return this.category.content;
-            },
+            // content(){
+            //     return this.category.content;
+            // },
             categories(){
                 return this.$store.getters.categories;
             }
@@ -223,7 +250,6 @@
                     }
                 }
             },
-
             save(){
                 this.category.parent_id = !!this.parent ? this.parent.parent.id : 0;
                 let method = !!this.category.id ? 'update_category' : 'store_category';

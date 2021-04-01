@@ -72,7 +72,10 @@
                     }
                     if(type[0] === 'background'){
                         let image_params = JSON.parse(params);
-                        if(!this.$props.module['backgrounds'][parseInt(type[1]) - 1]){
+
+                        console.log(this.$props.module['backgrounds'][parseInt(type[1]) - 1].image !== 'null');
+
+                        if(!this.$props.module['backgrounds'][parseInt(type[1]) - 1] && this.$props.module['backgrounds'][parseInt(type[1]) - 1].image !== 'null'){
                             this.$props.module['backgrounds'].push(
                                 {
                                     id : 0,
@@ -128,16 +131,17 @@
                 // }
                 this.tags.forEach((item) => {
                     let chunk = item.split('|');
-                    // console.log(chunk);
-                    let ch = this.$props.module[chunk[0] + 's'][parseInt(chunk[1]) - 1];
+                    if(chunk.length > 1){
+                        let ch = this.$props.module[chunk[0] + 's'][parseInt(chunk[1]) - 1];
 
-                    let instance = new window[chunk[0]]({
-                        store: this.$store,
-                        parent: this,
-                        propsData: { chunk: ch }
-                    });
-                    this.$children.push(instance);
-                    instance.$mount(this.$el.querySelector('#chunk_' + chunk[0] + '_' + chunk[1]));
+                        let instance = new window[chunk[0]]({
+                            store: this.$store,
+                            parent: this,
+                            propsData: { chunk: ch }
+                        });
+                        this.$children.push(instance);
+                        instance.$mount(this.$el.querySelector('#chunk_' + chunk[0] + '_' + chunk[1]));
+                    }
                 });
             }
         }

@@ -71,7 +71,7 @@ class Page extends Model
 
                     $img = isset($img_c[(int)$splitted[1] - 1]) ? $img_c[(int)$splitted[1] - 1] : null;
 
-                    if($img !== null){
+                    if($img !== null && isset($img->image) && $img->image !== null){
                         $url = $img->image->url;
                         $img = '<img src="' . $url . '">';
                     } else {
@@ -85,7 +85,7 @@ class Page extends Model
                 if($splitted[0] === 'background'){
                     $img_c = $module[$splitted[0] . 's'];
                     $img = isset($img_c[(int)$splitted[1] - 1]) ? $img_c[(int)$splitted[1] - 1] : null;
-                    if($img !== null){
+                    if($img !== null && isset($img->image) && $img->image !== null){
                         $url = $img->image->url;
                     } else {
                         $url = '/images/noimage.jpg';

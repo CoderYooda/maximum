@@ -10,7 +10,7 @@
     </div>
     <div class="col-lg-9">
         <div class="product-description">
-            {{ $product->content }}
+            {!! $product->content !!}
         </div>
     </div>
 </div>

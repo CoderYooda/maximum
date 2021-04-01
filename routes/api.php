@@ -19,6 +19,50 @@ Route::namespace('Api')->middleware(['auth:api'])->group(function () {
     Route::post('/shop/categories/{id}/update','Shop\CategoryController@update');
     Route::delete('/shop/categories/delete','Shop\CategoryController@delete');
 
+
+
+    Route::get('/common/news','Common\NewsController@all');
+    Route::get('/common/news/{id}/get','Common\NewsController@get');
+    Route::post('/common/news/store','Common\NewsController@store');
+    Route::post('/common/news/{id}/update','Common\NewsController@update');
+    Route::delete('/common/news/delete','Common\NewsController@delete');
+
+    Route::get('/common/articles','Common\ArticleController@all');
+    Route::get('/common/articles/{id}/get','Common\ArticleController@get');
+    Route::post('/common/articles/store','Common\ArticleController@store');
+    Route::post('/common/articles/{id}/update','Common\ArticleController@update');
+    Route::delete('/common/articles/delete','Common\ArticleController@delete');
+
+    Route::get('/common/actions','Common\ActionsController@all');
+    Route::get('/common/actions/{id}/get','Common\ActionsController@get');
+    Route::post('/common/actions/store','Common\ActionsController@store');
+    Route::post('/common/actions/{id}/update','Common\ActionsController@update');
+    Route::delete('/common/actions/delete','Common\ActionsController@delete');
+
+    Route::get('/common/feedbacks','Common\FeedbackController@all');
+    Route::get('/common/feedbacks/{id}/get','Common\FeedbackController@get');
+    Route::post('/common/feedbacks/store','Common\FeedbackController@store');
+    Route::post('/common/feedbacks/{id}/update','Common\FeedbackController@update');
+    Route::delete('/common/feedbacks/delete','Common\FeedbackController@delete');
+
+    Route::get('/common/employees','Common\EmployeeController@all');
+    Route::get('/common/employees/{id}/get','Common\EmployeeController@get');
+    Route::post('/common/employees/store','Common\EmployeeController@store');
+    Route::post('/common/employees/{id}/update','Common\EmployeeController@update');
+    Route::delete('/common/employees/delete','Common\EmployeeController@delete');
+
+    Route::get('/common/clients','Common\ClientController@all');
+    Route::get('/common/clients/{id}/get','Common\ClientController@get');
+    Route::post('/common/clients/store','Common\ClientController@store');
+    Route::post('/common/clients/{id}/update','Common\ClientController@update');
+    Route::delete('/common/clients/delete','Common\ClientController@delete');
+
+    Route::get('/common/vacancies','Common\VacancyController@all');
+    Route::get('/common/vacancies/{id}/get','Common\VacancyController@get');
+    Route::post('/common/vacancies/store','Common\VacancyController@store');
+    Route::post('/common/vacancies/{id}/update','Common\VacancyController@update');
+    Route::delete('/common/vacancies/delete','Common\VacancyController@delete');
+
     Route::get('/shop/products','Shop\ProductController@all');
     Route::get('/shop/product/{id}/get','Shop\ProductController@get');
     Route::post('/shop/products/{id}/update','Shop\ProductController@update');

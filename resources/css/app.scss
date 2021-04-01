@@ -48,6 +48,19 @@
 //.vs__selected {
 //  margin: 2px 2px 0px 2px;
 //}
+.ProseMirror{
+    border: 1px solid #c0ccda;
+    padding: 0.46875rem 0.625rem;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.ProseMirror-focused{
+    color: #596882;
+    background-color: #fff;
+    border-color: #7cb2fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(1 104 250 / 25%);
+}
 .menububble {
     position: absolute;
     display: flex;

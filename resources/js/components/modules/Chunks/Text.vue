@@ -4,12 +4,19 @@
 <!--        <input type="text" v-model="chunk.text">-->
 <!--    </div>-->
     <div class="text_module">
-        <editor-menu-bubble :editor="editor" :keep-in-bounds="keepInBounds" v-slot="{ commands, isActive, menu }">
+        <editor-menu-bubble :editor="editor" :keep-in-bounds="keepInBounds" v-slot="{ commands, isActive, getMarkAttrs, menu }">
             <div
                 class="menububble"
                 :class="{ 'is-active': menu.isActive }"
                 :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`"
             >
+
+                <form class="menububble__form" v-if="linkMenuIsActive" @submit.prevent="setLinkUrl(commands.link, linkUrl)">
+                    <input class="menububble__input" type="text" v-model="linkUrl" placeholder="https://" ref="linkInput" @keydown.esc="hideLinkMenu"/>
+                    <button class="menububble__button" @click="setLinkUrl(commands.link, null)" type="button">
+                        <icon name="remove" />
+                    </button>
+                </form>
                 <button
                     class="menububble__button"
                     :class="{ 'is-active': isActive.bold() }"
@@ -32,6 +39,14 @@
                     @click="commands.code"
                 >
                     <img src="/images/icons/typo/code-w.svg" alt="">
+                </button>
+                <button
+                    class="menububble__button"
+                    @click="showLinkMenu(getMarkAttrs('link'))"
+                    :class="{ 'is-active': isActive.link() }"
+                >
+                    <span>{{ isActive.link() ? 'Update Link' : 'Add Link'}}</span>
+                    <icon name="link" />
                 </button>
                 <!--<button-->
                     <!--class="menububble__button"-->
@@ -111,6 +126,8 @@
                         this.$props.chunk.text = getHTML();
                     },
                 }),
+                linkUrl: null,
+                linkMenuIsActive: false,
             };
         },
         computed: {
@@ -146,6 +163,7 @@
                 command({ href: url })
                 this.hideLinkMenu()
             },
+
         },
         beforeDestroy() {
             this.editor.destroy()

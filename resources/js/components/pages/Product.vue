@@ -72,7 +72,41 @@
                 </div>
                 <div class="form-group">
                     <label class="d-block">Описание товара</label>
-                    <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.content}" v-model="product.content" rows="4" class="form-control" ></textarea>
+                    <editor-menu-bubble :editor="editor" :keep-in-bounds="keepInBounds" v-slot="{ commands, isActive, menu }">
+                        <div
+                            class="menububble"
+                            :class="{ 'is-active': menu.isActive }"
+                            :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`"
+                        >
+
+                            <button
+                                class="menububble__button"
+                                :class="{ 'is-active': isActive.bold() }"
+                                @click="commands.bold"
+                            >
+                                <img src="/images/icons/typo/bold-w.svg" alt="">
+                            </button>
+
+                            <button
+                                class="menububble__button"
+                                :class="{ 'is-active': isActive.italic() }"
+                                @click="commands.italic"
+                            >
+                                <img src="/images/icons/typo/italic-w.svg" alt="">
+                            </button>
+
+                            <button
+                                class="menububble__button"
+                                :class="{ 'is-active': isActive.code() }"
+                                @click="commands.code"
+                            >
+                                <img src="/images/icons/typo/code-w.svg" alt="">
+                            </button>
+                        </div>
+                    </editor-menu-bubble>
+                    <editor-content :editor="editor"/>
+
+<!--                    <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.product_store_errors.content}" v-model="product.content" rows="4" class="form-control" ></textarea>-->
                     <div v-if="!!this.$store.getters.product_store_errors.content" class="invalid-feedback">{{ this.$store.getters.product_store_errors.content[0] }}</div>
                 </div>
             </div>
@@ -104,10 +138,29 @@
 </template>
 
 <script>
+    import { Editor, EditorContent, EditorMenuBubble  } from 'tiptap'
     import ImagesUpload from './../system/ImagesUpload'
+    import {
+        Blockquote,
+        BulletList,
+        CodeBlock,
+        HardBreak,
+        Heading,
+        ListItem,
+        OrderedList,
+        TodoItem,
+        TodoList,
+        Bold,
+        Code,
+        Italic,
+        Link,
+        Strike,
+        Underline,
+        History,
+    } from 'tiptap-extensions'
     export default {
         components:{
-            ImagesUpload
+            ImagesUpload, EditorContent, EditorMenuBubble
         },
         name: "Product",
         data() {
@@ -128,6 +181,34 @@
                     description : null,
                     slug : this.slug,
                 },
+                editor : new Editor({
+                    extensions: [
+                        new Blockquote(),
+                        new BulletList(),
+                        new CodeBlock(),
+                        new HardBreak(),
+                        new Heading({ levels: [1, 2, 3] }),
+                        new ListItem(),
+                        new OrderedList(),
+                        new TodoItem(),
+                        new TodoList(),
+                        new Link(),
+                        new Bold(),
+                        new Code(),
+                        new Italic(),
+                        new Strike(),
+                        new Underline(),
+                        new History(),
+                    ],
+                    content: "",
+                    onInit: () => {
+                        // this.init();
+                        //this.editor.content = this.$props.chunk.text;
+                    },
+                    onUpdate: ({ getHTML }) => {
+                        this.category.content = getHTML();
+                    },
+                }),
             };
         },
         // watch:{
@@ -160,6 +241,7 @@
                 this.$store.dispatch('get_product', this.$route.params.product_id).then((resp) => {
                     product = resp.data.product;
                     let category_id = this.$route.query.category || !!product ? product.category_id : 0;
+                    this.editor.setContent(resp.data.product.content);
                     this.product = product;
                     this.$refs.imgLoader.setImages(product.images);
                     this.setCategory(category_id);
@@ -169,6 +251,7 @@
                 });
             } else {
                 this.product = product;
+                this.editor.setContent(product.content);
                 this.$refs.imgLoader.setImages(product.images);
                 this.category = this.$store.getters.getCategoryById(product.category_id)[0];
             }

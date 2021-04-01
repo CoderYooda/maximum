@@ -7,6 +7,9 @@
 .text-center{
     text-align: center;
 }
+.d-flex{
+    display: flex;
+}
 .button {
     padding: 20px 84px;
     border-radius: 6px;
@@ -20,7 +23,7 @@
 }
 .primary{
     background: #56AF1A;
-    color: #fff;
+    color: #fff!important;
 }
 .container{
     max-width:1200px;

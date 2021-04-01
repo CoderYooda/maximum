@@ -42,7 +42,8 @@
         },
         mounted(){
             this.$refs.imgLoader.setImages([this.$props.chunk.image]);
-            this.$el.parentNode.style.backgroundImage = 'url("' + this.$props.chunk.image.url + '")';
+            let url = this.$props.chunk.image != null ? this.$props.chunk.image.url : '/images/noimage.jpg';
+            this.$el.parentNode.style.backgroundImage = 'url("' + url + '")';
         },
         methods:{
             setImages(data){
@@ -69,6 +70,7 @@
         background-repeat: no-repeat;
         background-position: center;
         z-index: 999999;
+        pointer-events: all;
     }
 
 </style>

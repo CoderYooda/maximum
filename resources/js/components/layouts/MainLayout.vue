@@ -80,6 +80,41 @@
                             <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Интернет магазин</span></a>
                         </li>
                     </router-link>
+                    <router-link :to="{name:'feedbacks'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Отзывы</span></a>
+                        </li>
+                    </router-link>
+                    <router-link :to="{name:'employees'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Сотрудники</span></a>
+                        </li>
+                    </router-link>
+                    <router-link :to="{name:'vacancies'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Вакансии</span></a>
+                        </li>
+                    </router-link>
+                    <router-link :to="{name:'clients'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Клиенты</span></a>
+                        </li>
+                    </router-link>
+                    <router-link :to="{name:'actions'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Акции</span></a>
+                        </li>
+                    </router-link>
+                    <router-link :to="{name:'articles'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Статьи</span></a>
+                        </li>
+                    </router-link>
+                    <router-link :to="{name:'news'}" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                        <li class="nav-item" :class="[isActive && 'active']" >
+                            <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Новости</span></a>
+                        </li>
+                    </router-link>
                     <router-link to="/settings" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
                         <li class="nav-item" :class="[isActive && 'active']" >
                             <a class="nav-link" :href="href" @click="navigate"><i data-feather="settings"></i> <span>Настройки</span></a>

@@ -83,6 +83,90 @@ let router =  new Router({
             meta: {layout: 'main'},
             component: () => import(/* webpackChunkName: "Settings" */ './components/pages/Settings.vue')
         },
+        {
+            path: '/feedback/:id?/edit',
+            name: 'feedback',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Feedback" */ './components/pages/Feedbacks/Feedback.vue')
+        },
+        {
+            path: '/feedbacks',
+            name: 'feedbacks',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Feedbacks" */ './components/pages/Feedbacks/Feedbacks.vue')
+        },
+        {
+            path: '/employees',
+            name: 'employees',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Employees" */ './components/pages/Employees/Employees.vue')
+        },
+        {
+            path: '/employee/:id?/edit',
+            name: 'employee',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Employee" */ './components/pages/Employees/Employee.vue')
+        },
+        {
+            path: '/vacancies',
+            name: 'vacancies',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Vacancies" */ './components/pages/Vacancies/Vacancies.vue'),
+        },
+        {
+            path: '/vacancies/:id?/edit',
+            name: 'vacancy',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Vacancy" */ './components/pages/Vacancies/Vacancy.vue'),
+        },
+        {
+            path: '/clients',
+            name: 'clients',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Clients" */ './components/pages/Clients/Clients.vue')
+        },
+        {
+            path: '/client/:id?/edit',
+            name: 'client',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Client" */ './components/pages/Clients/Client.vue')
+        },
+        {
+            path: '/articles',
+            name: 'articles',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Articles" */ './components/pages/Articles/Articles.vue')
+        },
+        {
+            path: '/article/:id?/edit',
+            name: 'article',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Article" */ './components/pages/Articles/Article.vue')
+        },
+        {
+            path: '/actions',
+            name: 'actions',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Actions" */ './components/pages/Actions/Actions.vue')
+        },
+        {
+            path: '/action/:id?/edit',
+            name: 'action',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Action" */ './components/pages/Actions/Action.vue')
+        },
+        {
+            path: '/news',
+            name: 'news',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "News" */ './components/pages/News/News.vue')
+        },
+        {
+            path: '/new/:id?/edit',
+            name: 'new',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "New" */ './components/pages/News/New.vue')
+        },
         { path: '*', redirect: '/' },
     ]
 });

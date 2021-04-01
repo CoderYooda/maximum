@@ -34,6 +34,12 @@
                         <div class="template">
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <div @click="modules_show = !modules_show" class="add_module pointer user-select-none mt-4"> Добавить модуль</div>
+                                    <div v-if="modules_show" class="modules_pick_cont">
+                                        <div class="position-relative" v-for="module in $store.getters.modules">
+                                            <div @click="appendModule(module)">{{ module.name }}</div>
+                                        </div>
+                                    </div>
                                     <div v-for="(module, index) in modules" class="position-relative module_box" v-bind:id="'module_' + index">
                                             <div class="module_settings mt-3">
                                                 <div class="sett_box">
@@ -50,18 +56,12 @@
                                             </div>
                                             <Module v-bind:module="module"></Module>
                                             <div @click="modules_show = !modules_show" class="add_module pointer user-select-none mt-4"> Добавить модуль</div>
-                                            <div v-if="modules_show">
+                                            <div v-if="modules_show" class="modules_pick_cont">
                                                 <div class="position-relative" v-for="module in $store.getters.modules">
-                                                    <div @click="appendModule(module, index)">{{ module.name }}</div>
+                                                    <div @click="appendModule(module, index + 1)">{{ module.name }}</div>
                                                 </div>
                                             </div>
                                     </div>
-                                    <!--<div @click="modules_show = !modules_show" class="add_module pointer user-select-none mt-4"> Добавить модуль</div>-->
-                                    <!--<div v-if="modules_show">-->
-                                        <!--<div class="position-relative" v-for="module in $store.getters.modules">-->
-                                            <!--<div @click="appendModule(module)">{{ module.name }}</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -273,13 +273,28 @@
     }
 </script>
 <style scoped lang="scss">
+    .modules_pick_cont{
+        background: #fff;
+        z-index: 9999;
+        width: 100%;
+        margin-bottom: 40px;
+        position: relative;
+        & > div{
+            display: inline-block;
+            border: 1px solid #eee;
+            padding: 10px;
+            width: 20%;
+            cursor: pointer;
+        }
+    }
     .add_module{
         border: 4px dashed #eeeeee;
         text-align: center;
-        font-size: 18px;
+        font-size: 12px;
         font-weight: bold;
         color: #c7c3c3;
-        line-height: 100px;
+        line-height: 50px;
+        margin: 40px 0;
         z-index: 999;
         position: relative;
         background: #ffff;
@@ -320,6 +335,16 @@
             padding: 10px;
             border-radius: 8px;
             border: 2px solid #eee;
+
+            button{
+                width: 100%;
+                border: 1px solid #eee;
+                margin-bottom: 10px;
+            }
+            .pages{
+                height: 400px;
+                overflow: auto;
+            }
         }
     }
 
