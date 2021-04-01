@@ -40,7 +40,7 @@ class Category extends Model
     {
         $slugs = $this->generateParentSlug([]);
         $slugs = array_reverse($slugs);
-        return implode($slugs, '/');
+        return implode('/', $slugs);
     }
 
     public function hasChildWithSlug($slug)
