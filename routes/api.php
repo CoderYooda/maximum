@@ -77,6 +77,16 @@ Route::namespace('Api')->middleware(['auth:api'])->group(function () {
     Route::post('/front/pages/{id}/update','Front\PageController@update');
     Route::post('/front/pages/store','Front\PageController@store');
 
+    Route::get('/system/settings','System\SettingsController@all');
+    Route::get('/system/settings/{id}/get','System\SettingsController@get');
+    Route::post('/system/settings/update','System\SettingsController@update');
+    Route::delete('/system/settings/delete','System\SettingsController@delete');
+
+    Route::get('/system/prices','Common\PricesController@all');
+    Route::get('/system/prices/{id}/get','Common\PricesController@get');
+    Route::post('/system/prices/update','Common\PricesController@update');
+    Route::delete('/system/prices/delete','Common\PricesController@delete');
+
     Route::get('/front/modules','Front\PageController@getModuleTemplates');
 
     Route::get('/content/{type}/{id}','Front\PageController@getContent');

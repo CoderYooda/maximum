@@ -22,35 +22,45 @@ let router =  new Router({
         },
         {
             path: '/',
-            redirect: '/dashboard',
+            redirect: '/pages',
+        },
+        // {
+        //     path: '/dashboard',
+        //     name: 'dashboard',
+        //     meta: {layout: 'main'},
+        //     component: () => import(/* webpackChunkName: "Dashboard" */ './components/pages/Dashboard.vue')
+        // },
+        // {
+        //     path: '/site',
+        //     name: 'site',
+        //     redirect: '/site/pages',
+        //     meta: {layout: 'main'},
+        //     component: () => import(/* webpackChunkName: "Site" */ './components/pages/Site.vue'),
+        //     children:[
+        //         {path: '/site/pages',               name: 'pages', meta: {layout: 'main', title: 'Страницы сайта'},            component: () => import(/* webpackChunkName: "Pages" */ './components/pages/site/Pages'), props: true},
+        //         {path: '/site/company',             name: 'company', meta: {layout: 'main', title: 'Раздел "Компания"'},            component: () => import(/* webpackChunkName: "About" */ './components/pages/site/Company'), props: true},
+        //         {path: '/site/catalog',             name: 'catalog', meta: {layout: 'main', title: 'Каталог товаров'},              component: () => import(/* webpackChunkName: "Catalog" */ './components/pages/site/Catalog'), props: true},
+        //         {path: '/site/contacts',            name: 'contacts', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Contacts" */ './components/pages/site/Contacts'), props: true},
+        //         {path: '/site/farm',                name: 'farm', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/Farm'), props: true},
+        //         {path: '/site/info',                name: 'info', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Info" */ './components/pages/site/Info'), props: true},
+        //         {path: '/site/main',                name: 'main', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Main" */ './components/pages/site/MainPage'), props: true},
+        //         {path: '/site/prices',              name: 'prices', meta: {layout: 'main'},             component: () => import(/* webpackChunkName: "Prices" */ './components/pages/site/Prices'), props: true},
+        //         {path: '/site/services',            name: 'services', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/services'), props: true},
+        //         {path: '/site/templates',            name: 'templates', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Templates" */ './components/pages/site/templates'), props: true},
+        //     ]
+        // },
+
+
+
+        {
+            path: '/pages',
+            name: 'pages',
+            component: () => import(/* webpackChunkName: "Pages" */ './components/pages/site/Pages'),
+            meta: {layout: 'main', title: 'Страницы сайта'},
+            props: true
         },
         {
-            path: '/dashboard',
-            name: 'dashboard',
-            meta: {layout: 'main'},
-            component: () => import(/* webpackChunkName: "Dashboard" */ './components/pages/Dashboard.vue')
-        },
-        {
-            path: '/site',
-            name: 'site',
-            redirect: '/site/pages',
-            meta: {layout: 'main'},
-            component: () => import(/* webpackChunkName: "Site" */ './components/pages/Site.vue'),
-            children:[
-                {path: '/site/pages',               name: 'pages', meta: {layout: 'main', title: 'Страницы сайта'},            component: () => import(/* webpackChunkName: "Pages" */ './components/pages/site/Pages'), props: true},
-                {path: '/site/company',             name: 'company', meta: {layout: 'main', title: 'Раздел "Компания"'},            component: () => import(/* webpackChunkName: "About" */ './components/pages/site/Company'), props: true},
-                {path: '/site/catalog',             name: 'catalog', meta: {layout: 'main', title: 'Каталог товаров'},              component: () => import(/* webpackChunkName: "Catalog" */ './components/pages/site/Catalog'), props: true},
-                {path: '/site/contacts',            name: 'contacts', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Contacts" */ './components/pages/site/Contacts'), props: true},
-                {path: '/site/farm',                name: 'farm', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/Farm'), props: true},
-                {path: '/site/info',                name: 'info', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Info" */ './components/pages/site/Info'), props: true},
-                {path: '/site/main',                name: 'main', meta: {layout: 'main'},               component: () => import(/* webpackChunkName: "Main" */ './components/pages/site/MainPage'), props: true},
-                {path: '/site/prices',              name: 'prices', meta: {layout: 'main'},             component: () => import(/* webpackChunkName: "Prices" */ './components/pages/site/Prices'), props: true},
-                {path: '/site/services',            name: 'services', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Farm" */ './components/pages/site/services'), props: true},
-                {path: '/site/templates',            name: 'templates', meta: {layout: 'main'},           component: () => import(/* webpackChunkName: "Templates" */ './components/pages/site/templates'), props: true},
-            ]
-        },
-        {
-            path: '/site/pages/:id?',
+            path: '/pages/:id?',
             name: 'page',
             component: () => import(/* webpackChunkName: "Page" */ './components/pages/site/Page'),
             meta: {layout: 'main'},
@@ -82,6 +92,12 @@ let router =  new Router({
             name: 'settings',
             meta: {layout: 'main'},
             component: () => import(/* webpackChunkName: "Settings" */ './components/pages/Settings.vue')
+        },
+        {
+            path: '/prices',
+            name: 'prices',
+            meta: {layout: 'main'},
+            component: () => import(/* webpackChunkName: "Prices" */ './components/pages/Prices.vue')
         },
         {
             path: '/feedback/:id?/edit',

@@ -51,6 +51,17 @@ html{
 
         }
     }
+    .vacancy_cell{
+        ol{
+            list-style: disc;
+        }
+    }
+    .req_table td{
+        white-space: break-spaces;
+    }
+    .font-weight-bold{
+        font-weight: bold;
+    }
     p{
         padding: 0;
         margin: 0;
@@ -60,7 +71,7 @@ html{
     }
     .only_header{
         position: relative;
-        margin-top: 100px;
+        //margin-top: 100px;
         h1, h1 p{
             font-size: 72px;
             font-weight: bold;
@@ -523,6 +534,39 @@ html{
             display: block;
         }
     }
+    .pr_container{
+        .white_block{
+            background: #fff;
+            box-shadow: 0px 12px 30px rgb(0 0 0 / 8%);
+            border-radius: 8px;
+            padding: 70px 100px;
+            width: 100%;
+        }
+        .prices{
+            h2{
+                font-family: 'Montserrat';
+                font-weight: bold;
+                font-size: 28px;
+            }
+            table{
+                border-spacing: 0;
+                margin-bottom: 50px;
+                tr, td, th{
+                    text-align: left;
+                    border: 0;
+                    line-height: 42px;
+                }
+                .b-bot td{
+                    border-bottom: 1px dashed #828282;
+                }
+                th{
+                    border-bottom: 2px solid #000;
+                    line-height: 38px;
+                }
+            }
+        }
+    }
+
     .aside_menu{
         ul{
             list-style: none;
@@ -544,6 +588,21 @@ html{
                 color: #4F4F4F;
                 text-decoration: none;
                 font-weight: 500;
+            }
+        }
+    }
+    .req_table{
+        tr{
+            line-height: 24px;
+            td{
+                border-bottom: 1px dashed #BDBDBD;
+                padding: 10px 0;
+            }
+            & > td:first-child{
+                white-space: nowrap;
+                padding-right: 40px;
+                font-weight: bold;
+                vertical-align: top;
             }
         }
     }

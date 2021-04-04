@@ -1,44 +1,51 @@
 <template>
     <div>
-        <div data-label="Example" class="df-example demo-forms">
-            <div class="d-flex">
-                <div>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                        <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
-                    </div>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" disabled id="customSwitch2">
-                        <label class="custom-control-label" for="customSwitch2">Disabled switch element</label>
-                    </div>
-                </div>
-                <div class="mg-sm-l-30">
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch3" checked>
-                        <label class="custom-control-label" for="customSwitch3">Toggle this switch element</label>
-                    </div>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" disabled id="customSwitch4" checked disabled>
-                        <label class="custom-control-label" for="customSwitch4">Disabled switch element</label>
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">Настройки</h4>
+            </div>
+            <div class="d-none d-md-block">
+                <button @click="save" class="btn btn-sm pd-x-15 btn-primary btn-uppercase mg-l-5">Сохранить</button>
+            </div>
+        </div>
+        <div>
+
+            <div v-for="setting in settings" :key="setting.id">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">{{ setting.name }}</label>
+                    <div class="col-sm-9">
+                        <input v-if="setting.type === 'input'" type="email" class="form-control" v-model="setting.value" >
+                        <textarea rows="5" v-if="setting.type === 'text'" type="email" class="form-control" v-model="setting.value" ></textarea>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </template>
 <script>
-    // import auth from '../auth.js';
-
     export default {
-        name: "Settings",
+        name: "setting",
         data() {
             return {
-                // username: '',
-                // password: '',
+                settings : [],
             };
         },
 
+        mounted(){
+            this.$store.dispatch('get_settings').then(() => {
+                this.settings = this.$store.getters.settings;
+            });
+        },
+        computed: {
+        },
         methods: {
+            save(){
+                this.$store.dispatch('save_settings', {'settings': this.settings}).then(() => {
+                    this.$router.push({ name: 'settings'})
+                });
+            }
         }
     }
 </script>

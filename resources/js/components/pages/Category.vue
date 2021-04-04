@@ -166,7 +166,7 @@
                         //this.editor.content = this.$props.chunk.text;
                     },
                     onUpdate: ({ getHTML }) => {
-                        this.category.content = getHTML();
+                            this.category.content = getHTML();
                     },
                 }),
             };

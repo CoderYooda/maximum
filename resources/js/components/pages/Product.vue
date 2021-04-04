@@ -16,7 +16,7 @@
                 <button @click="save" class="btn btn-sm pd-x-15 btn-white btn-uppercase">Сохранить</button>
             </div>
         </div>
-        <ImagesUpload ref="imgLoader" @imagesChanged="setImages"></ImagesUpload>
+        <ImagesUpload limit="1" ref="imgLoader" @imagesChanged="setImages"></ImagesUpload>
         <div class="row">
             <div class="col-lg-2 mg-t-10 mg-lg-t-0 br">
                 <div class="form-group">
@@ -166,6 +166,7 @@
         data() {
             return {
                 images : [],
+                keepInBounds: true,
                 category : {name: 'Корневая директория', id: 0},
                 product : {
                     name : '',
@@ -206,7 +207,7 @@
                         //this.editor.content = this.$props.chunk.text;
                     },
                     onUpdate: ({ getHTML }) => {
-                        this.category.content = getHTML();
+                        this.product.content = getHTML();
                     },
                 }),
             };
@@ -243,7 +244,7 @@
                     let category_id = this.$route.query.category || !!product ? product.category_id : 0;
                     this.editor.setContent(resp.data.product.content);
                     this.product = product;
-                    this.$refs.imgLoader.setImages(product.images);
+                    this.$refs.imgLoader.setImages(product.images[0]);
                     this.setCategory(category_id);
                 }).catch(() => {
                     let category_id = this.$route.query.category;
@@ -252,7 +253,7 @@
             } else {
                 this.product = product;
                 this.editor.setContent(product.content);
-                this.$refs.imgLoader.setImages(product.images);
+                this.$refs.imgLoader.setImages(product.images[0]);
                 this.category = this.$store.getters.getCategoryById(product.category_id)[0];
             }
         },

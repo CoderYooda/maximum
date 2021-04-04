@@ -7,10 +7,12 @@ use App\Models\Common\Client;
 use App\Models\Common\Employee;
 use App\Models\Common\Feedback;
 use App\Models\Common\News;
+use App\Models\Common\Price;
 use App\Models\Common\Vacancy;
 use App\Models\Front\Page;
 use App\Models\Shop\Category;
 use App\Models\Shop\Product;
+use App\Models\System\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use File;
@@ -26,6 +28,9 @@ class PageController extends Controller
     {
         setlocale(LC_TIME, 'ru_RU');
         Carbon::setLocale('ru');
+
+        $settings = Setting::all();
+
         $slug = explode('/', $slug);
         $slug[0] = $slug[0] !== '' ? $slug[0] : '/';
         $path = $slug[0];
@@ -87,6 +92,17 @@ class PageController extends Controller
             $html = str_replace('[[vacancy]]', $view, $html);
         }
 
+        if(strpos($html, '[[prices]]')){
+            $prices = Price::all();
+
+            foreach ($prices as $price){
+                $formatted[$price['group']][] = [$price['subgroup'], $price['cat'], $price['pics'], $price['value']];
+            }
+
+            $view = view('information.prices', compact('formatted'))->render();
+            $html = str_replace('[[prices]]', $view, $html);
+        }
+
         if(strpos($html, '[[product]]')){
 
             $reverted = array_reverse($slug);
@@ -121,6 +137,15 @@ class PageController extends Controller
             $actions = Action::where('isPublished', true)->with('images')->orderBy('created_at', 'DESC')->get();
             $view = view('information.actions', compact('actions'))->render();
             $html = str_replace('[[actions]]', $view, $html);
+        }
+//        preg_match_all("|<[^>]+>(.*)</[^>]+>|U", $html,$setting_matches, PREG_PATTERN_ORDER);
+
+        preg_match_all("/\[\[settings\|[^>]+\]\]/", $html,$setting_matches);
+        foreach($setting_matches[0] as $match){
+            $raw_tags = str_replace(['[', ']'],'', $match);
+            $tag = explode("|" , $raw_tags)[1];
+            $setting = $settings->where('key', $tag)->first();
+            $html = str_replace($match, $setting->value, $html);
         }
 
         $html = str_replace('[[title]]', $page->title, $html);

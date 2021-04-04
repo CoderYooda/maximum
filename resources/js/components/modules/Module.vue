@@ -72,9 +72,6 @@
                     }
                     if(type[0] === 'background'){
                         let image_params = JSON.parse(params);
-
-                        console.log(this.$props.module['backgrounds'][parseInt(type[1]) - 1].image !== 'null');
-
                         if(!this.$props.module['backgrounds'][parseInt(type[1]) - 1] && this.$props.module['backgrounds'][parseInt(type[1]) - 1].image !== 'null'){
                             this.$props.module['backgrounds'].push(
                                 {
@@ -131,7 +128,8 @@
                 // }
                 this.tags.forEach((item) => {
                     let chunk = item.split('|');
-                    if(chunk.length > 1){
+
+                    if(chunk[0] !== 'settings' && chunk.length > 1){
                         let ch = this.$props.module[chunk[0] + 's'][parseInt(chunk[1]) - 1];
 
                         let instance = new window[chunk[0]]({

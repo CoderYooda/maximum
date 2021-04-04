@@ -23,7 +23,7 @@
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Визуальный редактор</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Описание</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="contact" aria-selected="false">SEO</a>
@@ -84,8 +84,8 @@
                             </div>
                             <div class="col-lg-10">
                                 <div class="form-group">
-                                    <label class="d-block">Название мтраницы</label>
-                                    <input v-model="page.name" type="text" class="form-control" placeholder="Название мтраницы">
+                                    <label class="d-block">Название страницы</label>
+                                    <input v-model="page.name" type="text" class="form-control" placeholder="Название страницы">
                                 </div>
                             </div>
                         </div>

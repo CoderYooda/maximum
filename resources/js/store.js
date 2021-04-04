@@ -17,6 +17,8 @@ import clients from './modules/clients';
 import actions from './modules/actions';
 import articles from './modules/articles';
 import news from './modules/news';
+import settings from './modules/settings';
+import prices from './modules/prices';
 
 Vue.use(Vuex);
 
@@ -51,6 +53,8 @@ export default new Vuex.Store({
         actions,
         articles,
         news,
+        settings,
+        prices,
     },
     mixins: {}
 })

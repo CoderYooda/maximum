@@ -93,7 +93,7 @@ let actions = {
                     resolve(resp);
                 })
                 .catch(err => {
-                    commit('push_action_errors', !!err.response.data.errors ? err.response.data.errors : null);
+                    //commit('push_action_errors', !!err.response.data.errors ? err.response.data.errors : null);
                     reject(err);
                 })
         })
