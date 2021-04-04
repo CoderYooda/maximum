@@ -17,7 +17,7 @@ class StoreCategoryRequest extends FormRequest
     }
     public function prepareForValidation()
     {
-        $this['parent_id'] = $this['parent']['id'];
+        $this['parent_id'] = iseet($this['parent']) && $this['parent']['id'] !== null ? $this['parent']['id'] : 0;
     }
 
     /**
