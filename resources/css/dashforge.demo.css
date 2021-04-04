@@ -250,7 +250,7 @@
 
 @media (min-width: 992px) {
   .content-popovers {
-    height: calc(100vh - $height-header);
+    height: calc(100vh - 60px);
     overflow-y: auto;
     margin-right: 0;
     position: relative; } }

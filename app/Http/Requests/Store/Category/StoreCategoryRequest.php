@@ -15,6 +15,10 @@ class StoreCategoryRequest extends FormRequest
     {
         return true;
     }
+    public function prepareForValidation()
+    {
+        $this['parent_id'] = $this['parent']['id'];
+    }
 
     /**
      * Get the validation rules that apply to the request.
