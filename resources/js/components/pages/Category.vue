@@ -78,13 +78,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="form-group">
-                    <label class="d-block">Тайтл ( Текст вкладки браузера )</label>
-                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.title}" v-model="category.title" type="text" class="form-control" placeholder="Тайтл">
-                    <div v-if="!!this.$store.getters.category_store_errors.title" class="invalid-feedback">{{ this.$store.getters.category_store_errors.title[0] }}</div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
                     <label class="d-block">URL</label>
                     <input v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.slug}" v-model="category.slug" type="text" class="form-control" placeholder="URL">
                     <div v-if="!!this.$store.getters.category_store_errors.slug" class="invalid-feedback">{{ this.$store.getters.category_store_errors.slug[0] }}</div>
@@ -92,7 +85,14 @@
             </div>
             <div class="col-lg-12">
                 <div class="form-group">
-                    <label class="d-block">Описание страницы</label>
+                    <label class="d-block">Тайтл ( Title )</label>
+                    <input v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.title}" v-model="category.title" type="text" class="form-control" placeholder="Тайтл">
+                    <div v-if="!!this.$store.getters.category_store_errors.title" class="invalid-feedback">{{ this.$store.getters.category_store_errors.title[0] }}</div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label class="d-block">Описание страницы ( Description )</label>
                     <textarea v-bind:class="{'is-invalid' : !!this.$store.getters.category_store_errors.description}" v-model="category.description" rows="4" class="form-control" ></textarea>
                     <div v-if="!!this.$store.getters.category_store_errors.description" class="invalid-feedback">{{ this.$store.getters.category_store_errors.description[0] }}</div>
                 </div>

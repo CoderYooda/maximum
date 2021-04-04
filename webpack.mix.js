@@ -21,9 +21,9 @@ module.exports = {
 };
 
 if(mix.inProduction() ) {
-    mix.minify('public/js/app.min.js');
+    mix.minify('public/js/app.js');
     mix.minify('public/css/app.css');
-    mix.minify('public/css/base.css');
+    // mix.minify('public/css/base.css');
     mix.version();
 } else {
     mix.webpackConfig({

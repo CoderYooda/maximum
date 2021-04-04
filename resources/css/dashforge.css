@@ -10439,6 +10439,7 @@ textarea.form-control {
     display: flex;
     align-items: center;
     color: #1b2e4b;
+      position: relative;
     border-radius: 0.25rem; }
     .nav-sidebar .nav-link:hover, .nav-sidebar .nav-link:focus {
       background-color: #f5f6fa; }
