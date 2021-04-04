@@ -175,7 +175,7 @@
 </script>
 <style>
     .cat_edit{
-        right: 0;
+        right: -13px;
         position: absolute;
         top: 5px;
         opacity: 0.3;
