@@ -51,7 +51,7 @@ class Image extends Model
             $this->crop($cropdata, $img);
         }
 
-        $img->save(storage_path('/app/public' . $base_path) . $this->filename . '.' . $extension);
+        $img->save(storage_path('app/public' . $base_path) . $this->filename . '.' . $extension);
 
     }
 
