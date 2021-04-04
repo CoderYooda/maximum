@@ -1,2 +1,5 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://max-flower.ru/sitemap.xml
+Host: https://max-flower.ru
