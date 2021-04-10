@@ -16,6 +16,21 @@ $(function() {
 
 
     });
+    let buts = document.querySelectorAll('.consult_butt');
+    let target = document.querySelector('#callback');
+    buts.forEach( (item)=>{
+        item.addEventListener('click', (e)=>{
+            target.scrollIntoView({block: "center", behavior: "smooth"});
+        })
+    })
+
+    let hlinks = document.querySelectorAll('.menu_f');
+    hlinks.forEach( (item)=>{
+        item.addEventListener('click', (e)=>{
+            item.querySelector('a').click();
+
+        })
+    })
 });
 if(document.querySelector('#map') != null)
     ymaps.ready(init);

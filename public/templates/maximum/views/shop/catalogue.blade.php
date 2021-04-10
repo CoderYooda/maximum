@@ -6,7 +6,7 @@
                 <div class="cat_cell">
                     <img src="{{ count($category->images) ? $category->images[0]->url : '/images/noimage.jpg' }}" alt="">
                     <h3>{{ $category->name }}</h3>
-                    <p class="cat_descr">{!! $category->description !!}</p>
+                    <p class="cat_descr">{!! strip_tags($category->content) !!}</p>
                 </div>
             </a>
         </div>

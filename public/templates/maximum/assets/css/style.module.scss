@@ -150,15 +150,18 @@ html{
     }
     header{
         position: relative;
-        height: 320px;
+        //height: 320px;
         color: #FFFFFF;
         font-weight: 500;
         background-position: center;
         background-size: cover;
+        padding-bottom: 45px;
         .top_container{
             a{
                 text-decoration: none;
                 color: #fff;
+                margin-bottom: 30px;
+                padding-bottom: 30px;
             }
         }
         .ico_img{
@@ -218,7 +221,7 @@ html{
             padding-left: 32px;
             height: 24px;
             line-height: 24px;
-            cursor: pointer;
+            position: relative;
         }
         .r_side .top_container{
             text-align: right;
@@ -1033,7 +1036,57 @@ html{
             }
         }
     }
-
+    .burger-menu:hover{
+        .service_window{
+            opacity: 1;
+            user-select: auto;
+            pointer-events: auto;
+        }
+    }
+    .service_window{
+        width: 1200px;
+        background: #fff;
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin-top: 35px;
+        border-radius: 6px;
+        padding: 60px 102px;
+        z-index: 99999;
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+        transition: 0.5s all;
+        img{
+            width: 72px !important;
+            height: 72px !important;
+            display: block;
+            margin: 0 auto;
+        }
+        a{
+            width: 100%;
+            display: block;
+            color: #333333!important;
+            text-align: center;
+            padding-top: 15px;
+            margin-bottom: 0px!important;
+            padding-bottom: 0px!important;
+            min-height: 90px;
+        }
+        .menu_f{
+            background: white;
+            padding: 12px;
+            margin: 0px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            &:hover{
+                box-shadow: 0 0 10px #eee;
+            }
+        }
+        .col-lg-five{
+            margin-bottom: 30px;
+        }
+    }
     .examples{
         margin-top: 100px;
         position: relative;
@@ -1045,6 +1098,30 @@ html{
         .all_catalogue a{
             margin: auto;
         }
+        .ex_block{
+            height: 316px;
+            display: flex;
+            flex-basis: calc(16.666666% - 8px);
+            justify-content: center;
+            flex-direction: column;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 4px;
+            position: relative;
+        }
+        .pr-row{
+            display: flex;
+            min-height: 100%;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 50px;
+            .ex_block{
+                flex-basis: calc(33.333333% - 8px);
+            }
+        }
         .ex-container{
             max-width: 1920px;
             display: flex;
@@ -1054,17 +1131,14 @@ html{
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 50px;
-            .ex_block{
-                height: 316px;
-                display: flex;
-                flex-basis: calc(16.666666% - 8px);
-                justify-content: center;
-                flex-direction: column;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                margin: 4px;
-                position: relative;
+
+        }
+    }
+    .projects{
+        h1{
+            p{
+                font-size: 46px;
+                color: #333333;
             }
         }
     }
