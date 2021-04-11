@@ -22,7 +22,7 @@ $(function() {
         item.addEventListener('click', (e)=>{
             target.scrollIntoView({block: "center", behavior: "smooth"});
         })
-    })
+    });
 
     let hlinks = document.querySelectorAll('.menu_f');
     hlinks.forEach( (item)=>{
@@ -30,7 +30,21 @@ $(function() {
             item.querySelector('a').click();
 
         })
-    })
+    });
+
+    let mobiledrop = document.getElementById('mob_dropdown_butt');
+    if(mobiledrop){
+        mobiledrop.addEventListener('click', function(){
+            document.getElementById('mob_dropdown').classList.toggle('show');
+        })
+    }
+
+    let close = document.getElementById('close');
+    if(close){
+        close.addEventListener('click', function(){
+            document.getElementById('mob_dropdown').classList.remove('show');
+        })
+    }
 });
 if(document.querySelector('#map') != null)
     ymaps.ready(init);

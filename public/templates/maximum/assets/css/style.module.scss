@@ -1,7 +1,9 @@
+
 @import 'grid';
 @import 'font';
 @import 'helpers';
 @import 'pagination';
+
 
 body{
     margin: 0;
@@ -1419,6 +1421,9 @@ html{
             }
         }
     }
+    .mobile{
+        display: none;
+    }
     .catalogue{
         margin-top: 100px;
         position: relative;
@@ -1473,3 +1478,6 @@ html{
     }
 }
 
+
+
+@import 'mobile';
