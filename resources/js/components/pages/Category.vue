@@ -207,6 +207,7 @@
                     });
                 } else {
                     this.category = category;
+                    this.editor.setContent(this.category.content);
                     // this.editor.content = category.content;
                     this.$refs.imgLoader.setImages(category.images);
                     this.category.category = this.$store.getters.getCategoryById(category.category_id)[0];
