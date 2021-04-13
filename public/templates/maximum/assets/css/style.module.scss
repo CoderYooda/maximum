@@ -400,12 +400,16 @@ html{
         }
         .name_thin{
             line-height: 24px;
+            min-height: 72px;
         }
         .name, .city{
             font-weight: 600;
             line-height: 24px;
             margin-bottom: 15px;
         }
+    }
+    .client{
+        margin-bottom: 30px;
     }
     a.n-dec{
         text-decoration: none;

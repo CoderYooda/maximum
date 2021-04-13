@@ -69,7 +69,7 @@ function init() {
             preset: 'islands#greenCircleDotIconWithCaption',
             iconCaptionMaxWidth: '100'
         }));
-
+    myMap.behaviors.disable('drag');
     let m = document.querySelector('#map');
     let links = document.querySelectorAll('.map_link a');
     links.forEach( (item)=>{
