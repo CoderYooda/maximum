@@ -6,35 +6,41 @@
                     <div class="pd-t-20 wd-100p">
                         <h4 class="tx-color-01 mg-b-5">Создайте аккаунт</h4>
                         <p class="tx-color-03 tx-16 mg-b-40">Это займет не более минуты</p>
-                        <form @submit.prevent="register">
-                            <div class="form-group">
-                                <label>Имя</label>
-                                <input type="text" class="form-control" v-model="name" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label>Почтовый адрес</label>
-                                <input type="email" class="form-control" v-model="email">
-                            </div>
-                            <div class="form-group">
-                                <label>Пароль</label>
-                                <input type="password" class="form-control" v-model="password" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Подтверждение пароля</label>
-                                <input type="password" class="form-control" v-model="password_confirmation" required>
-                            </div>
-                            <div class="form-group tx-12">
-                                При нажатии на кнопку <strong>Создать аккаунт</strong> вы соглашаетесь с правилами сайта.
-                            </div><!-- form-group -->
+                        <p class="tx-color-03 tx-16 mg-b-40">Регистрация закрыта администратором</p>
+<!--                        <form @submit.prevent="register">-->
+<!--                            <div class="form-group">-->
+<!--                                <label>Имя</label>-->
+<!--                                <input type="text" class="form-control" v-model="name" required autofocus>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label>Почтовый адрес</label>-->
+<!--                                <input type="email" class="form-control" v-model="email">-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label>Пароль</label>-->
+<!--                                <input type="password" class="form-control" v-model="password" required>-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label>Подтверждение пароля</label>-->
+<!--                                <input type="password" class="form-control" v-model="password_confirmation" required>-->
+<!--                            </div>-->
+<!--                            <div class="form-group tx-12">-->
+<!--                                При нажатии на кнопку <strong>Создать аккаунт</strong> вы соглашаетесь с правилами сайта.-->
+<!--                            </div>&lt;!&ndash; form-group &ndash;&gt;-->
 
-                            <button type="submit" class="btn btn-brand-02 btn-block">Создать аккаунт</button>
-                            <div class="tx-13 mg-t-20 tx-center">Уже есть аккаунт?
-                                <router-link to="/login" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
-                                    <a :href="href" @click="navigate">войти</a>
-                                </router-link>
-                            </div>
+<!--                            <button type="submit" class="btn btn-brand-02 btn-block">Создать аккаунт</button>-->
+<!--                            <div class="tx-13 mg-t-20 tx-center">Уже есть аккаунт?-->
+<!--                                <router-link to="/login" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>-->
+<!--                                    <a :href="href" @click="navigate">войти</a>-->
+<!--                                </router-link>-->
+<!--                            </div>-->
 
-                        </form>
+<!--                        </form>-->
+                        <div class="tx-13 mg-t-20 tx-center">Уже есть аккаунт?
+                            <router-link to="/login" v-slot="{ href, route, navigate, isActive, isExactActive }" custom>
+                                <a :href="href" @click="navigate">войти</a>
+                            </router-link>
+                        </div>
                     </div>
                 </div><!-- sign-wrapper -->
                 <div class="media-body pd-y-30 pd-lg-x-50 pd-xl-x-60 align-items-center d-none d-lg-flex pos-relative">
