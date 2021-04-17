@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FeedbackMail;
 use App\Models\Common\Action;
 use App\Models\Common\Client;
 use App\Models\Common\Employee;
@@ -17,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use File;
 
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 
 class PageController extends Controller
@@ -159,8 +161,15 @@ class PageController extends Controller
         return File::get(public_path('/templates/' . $this->template . '/index.html'));
     }
 
-    public function callback(Request $request){
-        dd($request);
+    public function callback(Request $request)
+    {
+        $mail = Setting::where('key', 'email')->first();
+        $feedback = new \stdClass();
+        $feedback->name = $request['name'];
+        $feedback->phone = $request['phone'];
+        $feedback->mail = $request['mail'];
+        $feedback->content = $request['question'];
+        Mail::to($mail->value)->send(new FeedbackMail($feedback));
         return response(['success' => true]);
     }
 }
