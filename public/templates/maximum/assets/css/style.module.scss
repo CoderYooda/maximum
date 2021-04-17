@@ -3,8 +3,36 @@
 @import 'font';
 @import 'helpers';
 @import 'pagination';
-
-
+.form_close{
+    position: fixed;
+    right: 90px;
+    top: 90px;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+.form_cont{
+    background: #0000008a;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+}
+.form_success{
+    background: #fff;
+    position: fixed;
+    width: 400px;
+    height: 200px;
+    left: calc(100vw / 2 - 200px);
+    top: calc(100vh / 2 - 100px);
+    border-radius: 10px;
+    line-height: 200px;
+    text-align: center;
+    font-size: 25px;
+}
 body{
     margin: 0;
     padding: 0;

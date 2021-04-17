@@ -10,7 +10,8 @@ $(function() {
             data: form.serialize(),
             success: function(data)
             {
-                alert(data);
+                form.trigger('reset');
+                document.getElementsByTagName('body')[0].innerHTML += '<div class="form_cont"><div onclick="this.parentNode.remove()" class="form_close">✖</div><div class="form_success">Спасибо за обращение!</div></div>'
             }
         });
 
