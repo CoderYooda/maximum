@@ -39,7 +39,7 @@
                 </div><!-- sign-wrapper -->
                 <div class="media-body pd-y-30 pd-lg-x-50 pd-xl-x-60 align-items-center d-none d-lg-flex pos-relative">
                     <div class="mx-lg-wd-500 mx-xl-wd-550">
-                        <img src="https://via.placeholder.com/1280x1225" class="img-fluid" alt="">
+<!--                        <img src="https://via.placeholder.com/1280x1225" class="img-fluid" alt="">-->
                     </div>
                     <div class="pos-absolute b-0 r-0 tx-12">
                         Панель администратора разработал <a href="https://github.com/CoderYooda" target="_blank">CoderYooda</a>
