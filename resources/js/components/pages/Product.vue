@@ -224,12 +224,13 @@
         // },
         watch : {
             'product.slug': function (val) {
-                if(!this.product.id && val !== '' && val !== null){
+                if(!this.product.id && val !== ' ' && val !== '' && val !== null){
                     this.product.slug = window.urlRusLat(val);
                 }
             },
             'product.name': function (val) {
-                if(!this.product.id  && val !== '' && val !== null) {
+                console.log(val);
+                if(!this.product.id  && val !== ' ' && val !== '' && val !== null) {
                     this.product.slug = window.urlRusLat(val);
                     this.product.title = val;
                 }
