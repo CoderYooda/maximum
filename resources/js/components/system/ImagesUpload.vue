@@ -12,7 +12,7 @@
                     <button type="button" @click="freshImg(image)">новое изображение</button>
                 </div>
             </div>
-            <div v-if="images.length < limit" class="pointer" @click="$refs.file.click()">
+            <div v-if="images && images.length < limit" class="pointer" @click="$refs.file.click()">
                 <span>Загрузить изображение</span>
             </div>
         </div>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="images.length < limit" class="pointer mb-2" @click="$refs.file.click()">
+            <div v-if="images && images.length < limit" class="pointer mb-2" @click="$refs.file.click()">
                 <div class="card card-file wh-180">
                     <div class="card-file-thumb h-100 tx-danger">
                         <span>Загрузить изображение</span>

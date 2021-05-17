@@ -224,12 +224,12 @@
         // },
         watch : {
             'product.slug': function (val) {
-                if(!this.product.id){
+                if(!this.product.id && val !== '' && val !== null){
                     this.product.slug = window.urlRusLat(val);
                 }
             },
             'product.name': function (val) {
-                if(!this.product.id) {
+                if(!this.product.id  && val !== '' && val !== null) {
                     this.product.slug = window.urlRusLat(val);
                     this.product.title = val;
                 }
@@ -244,7 +244,10 @@
                     let category_id = this.$route.query.category || !!product ? product.category_id : 0;
                     this.editor.setContent(resp.data.product.content);
                     this.product = product;
-                    this.$refs.imgLoader.setImages(product.images[0]);
+                    // if(product.images[0]){
+                    //     this.$refs.imgLoader.setImages(product.images[0]);
+                    // }
+
                     this.setCategory(category_id);
                 }).catch(() => {
                     let category_id = this.$route.query.category;
