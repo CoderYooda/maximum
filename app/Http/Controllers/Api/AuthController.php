@@ -14,11 +14,12 @@ class AuthController extends Controller
 {
     public function register (Request $request)
     {
-        return response()->json([
-            'messages' =>[
-                'name' => 'Регистрация не доступна'
-            ]
-        ], 422);
+//        return response()->json([
+//            'messages' =>[
+//                'name' => 'Регистрация не доступна'
+//            ]
+//        ], 422);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

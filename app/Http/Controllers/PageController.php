@@ -14,6 +14,7 @@ use App\Models\Front\Page;
 use App\Models\Shop\Category;
 use App\Models\Shop\Product;
 use App\Models\System\Setting;
+use App\Repositories\Notification\NotificationRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use File;
@@ -23,7 +24,6 @@ use Intervention\Image\Facades\Image;
 
 class PageController extends Controller
 {
-
     private $template = 'maximum';
 
     public function page(Request $request, $slug = '/')
@@ -169,7 +169,10 @@ class PageController extends Controller
         $feedback->phone = $request['phone'];
         $feedback->mail = $request['mail'];
         $feedback->content = $request['question'];
-        Mail::to($mail->value)->send(new FeedbackMail($feedback));
+
+//        Mail::to($mail->value)->send(new FeedbackMail($feedback));
+
+        Notify::sendMail($feedback, 'feedbackMail', $feedback->mail, 'Информация');
         return response(['success' => true]);
     }
 }

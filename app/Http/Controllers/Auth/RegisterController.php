@@ -43,14 +43,14 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function register(Request $request)
-    {
-        return response()->json([
-            'messages' =>[
-                'name' => 'Регистрация не доступна'
-            ]
-        ]);
-    }
+//    public function register(Request $request)
+//    {
+//        return response()->json([
+//            'messages' =>[
+//                'name' => 'Регистрация не доступна'
+//            ]
+//        ]);
+//    }
 
     /**
      * Get a validator for an incoming registration request.
